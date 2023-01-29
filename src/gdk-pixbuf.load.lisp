@@ -7,7 +7,7 @@
 ;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk/>.
 ;;;
 ;;; Copyright (C) 2009 - 2011 Kalyanov Dmitry
-;;; Copyright (C) 2011 - 2022 Dieter Kaiser
+;;; Copyright (C) 2011 - 2023 Dieter Kaiser
 ;;;
 ;;; This program is free software: you can redistribute it and/or modify
 ;;; it under the terms of the GNU Lesser General Public License for Lisp
@@ -71,10 +71,10 @@
   (filename :string)
   (err :pointer))
 
-(defun pixbuf-new-from-file (filename)
+(defun pixbuf-new-from-file (path)
  #+liber-documentation
- "@version{#2021-12-15}
-  @argument[filename]{a string with the name of a file to load, in the GLib
+ "@version{2023-1-26}
+  @argument[path]{a pathname or namestring with the file to load, in the GLib
     file name encoding}
   @begin{return}
     A newly created @class{gdk-pixbuf:pixbuf} object, or @code{nil} if any of
@@ -88,7 +88,7 @@
   The file format is detected automatically.
   @see-class{gdk-pixbuf:pixbuf}"
   (with-ignore-g-error (err)
-    (%pixbuf-new-from-file filename err)))
+    (%pixbuf-new-from-file (namestring path) err)))
 
 (export 'pixbuf-new-from-file)
 
@@ -103,11 +103,11 @@
   (height :int)
   (err :pointer))
 
-(defun pixbuf-new-from-file-at-size (filename width height)
+(defun pixbuf-new-from-file-at-size (path width height)
  #+liber-documentation
- "@version{#2021-7-24}
-  @argument[filename]{a string with the name of file to load, in the GLib file
-    name encoding}
+ "@version{2023-1-26}
+  @argument[path]{a pathname or namestring with the file to load, in the GLib
+    file name encoding}
   @argument[width]{an integer with the width the image should have or -1 to not
     constrain the width}
   @argument[height]{an integer with the height the image should have or -1 to
@@ -127,11 +127,11 @@
   ratio of the image. Note that the returned pixbuf may be smaller than
   @arg{width} @code{x} @arg{height}, if the aspect ratio requires it. To load
   an image at the requested size, regardless of the aspect ratio, use the
-  function @fun{gdk-pixbuf:pixbuf-new-from-file-at-scale}.
+  @fun{gdk-pixbuf:pixbuf-new-from-file-at-scale} function.
   @see-class{gdk-pixbuf:pixbuf}
   @see-function{gdk-pixbuf:pixbuf-new-from-file-at-scale}"
   (with-ignore-g-error (err)
-    (%pixbuf-new-from-file-at-size filename width height err)))
+    (%pixbuf-new-from-file-at-size (namestring path) width height err)))
 
 (export 'pixbuf-new-from-file-at-size)
 
@@ -147,10 +147,10 @@
   (preserve :boolean)
   (err :pointer))
 
-(defun pixbuf-new-from-file-at-scale (filename width height preserve)
+(defun pixbuf-new-from-file-at-scale (path width height preserve)
  #+liber-documentation
- "@version{#2021-7-24}
-  @argument[filename]{a string with the name of the file to load, in the GLib
+ "@version{2023-1-26}
+  @argument[path]{a pathname or namestring with the file to load, in the GLib
     file name encoding}
   @argument[width]{an integer with the width the image should have or -1 to not
     constrain the width}
@@ -175,7 +175,8 @@
   width or height of -1 means to not scale the image at all in that dimension.
   @see-class{gdk-pixbuf:pixbuf}"
   (with-ignore-g-error (err)
-    (%pixbuf-new-from-file-at-scale filename width height preserve err)))
+    (%pixbuf-new-from-file-at-scale (namestring path)
+                                    width height preserve err)))
 
 (export 'pixbuf-new-from-file-at-scale)
 
@@ -189,10 +190,11 @@
   (width (:pointer :int))
   (height (:pointer :int)))
 
-(defun pixbuf-file-info (filename)
+(defun pixbuf-file-info (path)
  #+liber-documentation
- "@version{#2021-7-24}
-  @argument[filename]{a string with the name of the file to identify}
+ "@version{2023-1-26}
+  @argument[path]{a pathname or namestring with the name of the file to
+    identify}
   @begin{return}
     @code{format} -- a @symbol{gdk-pixbuf:pixbuf-format} instance describing
     the image format of the file or @code{nil} if the image format was not
@@ -206,7 +208,7 @@
   @see-class{gdk-pixbuf:pixbuf}
   @see-symbol{gdk-pixbuf:pixbuf-format}"
   (with-foreign-objects ((width :int) (height :int))
-    (let ((format (%pixbuf-file-info filename width height)))
+    (let ((format (%pixbuf-file-info (namestring path) width height)))
       (values format
               (cffi:mem-ref width :int)
               (cffi:mem-ref height :int)))))

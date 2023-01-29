@@ -7,7 +7,7 @@
 ;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk/>.
 ;;;
 ;;; Copyright (C) 2009 - 2011 Kalyanov Dmitry
-;;; Copyright (C) 2011 - 2022 Dieter Kaiser
+;;; Copyright (C) 2011 - 2023 Dieter Kaiser
 ;;;
 ;;; This program is free software: you can redistribute it and/or modify
 ;;; it under the terms of the GNU Lesser General Public License for Lisp
@@ -153,16 +153,16 @@
 ;;; gdk_pixbuf_animation_new_from_file ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_animation_new_from_file"
-          %pixbuf-animation-new-from-file) (g:object pixbuf-animation)
+(defcfun ("gdk_pixbuf_animation_new_from_file" %pixbuf-animation-new-from-file)
+    (g:object pixbuf-animation)
   (filename :string)
   (error :pointer))
 
-(defun pixbuf-animation-new-from-file (filename)
+(defun pixbuf-animation-new-from-file (path)
  #+liber-documentation
- "@version{#2021-12-12}
-  @argument[filename]{a string with the name of the file to load, in the GLib
-    file name encoding}
+ "@version{2023-1-29}
+  @argument[path]{a string with the name of the file to load, in the GLib file
+    name encoding}
   @begin{return}
     A newly created animation with a reference count of 1, or @code{nil} if any
     of several error conditions ocurred: the file could not be opened, there
@@ -178,7 +178,7 @@
   @code{G_FILE_ERROR} domains.
   @see-class{gdk-pixbuf:pixbuf-animation}"
   (with-g-error (err)
-    (%pixbuf-animation-new-from-file filename err)))
+    (%pixbuf-animation-new-from-file (namestring path) err)))
 
 (export 'pixbuf-animation-new-from-file)
 
