@@ -1,20 +1,26 @@
 (defpackage :gdk-pixbuf-test
-  (:use :fiveam :cffi :common-lisp)
+  (:use :fiveam :common-lisp)
+  (:import-from :gio #:with-g-resource)
   (:export #:run!
-           #:gdk-pixbuf-suite
-))
+           #:gdk-pixbuf-suite))
 
 (in-package :gdk-pixbuf-test)
 
 (def-suite gdk-pixbuf-suite)
 (in-suite gdk-pixbuf-suite)
 
-(defun sys-path (filename &optional (package :cl-cffi-gdk-pixbuf))
-  (let ((system-path (asdf:system-source-directory package)))
-    (princ-to-string (merge-pathnames filename system-path))))
+;; Ensure directory for the output of test results
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (ensure-directories-exist
+      (asdf:system-relative-pathname :cl-cffi-gdk-pixbuf "test/out/")))
+
+;; Get the pathname for a file in the testsuite
+(defun sys-path (filename &optional (system :cl-cffi-gdk-pixbuf))
+  (asdf:system-relative-pathname system
+                                 (concatenate 'string "test/" filename)))
 
 ;; A sorted list of the class property names without inherited properties
-(defun list-class-property-names (gtype)
+(defun list-properties (gtype)
   (sort (set-difference (mapcar #'g:param-spec-name
                                 (g:object-class-list-properties gtype))
                         (mapcar #'g:param-spec-name
@@ -23,4 +29,4 @@
                         :test #'string=)
         #'string<))
 
-;;; 2022-11-28
+;;; --- 2023-1-26 --------------------------------------------------------------

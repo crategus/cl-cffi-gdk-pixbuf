@@ -49,7 +49,7 @@
           (gobject:symbol-for-gtype "GdkPixbuf")))
   ;; Check the type initializer
   (is (eq (gobject:gtype "GdkPixbuf")
-          (gobject:gtype (foreign-funcall "gdk_pixbuf_get_type" :size))))
+          (gobject:gtype (cffi:foreign-funcall "gdk_pixbuf_get_type" :size))))
   ;; Check the parent
   (is (eq (g:gtype "GObject")
           (g:type-parent "GdkPixbuf")))
@@ -62,7 +62,7 @@
   ;; Check the class properties
   (is (equal '("bits-per-sample" "colorspace" "has-alpha" "height" "n-channels"
                "pixel-bytes" "pixels" "rowstride" "width")
-             (list-class-property-names "GdkPixbuf")))
+             (list-properties "GdkPixbuf")))
   ;; Check the class definition
   (is (equal '(GOBJECT:DEFINE-G-OBJECT-CLASS "GdkPixbuf" GDK-PIXBUF
                        (:SUPERCLASS G-OBJECT :EXPORT T :INTERFACES
@@ -88,14 +88,15 @@
 ;;; --- Properties -------------------------------------------------------------
 
 (test pixbuf-properties
-  (let ((pixbuf (gdk-pixbuf:pixbuf-new-from-file (sys-path "test/ducky.png"))))
+  (let ((pixbuf (gdk-pixbuf:pixbuf-new-from-file
+                    (sys-path "resource/ducky.png"))))
     (is (= 8 (gdk-pixbuf:pixbuf-bits-per-sample pixbuf)))
     (is (eq :rgb (gdk-pixbuf:pixbuf-colorspace pixbuf)))
     (is-true (gdk-pixbuf:pixbuf-has-alpha pixbuf))
     (is (= 537 (gdk-pixbuf:pixbuf-height pixbuf)))
     (is (= 4 (gdk-pixbuf:pixbuf-n-channels pixbuf)))
     (is (typep (gdk-pixbuf:pixbuf-pixel-bytes pixbuf) 'g:bytes))
-    (is (pointerp (gdk-pixbuf:pixbuf-pixels pixbuf)))
+    (is (cffi:pointerp (gdk-pixbuf:pixbuf-pixels pixbuf)))
     (is (eq 1956 (gdk-pixbuf:pixbuf-rowstride pixbuf)))
     (is (= 489 (gdk-pixbuf:pixbuf-width pixbuf)))))
 
@@ -110,4 +111,4 @@
 ;;;     gdk_pixbuf_copy_options
 ;;;     gdk_pixbuf_read_pixels
 
-;;; 2022-11-28
+;;; --- 2023-1-26 --------------------------------------------------------------

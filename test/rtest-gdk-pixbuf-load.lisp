@@ -9,7 +9,7 @@
 
 (test pixbuf-new-from-file
   (is-false (gdk-pixbuf:pixbuf-new-from-file "unknown"))
-  (is (typep (gdk-pixbuf:pixbuf-new-from-file (sys-path "test/ducky.png"))
+  (is (typep (gdk-pixbuf:pixbuf-new-from-file (sys-path "resource/ducky.png"))
       'gdk-pixbuf:pixbuf)))
 
 ;;;     gdk_pixbuf_new_from_file_at_size
@@ -17,7 +17,7 @@
 (test pixbuf-new-from-file-at-size
   (is-false (gdk-pixbuf:pixbuf-new-from-file-at-size "unkonwn" 128 128))
   (is (typep (gdk-pixbuf:pixbuf-new-from-file-at-size
-                 (sys-path "test/ducky.png") 128 128)
+                 (sys-path "resource/ducky.png") 128 128)
              'gdk-pixbuf:pixbuf)))
 
 ;;;     gdk_pixbuf_new_from_file_at_scale
@@ -25,17 +25,17 @@
 (test pixbuf-new-from-file-at-scale
   (is-false (gdk-pixbuf:pixbuf-new-from-file-at-scale "unkonwn" 128 128 nil))
   (is (typep (gdk-pixbuf:pixbuf-new-from-file-at-scale
-                 (sys-path"test/ducky.png") 128 128 nil)
+                 (sys-path"resource/ducky.png") 128 128 nil)
              'gdk-pixbuf:pixbuf))
   (is (typep (gdk-pixbuf:pixbuf-new-from-file-at-scale
-                 (sys-path "test/ducky.png") 128 128 t)
+                 (sys-path "resource/ducky.png") 128 128 t)
              'gdk-pixbuf:pixbuf)))
 
 ;;;     gdk_pixbuf_get_file_info
 
 (test pixbuf-file-info.1
   (multiple-value-bind (format width height)
-      (gdk-pixbuf:pixbuf-file-info (sys-path "test/floppybuddy.gif"))
+      (gdk-pixbuf:pixbuf-file-info (sys-path "resource/floppybuddy.gif"))
     (is (= 80 width))
     (is (= 70 height))
     (is (string= "gif" (gdk-pixbuf:pixbuf-format-name format)))
@@ -45,7 +45,7 @@
 
 (test pixbuf-file-info.2
   (multiple-value-bind (format width height)
-      (gdk-pixbuf:pixbuf-file-info (sys-path "test/ducky.png"))
+      (gdk-pixbuf:pixbuf-file-info (sys-path "resource/ducky.png"))
     (is (= 489 width))
     (is (= 537 height))
     (is (string= "png" (gdk-pixbuf:pixbuf-format-name format)))
@@ -58,33 +58,27 @@
 
 ;;;     gdk_pixbuf_new_from_resource
 
-#+nil
 (test pixbuf-new-from-resource
-  (let ((resource (g-resource-load "rtest-gio-resource.gresource")))
-    (is-false (g-resources-register resource))
+  (let ((path (sys-path "resource/rtest-resource.gresource")))
+    (with-g-resource (resource path)
     (is-false (gdk-pixbuf:pixbuf-new-from-resource "unknown"))
-    (is (typep
-            (gdk-pixbuf:pixbuf-new-from-resource "/com/crategus/test/ducky.png")
-            'gdk-pixbuf:pixbuf))
-    (is (typep (gdk-pixbuf:pixbuf-new-from-resource
-                   "/com/crategus/test/floppybuddy.gif")
+    (is (typep (gdk-pixbuf:pixbuf-new-from-resource "/com/crategus/test/ducky.png")
                'gdk-pixbuf:pixbuf))
-    (is-false (g-resources-unregister resource))))
+    (is (typep (gdk-pixbuf:pixbuf-new-from-resource "/com/crategus/test/floppybuddy.gif")
+               'gdk-pixbuf:pixbuf)))))
 
 ;;;     gdk_pixbuf_new_from_resource_at_scale
 
-#+nil
 (test pixbuf-new-from-resource-at-scale
-  (let ((resource (g-resource-load "rtest-gio-resource.gresource")))
-    (is-false (g-resources-register resource))
-    (is-false (gdk-pixbuf:pixbuf-new-from-resource-at-scale "unknown" 128 128 t))
-    (is (typep (gdk-pixbuf:pixbuf-new-from-resource-at-scale
-                    "/com/crategus/test/ducky.png"
-                    128
-                    128
-                    t)
-               'gdk-pixbuf:pixbuf))
-    (is-false (g-resources-unregister resource))))
+  (let ((path (sys-path "resource/rtest-resource.gresource")))
+    (with-g-resource (resource path)
+      (is-false (gdk-pixbuf:pixbuf-new-from-resource-at-scale "unknown" 128 128 t))
+      (is (typep (gdk-pixbuf:pixbuf-new-from-resource-at-scale
+                      "/com/crategus/test/ducky.png"
+                      128
+                      128
+                      t)
+                 'gdk-pixbuf:pixbuf)))))
 
 ;;;     gdk_pixbuf_new_from_stream
 ;;;     gdk_pixbuf_new_from_stream_async
@@ -92,4 +86,4 @@
 ;;;     gdk_pixbuf_new_from_stream_at_scale
 ;;;     gdk_pixbuf_new_from_stream_at_scale_async
 
-;;; 2021-8-16
+;;; --- 2023-1-26 --------------------------------------------------------------
