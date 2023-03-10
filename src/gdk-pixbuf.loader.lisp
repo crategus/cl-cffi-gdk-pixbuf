@@ -6,7 +6,7 @@
 ;;; library. See <http://www.gtk.org>. The API documentation of the Lisp
 ;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk/>.
 ;;;
-;;; Copyright (C) 2013 - 2020 Dieter Kaiser
+;;; Copyright (C) 2013 - 2023 Dieter Kaiser
 ;;;
 ;;; This program is free software: you can redistribute it and/or modify
 ;;; it under the terms of the GNU Lesser General Public License for Lisp
@@ -76,14 +76,14 @@
 
 #+liber-documentation
 (setf (documentation 'pixbuf-loader 'type)
- "@version{#2020-11-22}
+ "@version{#2023-3-10}
   @begin{short}
     The @sym{gdk-pixbuf:pixbuf-loader} class provides a way for applications to
     drive the process of loading an image, by letting them send the image data
     directly to the loader instead of having the loader read the data from a
     file.
   @end{short}
-  Applications can use this functionality instead of the
+  Applications can use this functionality instead of the 
   @fun{gdk-pixbuf:pixbuf-new-from-file} or
   @fun{gdk-pixbuf:pixbuf-animation-new-from-file} functions when they need to
   parse image data in small chunks. For example, it should be used when reading
@@ -119,7 +119,7 @@
     @fun{gdk-pixbuf:pixbuf-loader-get-animation} function to get the
     @class{gdk-pixbuf:pixbuf-animation} object and the
     @fun{gdk-pixbuf:pixbuf-animation-get-iter} function to get an
-    @class{gdk-pixbuf:pixbuf-animation-iter} structure for displaying it.
+    @class{gdk-pixbuf:pixbuf-animation-iter} instance for displaying it.
   @begin[Signal Details]{dictionary}
     @subheading{The \"area-prepared\" signal}
       @begin{pre}
@@ -198,7 +198,7 @@ lambda (loader width height)    :run-last
 
 (defun pixbuf-loader-new ()
  #+liber-documentation
- "@version{#2021-12-22}
+ "@version{#2023-3-10}
   @return{A newly-created @class{gdk-pixbuf:pixbuf-loader} object.}
   @short{Creates a new pixbuf loader object.}
   @see-class{gdk-pixbuf:pixbuf-loader}"
@@ -297,7 +297,7 @@ lambda (loader width height)    :run-last
 
 (defun pixbuf-loader-write (loader buffer count)
  #+liber-documentation
- "@version{#2021-12-22}
+ "@version{#2023-3-10}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @argument[buffer]{a Lisp array for image data}
   @argument[count]{an integer with the length of @arg{buffer} in bytes}
@@ -374,7 +374,7 @@ lambda (loader width height)    :run-last
 
 (defcfun ("gdk_pixbuf_loader_set_size" pixbuf-loader-set-size) :void
  #+liber-documentation
- "@version{#2020-11-22}
+ "@version{#2023-3-10}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @argument[width]{an integer with the desired width of the image being loaded}
   @argument[height]{an integer with the desired height of the image being
@@ -399,10 +399,9 @@ lambda (loader width height)    :run-last
 ;;; gdk_pixbuf_loader_get_pixbuf () -> pixbuf-loader-pixbuf
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_loader_get_pixbuf" pixbuf-loader-pixbuf)
-    (g:object pixbuf)
+(defcfun ("gdk_pixbuf_loader_get_pixbuf" pixbuf-loader-pixbuf) (g:object pixbuf)
  #+liber-documentation
- "@version{#2021-12-22}
+ "@version{#2023-3-10}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @begin{return}
     The @class{gdk-pixbuf:pixbuf} object that the loader is creating, or
@@ -437,7 +436,7 @@ lambda (loader width height)    :run-last
 (defcfun ("gdk_pixbuf_loader_get_animation" pixbuf-loader-animation)
     (g:object pixbuf-animation)
  #+liber-documentation
- "@version{#2020-11-22}
+ "@version{#2023-3-10}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @begin{return}
     The @class{gdk-pixbuf:pixbuf-animation} object that the loader is loading,
@@ -467,7 +466,7 @@ lambda (loader width height)    :run-last
 
 (defun pixbuf-loader-close (loader)
  #+liber-documentation
- "@version{#2021-12-22}
+ "@version{#2023-3-10}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @begin{return}
     @em{True} if all image data written so far was successfully passed out via
