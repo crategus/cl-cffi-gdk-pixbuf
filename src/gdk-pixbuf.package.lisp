@@ -1,5 +1,5 @@
 ;;; ----------------------------------------------------------------------------
-;;; gdk.pixbuf-package.lisp
+;;; gdk-pixbuf.package.lisp
 ;;;
 ;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
 ;;; Version 2.26.1 and modified to document the Lisp binding to the GDK-PixBuf
@@ -7,7 +7,7 @@
 ;;; is available from <http://www.crategus.com/books/cl-cffi-gtk/>.
 ;;;
 ;;; Copyright (C) 2009 - 2011 Kalyanov Dmitry
-;;; Copyright (C) 2011 - 2022 Dieter Kaiser
+;;; Copyright (C) 2011 - 2023 Dieter Kaiser
 ;;;
 ;;; This program is free software: you can redistribute it and/or modify
 ;;; it under the terms of the GNU Lesser General Public License for Lisp
