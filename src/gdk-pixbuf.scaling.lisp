@@ -53,7 +53,7 @@
 ;;; enum GdkInterpType -> pixbuf-interp-type
 ;;; ----------------------------------------------------------------------------
 
-;; We change the name of the enumeration ot pixbuf-interp-type. This is more
+;; We change the name of the enumeration to pixbuf-interp-type. This is more
 ;; consistent.
 
 (define-g-enum "GdkInterpType" pixbuf-interp-type
@@ -267,7 +267,7 @@
 (defcfun ("gdk_pixbuf_composite_color_simple" pixbuf-composite-color-simple)
     (g:object pixbuf)
  #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2023-3-10}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[width]{an integer with the width of destination image}
   @argument[height]{an integer with the height of destination image}
@@ -288,7 +288,7 @@
     checkboard of colors @arg{color1} and @arg{color2}.
   @end{short}
   @see-class{gdk-pixbuf:pixbuf}
-  @see-symbol{gdk-pickbuf:pixbuf-interp-type}
+  @see-symbol{gdk-pixbuf:pixbuf-interp-type}
   @see-function{gdk-pixbuf:pixbuf-composite-color}"
   (src (g:object pixbuf))
   (width :int)
@@ -319,15 +319,14 @@
   (interp pixbuf-interp-type)
   (alpha :int))
 
-(defun pixbuf-composite (src dest x y width height
-                             xoffset yoffset
-                             xscale yscale
-                             interp
-                             alpha)
+(defun pixbuf-composite (src dest x y width height xoffset yoffset
+                                                   xscale yscale
+                                                   interp
+                                                   alpha)
 #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2023-3-10}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
-  @argument[dest]{a @class{gdk-pixbuf} object into which to render the
+  @argument[dest]{a @class{gdk-pixbuf:pixbuf} object into which to render the
     results}
   @argument[x]{an integer with the left coordinate for region to render}
   @argument[y]{an integer with the top coordinate for region to render}

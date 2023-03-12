@@ -138,7 +138,7 @@
     specify the destroy notification function that will be called when the data
     buffer needs to be freed. This will happen when a @class{gdk-pixbuf:pixbuf}
     object is finalized by the reference counting functions If you have a chunk
-    of static data compiled into your application, you can pass in @code{nil} 
+    of static data compiled into your application, you can pass in @code{nil}
     as the destroy notification function so that the data will not be freed.
 
     The @fun{gdk-pixbuf:pixbuf-new} function can be used as a convenience to
