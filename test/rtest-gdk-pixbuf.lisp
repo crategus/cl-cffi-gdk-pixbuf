@@ -1,6 +1,6 @@
 (defpackage :gdk-pixbuf-test
   (:use :fiveam :common-lisp)
-  (:import-from :gio #:with-g-resource)
+  (:import-from :gio #:with-g-resources)
   (:export #:run!
            #:gdk-pixbuf-suite))
 
@@ -29,4 +29,4 @@
                         :test #'string=)
         #'string<))
 
-;;; --- 2023-1-26 --------------------------------------------------------------
+;;; --- 2023-5-5 ---------------------------------------------------------------

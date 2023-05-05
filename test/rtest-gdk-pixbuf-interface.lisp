@@ -16,11 +16,11 @@
 
 ;;;     gdk_pixbuf_get_formats
 
-(test pixbuf-formats
+(test gdk-pixbuf-formats
   (is (every #'cffi:pointerp (gdk-pixbuf:pixbuf-formats)))
   #-windows
   (is (equal '("ani" "bmp" "gif" "icns" "ico" "jpeg" "png" "pnm" "qtif" "svg"
-               "tga" "tiff" "wmf" "xbm" "xpm")
+               "tga" "tiff" "webp" "wmf" "xbm" "xpm")
              (sort (mapcar #'gdk-pixbuf:pixbuf-format-name
                            (gdk-pixbuf:pixbuf-formats))
                    #'string<)))
@@ -45,7 +45,7 @@
 ;;;     gdk_pixbuf_format_set_disabled
 ;;;     gdk_pixbuf_format_get_license
 
-(test pixbuf-format-infos.1
+(test gdk-pixbuf-format-infos.1
   (let ((format (gdk-pixbuf:pixbuf-file-info (sys-path "resource/ducky.png"))))
     (is (string= "png" (gdk-pixbuf:pixbuf-format-name format)))
     (is (string= "PNG" (gdk-pixbuf:pixbuf-format-description format)))
@@ -58,7 +58,7 @@
     (is-false (gdk-pixbuf:pixbuf-format-is-disabled format))
     (is (string= "LGPL" (gdk-pixbuf:pixbuf-format-license format)))))
 
-(test pixbuf-format-infos.2
+(test gdk-pixbuf-format-infos.2
   (let ((format (gdk-pixbuf:pixbuf-file-info
                     (sys-path "resource/floppybuddy.gif"))))
     (is (string= "gif" (gdk-pixbuf:pixbuf-format-name format)))
@@ -78,4 +78,4 @@
 ;;;     GdkPixbufModulePreparedFunc
 ;;;     GdkPixbufModuleUpdatedFunc
 
-;;; --- 2023-1-26 --------------------------------------------------------------
+;;; --- 2023-5-5 ---------------------------------------------------------------

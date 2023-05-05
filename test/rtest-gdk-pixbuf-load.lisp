@@ -7,14 +7,14 @@
 
 ;;;     gdk_pixbuf_new_from_file
 
-(test pixbuf-new-from-file
+(test gdk-pixbuf-new-from-file
   (is-false (gdk-pixbuf:pixbuf-new-from-file "unknown"))
   (is (typep (gdk-pixbuf:pixbuf-new-from-file (sys-path "resource/ducky.png"))
       'gdk-pixbuf:pixbuf)))
 
 ;;;     gdk_pixbuf_new_from_file_at_size
 
-(test pixbuf-new-from-file-at-size
+(test gdk-pixbuf-new-from-file-at-size
   (is-false (gdk-pixbuf:pixbuf-new-from-file-at-size "unkonwn" 128 128))
   (is (typep (gdk-pixbuf:pixbuf-new-from-file-at-size
                  (sys-path "resource/ducky.png") 128 128)
@@ -22,7 +22,7 @@
 
 ;;;     gdk_pixbuf_new_from_file_at_scale
 
-(test pixbuf-new-from-file-at-scale
+(test gdk-pixbuf-new-from-file-at-scale
   (is-false (gdk-pixbuf:pixbuf-new-from-file-at-scale "unkonwn" 128 128 nil))
   (is (typep (gdk-pixbuf:pixbuf-new-from-file-at-scale
                  (sys-path"resource/ducky.png") 128 128 nil)
@@ -33,7 +33,7 @@
 
 ;;;     gdk_pixbuf_get_file_info
 
-(test pixbuf-file-info.1
+(test gdk-pixbuf-file-info.1
   (multiple-value-bind (format width height)
       (gdk-pixbuf:pixbuf-file-info (sys-path "resource/floppybuddy.gif"))
     (is (= 80 width))
@@ -43,7 +43,7 @@
     (is (equal '("image/gif") (gdk-pixbuf:pixbuf-format-mime-types format)))
     (is (equal '("gif") (gdk-pixbuf:pixbuf-format-extensions format)))))
 
-(test pixbuf-file-info.2
+(test gdk-pixbuf-file-info.2
   (multiple-value-bind (format width height)
       (gdk-pixbuf:pixbuf-file-info (sys-path "resource/ducky.png"))
     (is (= 489 width))
@@ -58,9 +58,9 @@
 
 ;;;     gdk_pixbuf_new_from_resource
 
-(test pixbuf-new-from-resource
+(test gdk-pixbuf-new-from-resource
   (let ((path (sys-path "resource/rtest-resource.gresource")))
-    (with-g-resource (resource path)
+    (with-g-resources (resource path)
     (is-false (gdk-pixbuf:pixbuf-new-from-resource "unknown"))
     (is (typep (gdk-pixbuf:pixbuf-new-from-resource "/com/crategus/test/ducky.png")
                'gdk-pixbuf:pixbuf))
@@ -69,9 +69,9 @@
 
 ;;;     gdk_pixbuf_new_from_resource_at_scale
 
-(test pixbuf-new-from-resource-at-scale
+(test gdk-pixbuf-new-from-resource-at-scale
   (let ((path (sys-path "resource/rtest-resource.gresource")))
-    (with-g-resource (resource path)
+    (with-g-resources (resource path)
       (is-false (gdk-pixbuf:pixbuf-new-from-resource-at-scale "unknown" 128 128 t))
       (is (typep (gdk-pixbuf:pixbuf-new-from-resource-at-scale
                       "/com/crategus/test/ducky.png"
@@ -86,4 +86,4 @@
 ;;;     gdk_pixbuf_new_from_stream_at_scale
 ;;;     gdk_pixbuf_new_from_stream_at_scale_async
 
-;;; --- 2023-1-26 --------------------------------------------------------------
+;;; --- 2023-5-5 ---------------------------------------------------------------
