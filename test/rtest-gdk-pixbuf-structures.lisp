@@ -15,7 +15,7 @@
           (g:gtype (cffi:foreign-funcall "gdk_colorspace_get_type" :size))))
   ;; Check the registered name
   (is (eq 'gdk-pixbuf:colorspace
-          (gobject:symbol-for-gtype "GdkColorspace")))
+          (glib:symbol-for-gtype "GdkColorspace")))
   ;; Check the names
   (is (equal '("GDK_COLORSPACE_RGB")
              (mapcar #'gobject:enum-item-name
@@ -46,10 +46,10 @@
   (is (g:type-is-object "GdkPixbuf"))
   ;; Check the registered name
   (is (eq 'gdk-pixbuf:pixbuf
-          (gobject:symbol-for-gtype "GdkPixbuf")))
+          (glib:symbol-for-gtype "GdkPixbuf")))
   ;; Check the type initializer
-  (is (eq (gobject:gtype "GdkPixbuf")
-          (gobject:gtype (cffi:foreign-funcall "gdk_pixbuf_get_type" :size))))
+  (is (eq (g:gtype "GdkPixbuf")
+          (g:gtype (cffi:foreign-funcall "gdk_pixbuf_get_type" :size))))
   ;; Check the parent
   (is (eq (g:gtype "GObject")
           (g:type-parent "GdkPixbuf")))
@@ -111,4 +111,4 @@
 ;;;     gdk_pixbuf_copy_options
 ;;;     gdk_pixbuf_read_pixels
 
-;;; --- 2023-1-26 --------------------------------------------------------------
+;;; --- 2023-5-29 --------------------------------------------------------------
