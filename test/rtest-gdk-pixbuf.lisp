@@ -1,6 +1,6 @@
 (defpackage :gdk-pixbuf-test
   (:use :fiveam :common-lisp)
-  (:import-from :gio #:with-g-resources)
+  (:import-from :gio)
   (:export #:run!
            #:gdk-pixbuf-suite))
 

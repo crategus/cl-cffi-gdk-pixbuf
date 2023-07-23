@@ -60,7 +60,7 @@
 
 (test gdk-pixbuf-new-from-resource
   (let ((path (sys-path "resource/rtest-resource.gresource")))
-    (with-g-resources (resource path)
+    (gio:with-g-resources (resource path)
     (is-false (gdk-pixbuf:pixbuf-new-from-resource "unknown"))
     (is (typep (gdk-pixbuf:pixbuf-new-from-resource "/com/crategus/test/ducky.png")
                'gdk-pixbuf:pixbuf))
@@ -71,7 +71,7 @@
 
 (test gdk-pixbuf-new-from-resource-at-scale
   (let ((path (sys-path "resource/rtest-resource.gresource")))
-    (with-g-resources (resource path)
+    (gio:with-g-resources (resource path)
       (is-false (gdk-pixbuf:pixbuf-new-from-resource-at-scale "unknown" 128 128 t))
       (is (typep (gdk-pixbuf:pixbuf-new-from-resource-at-scale
                       "/com/crategus/test/ducky.png"
