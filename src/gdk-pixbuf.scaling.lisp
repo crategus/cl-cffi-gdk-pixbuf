@@ -4,27 +4,27 @@
 ;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
 ;;; Version 2.36 and modified to document the Lisp binding to the GDK-PixBuf
 ;;; library. See <http://www.gtk.org>. The API documentation of the Lisp binding
-;;; is available from <http://www.crategus.com/books/cl-cffi-gtk/>.
+;;; is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2009 - 2011 Kalyanov Dmitry
-;;; Copyright (C) 2011 - 2021 Dieter Kaiser
+;;; Copyright (C) 2011 - 2023 Dieter Kaiser
 ;;;
-;;; This program is free software: you can redistribute it and/or modify
-;;; it under the terms of the GNU Lesser General Public License for Lisp
-;;; as published by the Free Software Foundation, either version 3 of the
-;;; License, or (at your option) any later version and with a preamble to
-;;; the GNU Lesser General Public License that clarifies the terms for use
-;;; with Lisp programs and is referred as the LLGPL.
+;;; Permission is hereby granted, free of charge, to any person obtaining a
+;;; copy of this software and associated documentation files (the "Software"),
+;;; to deal in the Software without restriction, including without limitation
+;;; the rights to use, copy, modify, merge, publish, distribute, sublicense,
+;;; and/or sell copies of the Software, and to permit persons to whom the
+;;; Software is furnished to do so, subject to the following conditions:
 ;;;
-;;; This program is distributed in the hope that it will be useful,
-;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;;; GNU Lesser General Public License for more details.
+;;; The above copyright notice and this permission notice shall be included in
+;;; all copies or substantial portions of the Software.
 ;;;
-;;; You should have received a copy of the GNU Lesser General Public
-;;; License along with this program and the preamble to the Gnu Lesser
-;;; General Public License.  If not, see <http://www.gnu.org/licenses/>
-;;; and <http://opensource.franz.com/preamble.html>.
+;;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+;;; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+;;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+;;; THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+;;; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+;;; FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+;;; DEALINGS IN THE SOFTWARE.
 ;;; ----------------------------------------------------------------------------
 ;;;
 ;;; Scaling
@@ -56,7 +56,7 @@
 ;; We change the name of the enumeration to pixbuf-interp-type. This is more
 ;; consistent.
 
-(define-g-enum "GdkInterpType" pixbuf-interp-type
+(gobject:define-g-enum "GdkInterpType" pixbuf-interp-type
   (:export t
    :type-initializer "gdk_interp_type_get_type")
   (:nearest 0)
@@ -81,7 +81,7 @@
     as fast and results in higher quality.
   @end{dictionary}
   @begin{pre}
-(define-g-enum \"GdkInterpType\" pixbuf-interp-type
+(gobject:define-g-enum \"GdkInterpType\" pixbuf-interp-type
   (:export t
    :type-initializer \"gdk_interp_type_get_type\")
   (:nearest 0)
@@ -116,7 +116,7 @@
 ;;; enum GdkPixbufRotation
 ;;; ----------------------------------------------------------------------------
 
-(define-g-enum "GdkPixbufRotation" pixbuf-rotation
+(gobject:define-g-enum "GdkPixbufRotation" pixbuf-rotation
   (:export t
    :type-initializer "gdk_pixbuf_rotation_get_type")
   (:none 0)
@@ -135,7 +135,7 @@
   @end{short}
   To make them easier to use, their numerical values are the actual degrees.
   @begin{pre}
-(define-g-enum \"GdkPixbufRotation\" pixbuf-rotation
+(gobject:define-g-enum \"GdkPixbufRotation\" pixbuf-rotation
   (:export t
    :type-initializer \"gdk_pixbuf_rotation_get_type\")
   (:none 0)
@@ -156,7 +156,7 @@
 ;;; gdk_pixbuf_scale_simple ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_scale_simple" pixbuf-scale-simple) (g:object pixbuf)
+(cffi:defcfun ("gdk_pixbuf_scale_simple" pixbuf-scale-simple) (g:object pixbuf)
  #+liber-documentation
  "@version{#2021-12-12}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
@@ -198,7 +198,7 @@
 ;;; gdk_pixbuf_scale ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_scale" %pixbuf-scale) :void
+(cffi:defcfun ("gdk_pixbuf_scale" %pixbuf-scale) :void
   (src (g:object pixbuf))
   (dest (g:object pixbuf))
   (x :int)
@@ -264,8 +264,8 @@
 ;;; gdk_pixbuf_composite_color_simple ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_composite_color_simple" pixbuf-composite-color-simple)
-    (g:object pixbuf)
+(cffi:defcfun ("gdk_pixbuf_composite_color_simple"
+               pixbuf-composite-color-simple) (g:object pixbuf)
  #+liber-documentation
  "@version{#2023-3-10}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
@@ -305,7 +305,7 @@
 ;;; gdk_pixbuf_composite ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_composite" %pixbuf-composite) :void
+(cffi:defcfun ("gdk_pixbuf_composite" %pixbuf-composite) :void
   (src (g:object pixbuf))
   (dest (g:object pixbuf))
   (x :int)
@@ -373,7 +373,7 @@
 ;;; gdk_pixbuf_composite_color ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_composite_color" %pixbuf-composite-color)
+(cffi:defcfun ("gdk_pixbuf_composite_color" %pixbuf-composite-color)
     (g:object pixbuf)
   (src (g:object pixbuf))
   (dest (g:object pixbuf))
@@ -457,7 +457,7 @@
 ;;; gdk_pixbuf_rotate_simple ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_rotate_simple" pixbuf-rotate-simple)
+(cffi:defcfun ("gdk_pixbuf_rotate_simple" pixbuf-rotate-simple)
     (g:object pixbuf)
 #+liber-documentation
  "@version{#2021-12-12}
@@ -480,7 +480,7 @@
 ;;; gdk_pixbuf_flip ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_flip" pixbuf-flip) (g:object pixbuf)
+(cffi:defcfun ("gdk_pixbuf_flip" pixbuf-flip) (g:object pixbuf)
 #+liber-documentation
  "@version{#2021-12-12}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}

@@ -4,26 +4,27 @@
 ;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
 ;;; Version 2.36 and modified to document the Lisp binding to the GDK-PixBuf
 ;;; library. See <http://www.gtk.org>. The API documentation of the Lisp
-;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk/>.
+;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2013 - 2021 Dieter Kaiser
+;;; Copyright (C) 2013 - 2023 Dieter Kaiser
 ;;;
-;;; This program is free software: you can redistribute it and/or modify
-;;; it under the terms of the GNU Lesser General Public License for Lisp
-;;; as published by the Free Software Foundation, either version 3 of the
-;;; License, or (at your option) any later version and with a preamble to
-;;; the GNU Lesser General Public License that clarifies the terms for use
-;;; with Lisp programs and is referred as the LLGPL.
+;;; Permission is hereby granted, free of charge, to any person obtaining a
+;;; copy of this software and associated documentation files (the "Software"),
+;;; to deal in the Software without restriction, including without limitation
+;;; the rights to use, copy, modify, merge, publish, distribute, sublicense,
+;;; and/or sell copies of the Software, and to permit persons to whom the
+;;; Software is furnished to do so, subject to the following conditions:
 ;;;
-;;; This program is distributed in the hope that it will be useful,
-;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;;; GNU Lesser General Public License for more details.
+;;; The above copyright notice and this permission notice shall be included in
+;;; all copies or substantial portions of the Software.
 ;;;
-;;; You should have received a copy of the GNU Lesser General Public
-;;; License along with this program and the preamble to the Gnu Lesser
-;;; General Public License.  If not, see <http://www.gnu.org/licenses/>
-;;; and <http://opensource.franz.com/preamble.html>.
+;;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+;;; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+;;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+;;; AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+;;; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+;;; FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+;;; DEALINGS IN THE SOFTWARE.
 ;;; ----------------------------------------------------------------------------
 ;;;
 ;;; Module Interface
@@ -108,7 +109,7 @@
 ;;; enum GdkPixbufFormatFlags                              not exported
 ;;; ----------------------------------------------------------------------------
 
-(defbitfield pixbuf-format-flags
+(cffi:defbitfield pixbuf-format-flags
   (:writable 1)
   (:scalable 2)
   (:threadsave 4))
@@ -141,7 +142,7 @@
 ;;; struct GdkPixbufModulePattern                          not exported
 ;;; ----------------------------------------------------------------------------
 
-(defcstruct pixbuf-module-pattern
+(cffi:defcstruct pixbuf-module-pattern
   (prefix :string)
   (mask :string)
   (relevance :int))
@@ -180,7 +181,7 @@ GdkPixbufModulePattern *signature[] = {
   The example matches e.g. \"auud\0\" with relevance 100, and \"blau\" with
   relevance 90.
   @begin{pre}
-(defcstruct pixbuf-module-pattern
+(cffi:defcstruct pixbuf-module-pattern
   (prefix :string)
   (mask :string)
   (relevance :int))
@@ -364,7 +365,7 @@ GdkPixbufModulePattern *signature[] = {
 
 ;; Simplified to an implementation as an opaque C structure
 
-(defcstruct pixbuf-format)
+(cffi:defcstruct pixbuf-format)
 
 #+liber-documentation
 (setf (liber:alias-for-symbol 'pixbuf-format)
@@ -385,7 +386,7 @@ GdkPixbufModulePattern *signature[] = {
 ;;; gdk_pixbuf_get_formats () -> pixbuf-formats
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_get_formats" pixbuf-formats)
+(cffi:defcfun ("gdk_pixbuf_get_formats" pixbuf-formats)
     (g:slist-t (:pointer (:struct pixbuf-format)) :free-from-foreign t)
  #+liber-documentation
  "@version{#2021-7-24}
@@ -444,7 +445,7 @@ GdkPixbufModulePattern *signature[] = {
 ;;; gdk_pixbuf_format_get_name () -> pixbuf-format-name
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_format_get_name" pixbuf-format-name) :string
+(cffi:defcfun ("gdk_pixbuf_format_get_name" pixbuf-format-name) :string
  #+liber-documentation
  "@version{#2021-7-24}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
@@ -459,7 +460,7 @@ GdkPixbufModulePattern *signature[] = {
 ;;; gdk_pixbuf_format_get_description () -> pixbuf-format-description
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_format_get_description" pixbuf-format-description)
+(cffi:defcfun ("gdk_pixbuf_format_get_description" pixbuf-format-description)
     :string
  #+liber-documentation
  "@version{#2021-7-24}
@@ -475,7 +476,7 @@ GdkPixbufModulePattern *signature[] = {
 ;;; gdk_pixbuf_format_get_mime_types () -> pixbuf-format-mime-types
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_format_get_mime_types" pixbuf-format-mime-types)
+(cffi:defcfun ("gdk_pixbuf_format_get_mime_types" pixbuf-format-mime-types)
     g:strv-t
  #+liber-documentation
  "@version{#2021-7-24}
@@ -491,7 +492,7 @@ GdkPixbufModulePattern *signature[] = {
 ;;; gdk_pixbuf_format_get_extensions () -> pixbuf-format-extensions
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_format_get_extensions" pixbuf-format-extensions)
+(cffi:defcfun ("gdk_pixbuf_format_get_extensions" pixbuf-format-extensions)
     g:strv-t
  #+liber-documentation
  "@version{#2021-7-24}
@@ -510,8 +511,8 @@ GdkPixbufModulePattern *signature[] = {
 ;;; gdk_pixbuf_format_is_save_option_supported ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_format_is_save_option_supported"
-           pixbuf-format-is-save-option-supported) :boolean
+(cffi:defcfun ("gdk_pixbuf_format_is_save_option_supported"
+               pixbuf-format-is-save-option-supported) :boolean
  #+liber-documentation
  "@version{#2021-7-24}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
@@ -536,7 +537,7 @@ GdkPixbufModulePattern *signature[] = {
 ;;; gdk_pixbuf_format_is_writable ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_format_is_writable" pixbuf-format-is-writable)
+(cffi:defcfun ("gdk_pixbuf_format_is_writable" pixbuf-format-is-writable)
     :boolean
  #+liber-documentation
  "@version{#2021-7-24}
@@ -554,7 +555,7 @@ GdkPixbufModulePattern *signature[] = {
 ;;; gdk_pixbuf_format_is_scalable ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_format_is_scalable" pixbuf-format-is-scalable)
+(cffi:defcfun ("gdk_pixbuf_format_is_scalable" pixbuf-format-is-scalable)
     :boolean
  #+liber-documentation
  "@version{#2021-7-24}
@@ -575,7 +576,7 @@ GdkPixbufModulePattern *signature[] = {
 ;;; gdk_pixbuf_format_is_disabled ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_format_is_disabled" pixbuf-format-is-disabled)
+(cffi:defcfun ("gdk_pixbuf_format_is_disabled" pixbuf-format-is-disabled)
     :boolean
  #+liber-documentation
  "@version{#2021-7-24}
@@ -595,7 +596,8 @@ GdkPixbufModulePattern *signature[] = {
 ;;; gdk_pixbuf_format_set_disabled ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_format_set_disabled" pixbuf-format-set-disabled) :void
+(cffi:defcfun ("gdk_pixbuf_format_set_disabled" pixbuf-format-set-disabled)
+    :void
  #+liber-documentation
  "@version{#2021-7-24}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
@@ -620,7 +622,7 @@ GdkPixbufModulePattern *signature[] = {
 ;;; gdk_pixbuf_format_get_license () -> pixbuf-format-license
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_format_get_license" pixbuf-format-license) :string
+(cffi:defcfun ("gdk_pixbuf_format_get_license" pixbuf-format-license) :string
  #+liber-documentation
  "@version{#2021-7-24}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}

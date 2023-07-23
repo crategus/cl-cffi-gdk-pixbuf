@@ -4,27 +4,27 @@
 ;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
 ;;; Version 2.36 and modified to document the Lisp binding to the GDK-PixBuf
 ;;; library. See <http://www.gtk.org>. The API documentation of the Lisp
-;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk/>.
+;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2009 - 2011 Kalyanov Dmitry
 ;;; Copyright (C) 2011 - 2023 Dieter Kaiser
 ;;;
-;;; This program is free software: you can redistribute it and/or modify
-;;; it under the terms of the GNU Lesser General Public License for Lisp
-;;; as published by the Free Software Foundation, either version 3 of the
-;;; License, or (at your option) any later version and with a preamble to
-;;; the GNU Lesser General Public License that clarifies the terms for use
-;;; with Lisp programs and is referred as the LLGPL.
+;;; Permission is hereby granted, free of charge, to any person obtaining a
+;;; copy of this software and associated documentation files (the "Software"),
+;;; to deal in the Software without restriction, including without limitation
+;;; the rights to use, copy, modify, merge, publish, distribute, sublicense,
+;;; and/or sell copies of the Software, and to permit persons to whom the
+;;; Software is furnished to do so, subject to the following conditions:
 ;;;
-;;; This program is distributed in the hope that it will be useful,
-;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;;; GNU Lesser General Public License for more details.
+;;; The above copyright notice and this permission notice shall be included in
+;;; all copies or substantial portions of the Software.
 ;;;
-;;; You should have received a copy of the GNU Lesser General Public
-;;; License along with this program and the preamble to the Gnu Lesser
-;;; General Public License.  If not, see <http://www.gnu.org/licenses/>
-;;; and <http://opensource.franz.com/preamble.html>.
+;;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+;;; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+;;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+;;; AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+;;; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+;;; FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+;;; DEALINGS IN THE SOFTWARE.
 ;;; ----------------------------------------------------------------------------
 ;;;
 ;;; Animations
@@ -97,7 +97,7 @@
 ;;; struct GdkPixbufAnimation
 ;;; ----------------------------------------------------------------------------
 
-(define-g-object-class "GdkPixbufAnimation" pixbuf-animation
+(gobject:define-g-object-class "GdkPixbufAnimation" pixbuf-animation
   (:superclass g:object
    :export t
    :interfaces nil
@@ -153,8 +153,8 @@
 ;;; gdk_pixbuf_animation_new_from_file ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_animation_new_from_file" %pixbuf-animation-new-from-file)
-    (g:object pixbuf-animation)
+(cffi:defcfun ("gdk_pixbuf_animation_new_from_file"
+               %pixbuf-animation-new-from-file) (g:object pixbuf-animation)
   (filename :string)
   (error :pointer))
 
@@ -177,7 +177,7 @@
   created. Possible errors are in the @code{GDK_PIXBUF_ERROR} and
   @code{G_FILE_ERROR} domains.
   @see-class{gdk-pixbuf:pixbuf-animation}"
-  (with-g-error (err)
+  (glib:with-g-error (err)
     (%pixbuf-animation-new-from-file (namestring path) err)))
 
 (export 'pixbuf-animation-new-from-file)
@@ -186,9 +186,8 @@
 ;;; gdk_pixbuf_animation_new_from_resource ()
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_animation_new_from_resource"
-          %pixbuf-animation-new-from-resource)
-    (g:object pixbuf-animation)
+(cffi:defcfun ("gdk_pixbuf_animation_new_from_resource"
+               %pixbuf-animation-new-from-resource) (g:object pixbuf-animation)
   (resource :string)
   (err :pointer))
 
@@ -207,7 +206,7 @@
   @end{short}
   The file format is detected automatically.
   @see-class{gdk-pixbuf:pixbuf-animation}"
-  (with-g-error (err)
+  (glib:with-g-error (err)
     (%pixbuf-animation-new-from-resource resource err)))
 
 (export 'pixbuf-animation-new-from-resource)
@@ -440,8 +439,8 @@
 ;;; -> gdk-pixbuf-animation-static-image
 ;;; ----------------------------------------------------------------------------
 
-(defcfun ("gdk_pixbuf_animation_get_static_image"
-           pixbuf-animation-static-image) (g:object pixbuf)
+(cffi:defcfun ("gdk_pixbuf_animation_get_static_image"
+               pixbuf-animation-static-image) (g:object pixbuf)
  #+liber-documentation
  "@version{#2021-12-12}
   @argument[animation]{a @class{gdk-pixbuf:pixbuf-animation} object}

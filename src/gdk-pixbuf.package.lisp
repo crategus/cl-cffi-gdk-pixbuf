@@ -2,7 +2,7 @@
 ;;; gdk-pixbuf.package.lisp
 ;;;
 ;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
-;;; Version 2.26.1 and modified to document the Lisp binding to the GDK-PixBuf
+;;; Version 2.36 and modified to document the Lisp binding to the GDK-PixBuf
 ;;; library. See <http://www.gtk.org>. The API documentation of the Lisp binding
 ;;; is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
@@ -29,18 +29,17 @@
 
 (defpackage :gdk-pixbuf
   (:use :common-lisp)
-  (:import-from :cffi     #:defcfun
-                          #:defcvar
-                          #:defcstruct
-                          #:defbitfield
-                          #:with-foreign-object
-                          #:with-foreign-objects)
-  (:import-from #:glib    #:with-g-error
-                          #:with-ignore-g-error)
-  (:import-from #:gobject #:define-g-enum
-                          #:define-g-flags
-                          #:define-g-object-class
-                          #:define-g-interface))
+  (:import-from :cffi)
+  (:import-from #:glib)
+  (:import-from #:gobject))
+
+;;; ----------------------------------------------------------------------------
+
+#+sbcl
+(when (and (find-package "SB-EXT")
+           (find-symbol "SET-FLOATING-POINT-MODES" (find-package "SB-EXT")))
+  (funcall (find-symbol "SET-FLOATING-POINT-MODES" (find-package "SB-EXT"))
+           :traps nil))
 
 ;;; ----------------------------------------------------------------------------
 
@@ -226,7 +225,7 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, gpointer data)
   return TRUE;
 @}
     @end{pre}
-    @about-symbol{interp-type}
+    @about-symbol{pixbuf-interp-type}
     @about-symbol{pixbuf-rotation}
     @about-function{pixbuf-scale-simple}
     @about-function{pixbuf-scale}
