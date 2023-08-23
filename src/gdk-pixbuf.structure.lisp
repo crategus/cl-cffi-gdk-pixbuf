@@ -283,7 +283,7 @@
     @end{pre}
     This function will not work for pixbufs with images that are other than
     8 bits per sample or channel, but it will work for most of the pixbufs that
-    GTK+ uses.
+    GTK uses.
   @end{dictionary}
   @begin[Note]{dictionary}
     If you are doing @code{memcpy()} of raw pixbuf data, note that the last row
