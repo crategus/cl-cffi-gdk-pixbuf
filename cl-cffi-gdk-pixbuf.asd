@@ -1,7 +1,7 @@
 ;;; ----------------------------------------------------------------------------
 ;;; cl-cffi-gdk-pixbuf.asd
 ;;;
-;;; Copyright (C) 2011 - 2022 Dieter Kaiser
+;;; Copyright (C) 2011 - 2023 Dieter Kaiser
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a
 ;;; copy of this software and associated documentation files (the "Software"),
@@ -24,7 +24,7 @@
 
 (defsystem :cl-cffi-gdk-pixbuf
   :name "cl-cffi-gdk-pixbuf"
-  :version "0.3.0"
+  :version "0.4.0"
   :author "Dieter Kaiser"
   :license "MIT"
   :components
@@ -52,6 +52,9 @@
 
 (defsystem :cl-cffi-gdk-pixbuf/test
   :name "cl-cffi-gdk-pixbuf/test"
+  :version "0.4.0"
+  :author "Dieter Kaiser"
+  :license "MIT"
   :depends-on (:cl-cffi-gdk-pixbuf :fiveam)
   :perform (test-op (o c)
                (uiop:symbol-call :fiveam :run!
@@ -65,7 +68,6 @@
 
                (:file "rtest-gdk-pixbuf-interface")
                (:file "rtest-gdk-pixbuf-load")
-
               ))
 
 ;;; --- End of file cl-cffi-gdk-pixbuf.asd ---------------------------------
