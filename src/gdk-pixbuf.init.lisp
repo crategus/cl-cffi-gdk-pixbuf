@@ -25,6 +25,8 @@
 (in-package :gdk-pixbuf)
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
+  ;; push the hostname on *features*
+  (pushnew (intern (string-upcase (machine-instance)) :keyword) *features*)
   (pushnew :gdk-pixbuf *features*))
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
@@ -36,5 +38,22 @@
      (t "libgdk_pixbuf-2.0"))
 
   (cffi:use-foreign-library gdk-pixbuf))
+
+(cffi:defcvar ("gdk_pixbuf_major_version" +major-version+ :read-only t) :uint)
+(cffi:defcvar ("gdk_pixbuf_minor_version" +minor-version+ :read-only t) :uint)
+
+(glib-init:push-library-version-features
+  gdk-pixbuf
+  +major-version+ +minor-version+
+  2 38  ; Since 01-09-2018
+  2 40  ; Since 08-10-2019
+  2 42  ; Since 09-11-2020
+)
+
+(glib-init:require-library-version
+  "gdk-pixbuf"
+  2 38  ; Since 01-09-2018
+  +major-version+
+  +minor-version+)
 
 ;;; End of file gdk-pixbuf.init.lisp -------------------------------------------
