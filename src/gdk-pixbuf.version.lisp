@@ -66,7 +66,8 @@
 ;;; gdk_pixbuf_major_version
 ;;; ----------------------------------------------------------------------------
 
-(cffi:defcvar ("gdk_pixbuf_major_version" +major-version+ :read-only t) :uint)
+;; Already defined in gdk-pixbuf.init.lisp
+;(cffi:defcvar ("gdk_pixbuf_major_version" +major-version+ :read-only t) :uint)
 
 #+liber-documentation
 (setf (liber:alias-for-symbol '+major-version+)
@@ -88,7 +89,8 @@
 ;;; gdk_pixbuf_minor_version
 ;;; ----------------------------------------------------------------------------
 
-(cffi:defcvar ("gdk_pixbuf_minor_version" +minor-version+ :read-only t) :uint)
+;; Already defined in gdk-pixbuf.init.lisp
+;(cffi:defcvar ("gdk_pixbuf_minor_version" +minor-version+ :read-only t) :uint)
 
 #+liber-documentation
 (setf (liber:alias-for-symbol '+minor-version+)
