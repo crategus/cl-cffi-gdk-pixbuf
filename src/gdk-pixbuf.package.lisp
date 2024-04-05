@@ -51,10 +51,10 @@
   @begin[Library version numbers]{section}
     These macros and variables let you check the version of GDK-Pixbuf you are
     linking against.
-    @about-symbol{+gdk-pixbuf-version+}
-    @about-symbol{+gdk-pixbuf-major-version+}
-    @about-symbol{+gdk-pixbuf-minor-version+}
-    @about-symbol{+gdk-pixbuf-micro-version+}
+    @about-symbol{+version+}
+    @about-symbol{+major-version+}
+    @about-symbol{+minor-version+}
+    @about-symbol{+micro-version+}
   @end{section}
   @begin[The GdkPixbuf object]{section}
     Information that describes an image.
