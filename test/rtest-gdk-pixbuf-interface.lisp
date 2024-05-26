@@ -19,8 +19,8 @@
 (test gdk-pixbuf-formats
   (is (every #'cffi:pointerp (gdk-pixbuf:pixbuf-formats)))
   #-windows
-  (is (equal '("ani" "bmp" "gif" "icns" "ico" "jpeg" "png" "pnm" "qtif" "svg"
-               "tga" "tiff" "webp" "wmf" "xbm" "xpm")
+  (is (equal '("ani" "avif" "bmp" "gif" "heif/avif" "icns" "ico" "jpeg" "png"
+               "pnm" "qtif" "svg" "tga" "tiff" "webp" "wmf" "xbm" "xpm")
              (sort (mapcar #'gdk-pixbuf:pixbuf-format-name
                            (gdk-pixbuf:pixbuf-formats))
                    #'string<)))
@@ -78,4 +78,4 @@
 ;;;     GdkPixbufModulePreparedFunc
 ;;;     GdkPixbufModuleUpdatedFunc
 
-;;; --- 2023-5-5 ---------------------------------------------------------------
+;;; 2024-5-25

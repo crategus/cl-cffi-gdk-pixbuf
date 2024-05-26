@@ -1,7 +1,7 @@
 (in-package :gdk-pixbuf-test)
 
-(def-suite gdk-pixbuf-version :in gdk-pixbuf-suite)
-(in-suite gdk-pixbuf-version)
+(def-suite gdk-pixbuf-version-suite :in gdk-pixbuf-suite)
+(in-suite gdk-pixbuf-version-suite)
 
 ;;;     gdk_pixbuf_version
 ;;;     gdk_pixbuf_major_version
@@ -14,4 +14,4 @@
   (is (= 42 gdk-pixbuf:+minor-version+))
   (is (= 10 gdk-pixbuf:+micro-version+)))
 
-;;; 2024-4-2
+;;; 2024-5-25

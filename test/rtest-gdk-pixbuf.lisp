@@ -9,8 +9,8 @@
 (def-suite gdk-pixbuf-suite)
 (in-suite gdk-pixbuf-suite)
 
-;; Ensure directory for the output of test results
 (eval-when (:compile-toplevel :load-toplevel :execute)
+  ;; Ensure directory for the output of test results
   (ensure-directories-exist
       (asdf:system-relative-pathname :cl-cffi-gdk-pixbuf "test/out/")))
 
