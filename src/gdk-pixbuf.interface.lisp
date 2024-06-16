@@ -2,11 +2,11 @@
 ;;; gdk-pixbuf.interface.lisp
 ;;;
 ;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
-;;; Version 2.36 and modified to document the Lisp binding to the GDK-PixBuf
+;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
 ;;; library. See <http://www.gtk.org>. The API documentation of the Lisp
 ;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2013 - 2023 Dieter Kaiser
+;;; Copyright (C) 2013 - 2024 Dieter Kaiser
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a
 ;;; copy of this software and associated documentation files (the "Software"),
@@ -106,7 +106,7 @@
 (in-package :gdk-pixbuf)
 
 ;;; ----------------------------------------------------------------------------
-;;; enum GdkPixbufFormatFlags                              not exported
+;;; GdkPixbufFormatFlags                                    not exported
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defbitfield pixbuf-format-flags
@@ -139,7 +139,7 @@
   @see-class{gdk-pixbuf:pixbuf}")
 
 ;;; ----------------------------------------------------------------------------
-;;; struct GdkPixbufModulePattern                          not exported
+;;; GdkPixbufModulePattern                                  not exported
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcstruct pixbuf-module-pattern
@@ -360,7 +360,7 @@ GdkPixbufModulePattern *signature[] = {
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
-;;; struct GdkPixbufFormat
+;;; GdkPixbufFormat
 ;;; ----------------------------------------------------------------------------
 
 ;; Simplified to an implementation as an opaque C structure
@@ -371,10 +371,10 @@ GdkPixbufModulePattern *signature[] = {
 (setf (liber:alias-for-symbol 'pixbuf-format)
       "CStruct"
       (liber:symbol-documentation 'pixbuf-format)
- "@version{#2021-7-24}
+ "@version{2024-5-31}
   @begin{short}
-    A @sym{gdk-pixbuf:pixbuf-format} structure contains information about the
-    image format accepted by a module.
+    The @symbol{gdk-pixbuf:pixbuf-format} structure contains information about
+    the image format accepted by a module.
   @end{short}
   Only modules should access the fields directly, applications should use the
   @code{gdk-pixbuf:pixbuf-format-*} functions.
@@ -383,15 +383,15 @@ GdkPixbufModulePattern *signature[] = {
 (export 'pixbuf-format)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_get_formats () -> pixbuf-formats
+;;; gdk_pixbuf_get_formats
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_get_formats" pixbuf-formats)
     (g:slist-t (:pointer (:struct pixbuf-format)) :free-from-foreign t)
  #+liber-documentation
- "@version{#2021-7-24}
+ "@version{2024-5-31}
   @begin{return}
-    A list of @symbol{gdk-pixbuf:pixbuf-format} instances describing the
+    The list of @symbol{gdk-pixbuf:pixbuf-format} instances describing the
     supported image formats.
   @end{return}
   @begin{short}
@@ -423,8 +423,6 @@ GdkPixbufModulePattern *signature[] = {
 ;;; Returns :
 ;;;     the newly allocated copy of a GdkPixbufFormat. Use
 ;;;     gdk_pixbuf_format_free() to free the resources when done
-;;;
-;;; Since 2.22
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -437,19 +435,17 @@ GdkPixbufModulePattern *signature[] = {
 ;;;
 ;;; format :
 ;;;     a GdkPixbufFormat
-;;;
-;;; Since 2.22
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_format_get_name () -> pixbuf-format-name
+;;; gdk_pixbuf_format_get_name
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_format_get_name" pixbuf-format-name) :string
  #+liber-documentation
- "@version{#2021-7-24}
+ "@version{2024-5-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
-  @return{A string with the name of the image format.}
+  @return{The string with the name of the image format.}
   @short{Returns the name of the image format.}
   @see-symbol{gdk-pixbuf:pixbuf-format}"
   (format (:pointer (:struct pixbuf-format))))
@@ -457,15 +453,15 @@ GdkPixbufModulePattern *signature[] = {
 (export 'pixbuf-format-name)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_format_get_description () -> pixbuf-format-description
+;;; gdk_pixbuf_format_get_description
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_format_get_description" pixbuf-format-description)
     :string
  #+liber-documentation
- "@version{#2021-7-24}
+ "@version{2024-5-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
-  @return{A string with a description of the image format.}
+  @return{The string with a description of the image format.}
   @short{Returns a description of the image format.}
   @see-symbol{gdk-pixbuf:pixbuf-format}"
   (format (:pointer (:struct pixbuf-format))))
@@ -473,15 +469,15 @@ GdkPixbufModulePattern *signature[] = {
 (export 'pixbuf-format-description)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_format_get_mime_types () -> pixbuf-format-mime-types
+;;; gdk_pixbuf_format_get_mime_types
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_format_get_mime_types" pixbuf-format-mime-types)
     g:strv-t
  #+liber-documentation
- "@version{#2021-7-24}
+ "@version{2024-5-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
-  @return{A list of strings with the MIME types.}
+  @return{The list of strings with the MIME types.}
   @short{Returns the MIME types supported by the image format.}
   @see-symbol{gdk-pixbuf:pixbuf-format}"
   (format (:pointer (:struct pixbuf-format))))
@@ -489,15 +485,15 @@ GdkPixbufModulePattern *signature[] = {
 (export 'pixbuf-format-mime-types)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_format_get_extensions () -> pixbuf-format-extensions
+;;; gdk_pixbuf_format_get_extensions
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_format_get_extensions" pixbuf-format-extensions)
     g:strv-t
  #+liber-documentation
- "@version{#2021-7-24}
+ "@version{2024-5-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
-  @return{A list of strings with filename extensions.}
+  @return{The list of strings with filename extensions.}
   @begin{short}
     Returns the filename extensions typically used for files in the given
     image format.
@@ -508,13 +504,13 @@ GdkPixbufModulePattern *signature[] = {
 (export 'pixbuf-format-extensions)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_format_is_save_option_supported ()
+;;; gdk_pixbuf_format_is_save_option_supported
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_format_is_save_option_supported"
                pixbuf-format-is-save-option-supported) :boolean
  #+liber-documentation
- "@version{#2021-7-24}
+ "@version{2024-5-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
   @argument[option]{a string with the name of an option}
   @return{@em{True} if the specified option is supported.}
@@ -522,10 +518,8 @@ GdkPixbufModulePattern *signature[] = {
     Returns @em{true} if the save option specified by @arg{option} is supported
     when saving a pixbuf using the module implementing the image format.
   @end{short}
-  See the function @fun{gdk-pixbuf:pixbuf-save} for more information about
+  See the @fun{gdk-pixbuf:pixbuf-save} function for more information about
   option keys.
-
-  Since 2.36
   @see-symbol{gdk-pixbuf:pixbuf-format}
   @see-function{gdk-pixbuf:pixbuf-save}"
   (format (:pointer (:struct pixbuf-format)))
@@ -534,15 +528,15 @@ GdkPixbufModulePattern *signature[] = {
 (export 'pixbuf-format-is-save-option-supported)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_format_is_writable ()
+;;; gdk_pixbuf_format_is_writable
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_format_is_writable" pixbuf-format-is-writable)
     :boolean
  #+liber-documentation
- "@version{#2021-7-24}
+ "@version{2024-5-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
-  @return{A boolean whether pixbufs can be saved in the given image format.}
+  @return{The boolean whether pixbufs can be saved in the given image format.}
   @begin{short}
     Returns whether pixbufs can be saved in the given image format.
   @end{short}
@@ -552,15 +546,15 @@ GdkPixbufModulePattern *signature[] = {
 (export 'pixbuf-format-is-writable)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_format_is_scalable ()
+;;; gdk_pixbuf_format_is_scalable
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_format_is_scalable" pixbuf-format-is-scalable)
     :boolean
  #+liber-documentation
- "@version{#2021-7-24}
+ "@version{2024-5-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
-  @return{A boolean whether this image format is scalable.}
+  @return{The boolean whether this image format is scalable.}
   @begin{short}
     Returns whether this image format is scalable.
   @end{short}
@@ -573,43 +567,43 @@ GdkPixbufModulePattern *signature[] = {
 (export 'pixbuf-format-is-scalable)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_format_is_disabled ()
+;;; gdk_pixbuf_format_is_disabled
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_format_is_disabled" pixbuf-format-is-disabled)
     :boolean
  #+liber-documentation
- "@version{#2021-7-24}
+ "@version{2024-5-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
-  @return{A boolean whether this image format is disabled.}
+  @return{The boolean whether this image format is disabled.}
   @begin{short}
     Returns whether this image format is disabled.
   @end{short}
-  See the function @fun{gdk-pixbuf:pixbuf-format-set-disabled}.
+  See the @fun{gdk-pixbuf:pixbuf-format-set-disabled} function.
   @see-symbol{gdk-pixbuf:pixbuf-format}
-  @see-function{gdk-pixbuf-format-set-disabled}"
+  @see-function{gdk-pixbuf:pixbuf-format-set-disabled}"
   (format (:pointer (:struct pixbuf-format))))
 
 (export 'pixbuf-format-is-disabled)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_format_set_disabled ()
+;;; gdk_pixbuf_format_set_disabled
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_format_set_disabled" pixbuf-format-set-disabled)
     :void
  #+liber-documentation
- "@version{#2021-7-24}
+ "@version{2024-5-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
   @argument[disabled]{@em{true} to disable the given image format}
-  @return{A boolean whether this image format is disabled.}
+  @return{The boolean whether this image format is disabled.}
   @begin{short}
     Disables or enables an image format.
   @end{short}
   If the image format is disabled, the @class{gdk-pixbuf:pixbuf} library will
   not use the image loader for this image format to load images. Applications
   can use this to avoid using image loaders with an inappropriate license, see
-  the function @fun{gdk-pixbuf:pixbuf-format-license}.
+  the @fun{gdk-pixbuf:pixbuf-format-license} function.
   @see-class{gdk-pixbuf:pixbuf}
   @see-symbol{gdk-pixbuf:pixbuf-format}
   @see-function{gdk-pixbuf:pixbuf-format-license}"
@@ -619,21 +613,21 @@ GdkPixbufModulePattern *signature[] = {
 (export 'pixbuf-format-set-disabled)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_format_get_license () -> pixbuf-format-license
+;;; gdk_pixbuf_format_get_license
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_format_get_license" pixbuf-format-license) :string
  #+liber-documentation
- "@version{#2021-7-24}
+ "@version{2024-5-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
-  @return{A string describing the license of the image format.}
+  @return{The string describing the license of the image format.}
   @begin{short}
     Returns information about the license of the image loader for the
     image format.
   @end{short}
-  The returned string should be a shorthand for a wellknown license, e.g.
-  \"LGPL\", \"GPL\", \"QPL\", \"GPL/QPL\", or \"other\" to indicate some other
-  license.
+  The returned string should be a shorthand for a wellknown license, for
+  example, \"LGPL\", \"GPL\", \"QPL\", \"GPL/QPL\", or \"other\" to indicate
+  some other license.
   @see-symbol{gdk-pixbuf:pixbuf-format}"
   (format (:pointer (:struct pixbuf-format))))
 
@@ -649,8 +643,6 @@ GdkPixbufModulePattern *signature[] = {
 ;;;
 ;;; module :
 ;;;     a GdkPixbufModule.
-;;;
-;;; Since 2.2
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -663,8 +655,6 @@ GdkPixbufModulePattern *signature[] = {
 ;;;
 ;;; info :
 ;;;     a GdkPixbufFormat.
-;;;
-;;; Since 2.2
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -696,8 +686,6 @@ GdkPixbufModulePattern *signature[] = {
 ;;;
 ;;; user_data :
 ;;;     the loader.
-;;;
-;;; Since 2.2
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -721,8 +709,6 @@ GdkPixbufModulePattern *signature[] = {
 ;;;
 ;;; user_data :
 ;;;     the loader.
-;;;
-;;; Since 2.2
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -758,8 +744,6 @@ GdkPixbufModulePattern *signature[] = {
 ;;;
 ;;; user_data :
 ;;;     the loader.
-;;;
-;;; Since 2.2
 ;;; ----------------------------------------------------------------------------
 
 ;;; --- End of file gdk-pixbuf.interface.lisp ----------------------------------

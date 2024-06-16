@@ -2,11 +2,11 @@
 ;;; gdk-pixbuf.package.lisp
 ;;;
 ;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
-;;; Version 2.36 and modified to document the Lisp binding to the GDK-PixBuf
+;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
 ;;; library. See <http://www.gtk.org>. The API documentation of the Lisp binding
 ;;; is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2011 - 2023 Dieter Kaiser
+;;; Copyright (C) 2011 - 2024 Dieter Kaiser
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a
 ;;; copy of this software and associated documentation files (the "Software"),
@@ -79,8 +79,6 @@
     @about-function{pixbuf-read-pixels}
   @end{section}
   @begin[File Loading]{section}
-    Loading a pixbuf from a file.
-
     The GDK-Pixbuf library provides a simple mechanism for loading an image
     from a file in synchronous fashion. This means that the library takes
     control of the application while the file is being loaded. From the user's
@@ -90,14 +88,14 @@
     while an image is being loaded. It can also be used to load small images in
     general. Applications that need progressive loading can use the
     @class{gdk-pixbuf:pixbuf-loader} API functionality instead.
-    @about-function{pixbuf-file-info}
     @about-function{pixbuf-new-from-file}
     @about-function{pixbuf-new-from-file-at-size}
     @about-function{pixbuf-new-from-file-at-scale}
-    @about-function{pixbuf-get-file-info-async}
-    @about-function{pixbuf-get-file-info-finish}
     @about-function{pixbuf-new-from-resource}
     @about-function{pixbuf-new-from-resource-at-scale}
+    @about-function{pixbuf-file-info}
+    @about-function{pixbuf-file-info-async}
+    @about-function{pixbuf-file-info-finish}
     @about-function{pixbuf-new-from-stream}
     @about-function{pixbuf-new-from-stream-async}
     @about-function{pixbuf-new-from-stream-finish}
@@ -249,7 +247,6 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, gpointer data)
     @about-function{pixbuf-fill}
   @end{section}
   @begin[Animations]{section}
-    Animated images.
     @about-class{pixbuf-animation-iter}
     @about-class{pixbuf-simple-anim}
     @about-class{pixbuf-animation}
@@ -276,7 +273,6 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, gpointer data)
     @about-function{pixbuf-simple-anim-get-loop}
   @end{section}
   @begin[GdkPixbufLoader]{section}
-    Application-driven progressive image loading.
     @about-class{pixbuf-loader}
     @about-function{pixbuf-loader-new}
     @about-function{pixbuf-loader-new-with-type}
@@ -290,7 +286,6 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, gpointer data)
     @about-function{pixbuf-loader-close}
   @end{section}
   @begin[Module Interface]{section}
-    Extending GdkPixbuf.
     @about-symbol{pixbuf-format-flags}
     @about-type{pixbuf-module-pattern}
     @about-symbol{pixbuf-module}
