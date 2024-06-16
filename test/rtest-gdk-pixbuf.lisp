@@ -2,31 +2,21 @@
   (:use :fiveam :common-lisp)
   (:import-from :gio)
   (:export #:run!
-           #:gdk-pixbuf-suite))
+           #:gdk-pixbuf-test))
 
 (in-package :gdk-pixbuf-test)
 
-(def-suite gdk-pixbuf-suite)
-(in-suite gdk-pixbuf-suite)
+(def-suite gdk-pixbuf-test)
+(in-suite gdk-pixbuf-test)
 
 (eval-when (:compile-toplevel :load-toplevel :execute)
+  (setf (glib-sys:get-current-package) "cl-cffi-gdk-pixbuf")
+  (glib-sys:check-and-create-resources "test/rtest-gdk-pixbuf.gresource.xml"
+                                       :package "cl-cffi-gdk-pixbuf"
+                                       :sourcedir "test/resource/"
+                                       :verbose t)
   ;; Ensure directory for the output of test results
   (ensure-directories-exist
       (asdf:system-relative-pathname :cl-cffi-gdk-pixbuf "test/out/")))
 
-;; Get the pathname for a file in the testsuite
-(defun sys-path (filename &optional (system :cl-cffi-gdk-pixbuf))
-  (asdf:system-relative-pathname system
-                                 (concatenate 'string "test/" filename)))
-
-;; A sorted list of the class property names without inherited properties
-(defun list-properties (gtype)
-  (sort (set-difference (mapcar #'g:param-spec-name
-                                (g:object-class-list-properties gtype))
-                        (mapcar #'g:param-spec-name
-                                (g:object-class-list-properties
-                                  (g:type-parent gtype)))
-                        :test #'string=)
-        #'string<))
-
-;;; --- 2023-5-5 ---------------------------------------------------------------
+;;; 2024-6-16

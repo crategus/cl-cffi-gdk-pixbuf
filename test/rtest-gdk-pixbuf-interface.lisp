@@ -1,7 +1,22 @@
 (in-package :gdk-pixbuf-test)
 
-(def-suite gdk-pixbuf-interface :in gdk-pixbuf-suite)
+(def-suite gdk-pixbuf-interface :in gdk-pixbuf-test)
 (in-suite gdk-pixbuf-interface)
+
+(defparameter gdk-pixbuf-interface
+              '(gdk-pixbuf:pixbuf-formats
+                gdk-pixbuf:pixbuf-format-name
+                gdk-pixbuf:pixbuf-format-description
+                gdk-pixbuf:pixbuf-format-mime-types
+                gdk-pixbuf:pixbuf-format-extensions
+                gdk-pixbuf:pixbuf-format-is-save-option-supported
+                gdk-pixbuf:pixbuf-format-is-writable
+                gdk-pixbuf:pixbuf-format-is-scalable
+                gdk-pixbuf:pixbuf-format-is-disabled
+                gdk-pixbuf:pixbuf-format-set-disabled
+                gdk-pixbuf:pixbuf-format-license))
+
+(export 'gdk-pixbuf-interface)
 
 ;;; --- Types and Values -------------------------------------------------------
 
@@ -18,15 +33,15 @@
 
 (test gdk-pixbuf-formats
   (is (every #'cffi:pointerp (gdk-pixbuf:pixbuf-formats)))
-  #-windows
+  #+crategus
   (is (equal '("ani" "avif" "bmp" "gif" "heif/avif" "icns" "ico" "jpeg" "png"
                "pnm" "qtif" "svg" "tga" "tiff" "webp" "wmf" "xbm" "xpm")
              (sort (mapcar #'gdk-pixbuf:pixbuf-format-name
                            (gdk-pixbuf:pixbuf-formats))
                    #'string<)))
   #+windows
-  (is (equal '("ani" "bmp" "emf" "gif" "icns" "ico" "jpeg" "png" "pnm" "qtif"
-               "svg" "tga" "tiff" "wmf" "wmf" "xbm" "xpm")
+  (is (equal '("ani" "bmp" "emf" "gif" "icns" "ico" "jpeg" "jxl" "png" "pnm"
+               "qtif" "svg" "tga" "tiff" "wmf" "xbm" "xpm")
              (sort (mapcar #'gdk-pixbuf:pixbuf-format-name
                            (gdk-pixbuf:pixbuf-formats))
                    #'string<))))
@@ -46,7 +61,8 @@
 ;;;     gdk_pixbuf_format_get_license
 
 (test gdk-pixbuf-format-infos.1
-  (let ((format (gdk-pixbuf:pixbuf-file-info (sys-path "resource/ducky.png"))))
+  (let* ((path (glib-sys:sys-path "test/resource/ducky.png"))
+         (format (gdk-pixbuf:pixbuf-file-info path)))
     (is (string= "png" (gdk-pixbuf:pixbuf-format-name format)))
     (is (string= "PNG" (gdk-pixbuf:pixbuf-format-description format)))
     (is (equal '("image/png") (gdk-pixbuf:pixbuf-format-mime-types format)))
@@ -59,8 +75,8 @@
     (is (string= "LGPL" (gdk-pixbuf:pixbuf-format-license format)))))
 
 (test gdk-pixbuf-format-infos.2
-  (let ((format (gdk-pixbuf:pixbuf-file-info
-                    (sys-path "resource/floppybuddy.gif"))))
+  (let* ((path (glib-sys:sys-path "test/resource/floppybuddy.gif"))
+         (format (gdk-pixbuf:pixbuf-file-info path)))
     (is (string= "gif" (gdk-pixbuf:pixbuf-format-name format)))
     (is (string= "GIF" (gdk-pixbuf:pixbuf-format-description format)))
     (is (equal '("image/gif") (gdk-pixbuf:pixbuf-format-mime-types format)))
@@ -78,4 +94,4 @@
 ;;;     GdkPixbufModulePreparedFunc
 ;;;     GdkPixbufModuleUpdatedFunc
 
-;;; 2024-5-25
+;;; 2024-6-16

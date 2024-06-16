@@ -1,34 +1,31 @@
 (in-package :gdk-pixbuf-test)
 
-(def-suite gdk-pixbuf-structures :in gdk-pixbuf-suite)
+(def-suite gdk-pixbuf-structures :in gdk-pixbuf-test)
 (in-suite gdk-pixbuf-structures)
 
 ;;; --- Types and Values -------------------------------------------------------
 
 ;;;     GdkColorspace
 
-(test colorspace
-  ;; Check the type
+(test gdk-pixbuf-colorspace
+  ;; Check type
   (is (g:type-is-enum "GdkColorspace"))
-  ;; Check the type initializer
+  ;; Check type initializer
   (is (eq (g:gtype "GdkColorspace")
           (g:gtype (cffi:foreign-funcall "gdk_colorspace_get_type" :size))))
-  ;; Check the registered name
+  ;; Check registered name
   (is (eq 'gdk-pixbuf:colorspace
           (glib:symbol-for-gtype "GdkColorspace")))
-  ;; Check the names
+  ;; Check names
   (is (equal '("GDK_COLORSPACE_RGB")
-             (mapcar #'gobject:enum-item-name
-                     (gobject:get-enum-items "GdkColorspace"))))
-  ;; Check the values
+             (glib-test:list-enum-item-name "GdkColorspace")))
+  ;; Check values
   (is (equal '(0)
-             (mapcar #'gobject:enum-item-value
-                     (gobject:get-enum-items "GdkColorspace"))))
-  ;; Check the nick names
+             (glib-test:list-enum-item-value "GdkColorspace")))
+  ;; Check nick names
   (is (equal '("rgb")
-             (mapcar #'gobject:enum-item-nick
-                     (gobject:get-enum-items "GdkColorspace"))))
-  ;; Check the enum definition
+             (glib-test:list-enum-item-nick "GdkColorspace")))
+  ;; Check enum definition
   (is (equal '(GOBJECT:DEFINE-G-ENUM "GdkColorspace"
                                      GDK-COLORSPACE
                                      (:EXPORT T
@@ -41,28 +38,31 @@
 
 ;;;     GdkPixbuf
 
-(test pixbuf-class
-  ;; Type check
+(test gdk-pixbuf-class
+  ;; Check type
   (is (g:type-is-object "GdkPixbuf"))
-  ;; Check the registered name
+  ;; Check registered name
   (is (eq 'gdk-pixbuf:pixbuf
           (glib:symbol-for-gtype "GdkPixbuf")))
-  ;; Check the type initializer
+  ;; Check type initializer
   (is (eq (g:gtype "GdkPixbuf")
           (g:gtype (cffi:foreign-funcall "gdk_pixbuf_get_type" :size))))
-  ;; Check the parent
+  ;; Check parent
   (is (eq (g:gtype "GObject")
           (g:type-parent "GdkPixbuf")))
-  ;; Check the children
+  ;; Check children
   (is (equal '()
-             (mapcar #'g:type-name (g:type-children "GdkPixbuf"))))
-  ;; Check the interfaces
+             (glib-test:list-children "GdkPixbuf")))
+  ;; Check interfaces
   (is (equal '("GIcon" "GLoadableIcon")
-             (mapcar #'g:type-name (g:type-interfaces "GdkPixbuf"))))
-  ;; Check the class properties
+             (glib-test:list-interfaces "GdkPixbuf")))
+  ;; Check properties
   (is (equal '("bits-per-sample" "colorspace" "has-alpha" "height" "n-channels"
                "pixel-bytes" "pixels" "rowstride" "width")
-             (list-properties "GdkPixbuf")))
+             (glib-test:list-properties "GdkPixbuf")))
+  ;; Check signals
+  (is (equal '()
+             (glib-test:list-signals "GdkPixbuf")))
   ;; Check the class definition
   (is (equal '(GOBJECT:DEFINE-G-OBJECT-CLASS "GdkPixbuf" GDK-PIXBUF
                        (:SUPERCLASS G-OBJECT :EXPORT T :INTERFACES
@@ -87,9 +87,9 @@
 
 ;;; --- Properties -------------------------------------------------------------
 
-(test pixbuf-properties
-  (let ((pixbuf (gdk-pixbuf:pixbuf-new-from-file
-                    (sys-path "resource/ducky.png"))))
+(test gdk-pixbuf-properties
+  (let* ((path (glib-sys:sys-path "test/resource/ducky.png"))
+         (pixbuf (gdk-pixbuf:pixbuf-new-from-file path)))
     (is (= 8 (gdk-pixbuf:pixbuf-bits-per-sample pixbuf)))
     (is (eq :rgb (gdk-pixbuf:pixbuf-colorspace pixbuf)))
     (is-true (gdk-pixbuf:pixbuf-has-alpha pixbuf))
@@ -111,4 +111,4 @@
 ;;;     gdk_pixbuf_copy_options
 ;;;     gdk_pixbuf_read_pixels
 
-;;; --- 2023-5-29 --------------------------------------------------------------
+;;; 2024-6-16

@@ -1,0 +1,6 @@
+<gresources>
+  <gresource prefix="/com/crategus/gdk-pixbuf">
+    <file>ducky.png</file>
+    <file>floppybuddy.gif</file>
+  </gresource>
+</gresources>
