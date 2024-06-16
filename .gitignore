@@ -1,4 +1,4 @@
 *.tmp
 *.gresource
 TODO
-
+test/report/*.html
