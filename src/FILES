@@ -1,4 +1,4 @@
-Content from the GDK-Pixbuf 2.36 Reference Manual
+Content from the GDK-Pixbuf 2.42 Reference Manual
 
    *   - needs update
    %   - not fully implemented
@@ -10,7 +10,7 @@ Content from the GDK-Pixbuf 2.36 Reference Manual
 
   Reference counting and memory management on pixbufs
 
-  gdk-pixbuf.load.lisp   - Loading a pixbuf from a file                - 2.36 &
+  gdk-pixbuf.load.lisp   - Loading a pixbuf from a file                - 2.42 &
   gdk-pixbuf.save.lisp   - Saving a pixbuf to a file                   - 2.36 &
   gdk-pixbuf.memory.lisp - Creating a pixbuf from image data in memory - 2.36 &
 
@@ -24,11 +24,11 @@ Content from the GDK-Pixbuf 2.36 Reference Manual
   gdk-pixbuf.utilities.lisp - Utility functions                        - 2.36 &
   gdk-pixbuf.animation.lisp - Animated images                          - 2.36 &
   gdk-pixbuf.loader.lisp    - Progressive image loading                - 2.36 &
-  gdk-pixbuf.interface.lisp - Extending GdkPixBuf                      - 2.36 &
+  gdk-pixbuf.interface.lisp - Extending GdkPixBuf                      - 2.42 &
 
   gdk-pixbuf Xlib initialization - Initializing the gdk-pixbuf Xlib library.
   Xlib Rendering - Rendering a pixbuf to an X drawable.
   Getting parts of an X drawable's image data into a pixbuf.
   XlibRGB - Rendering RGB buffers to X drawables.
 
-;;; 2021-12-12
+;;; 2924-5-31
