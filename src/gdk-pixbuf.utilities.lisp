@@ -2,11 +2,11 @@
 ;;; gdk-pixbuf.utilities.lisp
 ;;;
 ;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
-;;; Version 2.36 and modified to document the Lisp binding to the GDK-PixBuf
+;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
 ;;; library. See <http://www.gtk.org>. The API documentation of the Lisp
 ;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2013 - 2023 Dieter Kaiser
+;;; Copyright (C) 2013 - 2024 Dieter Kaiser
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a
 ;;; copy of this software and associated documentation files (the "Software"),
@@ -35,27 +35,20 @@
 ;;;
 ;;;     gdk_pixbuf_add_alpha
 ;;;     gdk_pixbuf_copy_area
-;;;     gdk_pixbuf_saturate_and_pixelate
-;;;     gdk_pixbuf_apply_embedded_orientation
+;;;     gdk_pixbuf_saturate_and_pixelate                    not implemented
+;;;     gdk_pixbuf_apply_embedded_orientation               not implemented
 ;;;     gdk_pixbuf_fill
-;;;
-;;; Description
-;;;
-;;; These functions provide miscellaneous utilities for manipulating pixbufs.
-;;; The pixel data in pixbufs may of course be manipulated directly by
-;;; applications, but several common operations can be performed by these
-;;; functions instead.
 ;;; ----------------------------------------------------------------------------
 
 (in-package :gdk-pixbuf)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_add_alpha ()
+;;; gdk_pixbuf_add_alpha
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_add_alpha" pixbuf-add-alpha) (g:object pixbuf)
  #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[substitute]{a boolean whether to set a color to zero opacity, if
     this is @em{false}, then the (@arg{red}, @arg{green}, @arg{blue}) arguments
@@ -63,7 +56,7 @@
   @argument[red]{an unsigned char with the red value to substitute}
   @argument[green]{an unsigned char with the green value to substitute}
   @argument[blue]{an unsigned char with the blue value to substitute}
-  @return{A newly created pixbuf with a reference count of 1.}
+  @return{The newly created pixbuf with a reference count of 1.}
   @begin{short}
     Takes an existing @arg{pixbuf} and adds an alpha channel to it.
   @end{short}
@@ -85,14 +78,14 @@
 (export 'pixbuf-add-alpha)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_copy_area ()
+;;; gdk_pixbuf_copy_area
 ;;; ----------------------------------------------------------------------------
 
 ;; TODO: Change the implementation to return the dest pixbuf!?
 
 (cffi:defcfun ("gdk_pixbuf_copy_area" pixbuf-copy-area) :void
  #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[xsrc]{an integer with the source x coordinate within @arg{src}}
   @argument[ysrc]{an integer with the source y coordinate within @arg{src}}
@@ -124,10 +117,11 @@
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_saturate_and_pixelate ()
 ;;;
-;;; void gdk_pixbuf_saturate_and_pixelate (const GdkPixbuf *src,
-;;;                                        GdkPixbuf *dest,
-;;;                                        gfloat saturation,
-;;;                                        gboolean pixelate);
+;;; void
+;;; gdk_pixbuf_saturate_and_pixelate (const GdkPixbuf *src,
+;;;                                   GdkPixbuf *dest,
+;;;                                   gfloat saturation,
+;;;                                   gboolean pixelate);
 ;;;
 ;;; Modifies saturation and optionally pixelates src, placing the result in
 ;;; dest. src and dest may be the same pixbuf with no ill effects. If saturation
@@ -168,17 +162,15 @@
 ;;; Returns :
 ;;;     A newly-created pixbuf, or a reference to the input pixbuf (with an
 ;;;     increased reference count). [transfer full]
-;;;
-;;; Since 2.12
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_fill ()
+;;; gdk_pixbuf_fill
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_fill" pixbuf-fill) :void
  #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[pixel]{an unsigned integer with the RGBA pixel to clear to,
     @code{#xffffffff} is opaque white, @code{#x00000000} transparent black}

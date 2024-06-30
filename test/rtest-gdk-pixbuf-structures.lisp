@@ -34,8 +34,6 @@
                                      (:RGB 0))
              (gobject:get-g-type-definition "GdkColorspace"))))
 
-;;;     GdkPixbufAlphaMode
-
 ;;;     GdkPixbuf
 
 (test gdk-pixbuf-class
@@ -111,4 +109,4 @@
 ;;;     gdk_pixbuf_copy_options
 ;;;     gdk_pixbuf_read_pixels
 
-;;; 2024-6-16
+;;; 2024-6-29

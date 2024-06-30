@@ -2,11 +2,11 @@
 ;;; gdk-pixbuf.memory.lisp
 ;;;
 ;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
-;;; Version 2.36 and modified to document the Lisp binding to the GDK-PixBuf
+;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
 ;;; library. See <http://www.gtk.org>. The API documentation of the Lisp
 ;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2011 - 2023 Dieter Kaiser
+;;; Copyright (C) 2011 - 2024 Dieter Kaiser
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a
 ;;; copy of this software and associated documentation files (the "Software"),
@@ -37,45 +37,20 @@
 ;;;     gdk_pixbuf_new_from_bytes
 ;;;     gdk_pixbuf_new_from_data
 ;;;     gdk_pixbuf_new_from_xpm_data
-;;;     gdk_pixbuf_new_from_inline
+;;;     gdk_pixbuf_new_from_inline                          Deprecated 2.32
 ;;;     gdk_pixbuf_new_subpixbuf
 ;;;     gdk_pixbuf_copy
-;;;
-;;; Description
-;;;
-;;; The most basic way to create a pixbuf is to wrap an existing pixel buffer
-;;; with a GdkPixbuf structure. You can use the gdk_pixbuf_new_from_data()
-;;; function to do this. You need to specify the destroy notification function
-;;; that will be called when the data buffer needs to be freed; this will happen
-;;; when a GdkPixbuf is finalized by the reference counting functions If you
-;;; have a chunk of static data compiled into your application, you can pass in
-;;; NULL as the destroy notification function so that the data will not be
-;;; freed.
-;;;
-;;; The gdk_pixbuf_new() function can be used as a convenience to create a
-;;; pixbuf with an empty buffer. This is equivalent to allocating a data buffer
-;;; using malloc() and then wrapping it with gdk_pixbuf_new_from_data(). The
-;;; gdk_pixbuf_new() function will compute an optimal rowstride so that
-;;; rendering can be performed with an efficient algorithm.
-;;;
-;;; As a special case, you can use the gdk_pixbuf_new_from_xpm_data() function
-;;; to create a pixbuf from inline XPM image data.
-;;;
-;;; You can also copy an existing pixbuf with the gdk_pixbuf_copy() function.
-;;; This is not the same as just doing a g_object_ref() on the old pixbuf; the
-;;; copy function will actually duplicate the pixel data in memory and create a
-;;; new GdkPixbuf structure for it.
 ;;; ----------------------------------------------------------------------------
 
 (in-package :gdk-pixbuf)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_new ()
+;;; gdk_pixbuf_new
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_new" pixbuf-new) (g:object pixbuf)
  #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[colorspace]{a @symbol{gdk-pixbuf:colorspace} value for the image}
   @argument[has-alpha]{a boolean whether the image should have transparency
     information}
@@ -83,8 +58,8 @@
   @argument[width]{an integer with the width of image in pixels, must be > 0}
   @argument[height]{an integer with the height of image in pixels, must be > 0}
   @begin{return}
-    A newly-created @class{gdk-pixbuf:pixbuf} object with a reference count of
-    1, or @code{nil} if not enough memory could be allocated for the image
+    The newly-created @class{gdk-pixbuf:pixbuf} object with a reference count
+    of 1, or @code{nil} if not enough memory could be allocated for the image
     buffer.
   @end{return}
   @begin{short}
@@ -104,47 +79,42 @@
 (export 'pixbuf-new)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_new_from_bytes ()
-;;;
-;;; GdkPixbuf *
-;;; gdk_pixbuf_new_from_bytes (GBytes *data,
-;;;                            GdkColorspace colorspace,
-;;;                            gboolean has_alpha,
-;;;                            int bits_per_sample,
-;;;                            int width,
-;;;                            int height,
-;;;                            int rowstride);
-;;;
-;;; Creates a new GdkPixbuf out of in-memory readonly image data. Currently only
-;;; RGB images with 8 bits per sample are supported. This is the GBytes variant
-;;; of gdk_pixbuf_new_from_data().
-;;;
-;;; data :
-;;;     Image data in 8-bit/sample packed format inside a GBytes
-;;;
-;;; colorspace :
-;;;     Colorspace for the image data
-;;;
-;;; has_alpha :
-;;;     Whether the data has an opacity channel
-;;;
-;;; bits_per_sample :
-;;;     Number of bits per sample
-;;;
-;;; width :
-;;;     Width of the image in pixels, must be > 0
-;;;
-;;; height :
-;;;     Height of the image in pixels, must be > 0
-;;;
-;;; rowstride :
-;;;     Distance in bytes between row starts
-;;;
-;;; Returns :
-;;;     A newly-created GdkPixbuf structure with a reference count of 1.
-;;;
-;;; Since 2.32
+;;; gdk_pixbuf_new_from_bytes
 ;;; ----------------------------------------------------------------------------
+
+(cffi:defcfun ("gdk_pixbuf_new_from_bytes" pixbuf-new-from-bytes)
+    (g:object pixbuf)
+ "@version{#2024-6-29}
+  @argument[data]{a @class{g:bytes} instance with the image data in 8-bit
+    sample packed format}
+  @argument[colorspace]{a @symbol{gdk-pixbuf:colorspace} value for the image}
+  @argument[has-alpha]{a boolean whether the image should have transparency
+    information}
+  @argument[bits-per-sample]{an integer with number of bits per color sample}
+  @argument[width]{an integer with the width of image in pixels, must be > 0}
+  @argument[height]{an integer with the height of image in pixels, must be > 0}
+  @argument[rowstride]{an integer with the distance in bytes between row starts}
+  @begin{return}
+    The newly created @class{gdk-pixbuf:pixbuf} object with a reference count
+    of 1.
+  @end{return}
+  @begin{short}
+    Creates a new @class{gdk-pixbuf:pixbuf} object out of in-memory readonly
+    image data.
+  @end{short}
+  Currently only RGB images with 8 bits per sample are supported.
+  @see-class{gdk-pixbuf:pixbuf}
+  @see-class{g:bytes}
+  @see-symbol{gdk-pixbuf:colorspace}"
+  (data (g:boxed g:bytes))
+  (colorspace colorspace)
+  (has-alpha :boolean)
+  (bits-per-sample :int)
+  (width :int)
+  (height :int)
+  (rowstride :int))
+
+(export 'pixbuf-new-from-bytes)
 
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_new_from_data ()
@@ -210,7 +180,7 @@
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_new_from_inline ()
+;;; gdk_pixbuf_new_from_inline ()                           Deprecated 2.32
 ;;;
 ;;; GdkPixbuf * gdk_pixbuf_new_from_inline (gint data_length,
 ;;;                                         const guint8 *data,
@@ -269,19 +239,19 @@
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_new_subpixbuf ()
+;;; gdk_pixbuf_new_subpixbuf
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_new_subpixbuf" pixbuf-new-subpixbuf)
     (g:object pixbuf)
  #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[x]{an integer with the x coord in @arg{pixbuf}}
   @argument[y]{an integer with the y coord in @arg{pixbuf}}
   @argument[width]{an integer with the width of region in @arg{pixbuf}}
   @argument[height]{an integer with the height of region in @arg{pixbuf}}
-  @return{A new @class{gdk-pixbuf:pixbuf} object.}
+  @return{The new @class{gdk-pixbuf:pixbuf} object.}
   @begin{short}
     Creates a new pixbuf which represents a sub-region of @arg{pixbuf}.
   @end{short}
@@ -298,15 +268,15 @@
 (export 'pixbuf-new-subpixbuf)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_copy ()
+;;; gdk_pixbuf_copy
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_copy" pixbuf-copy) (g:object pixbuf)
  #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
   @begin{return}
-    A newly created pixbuf with a reference count of 1, or @code{nil} if not
+    The newly created pixbuf with a reference count of 1, or @code{nil} if not
     enough memory could be allocated.
   @end{return}
   @begin{short}

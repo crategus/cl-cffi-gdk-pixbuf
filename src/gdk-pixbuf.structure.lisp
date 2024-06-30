@@ -6,7 +6,7 @@
 ;;; library. See <http://www.gtk.org>. The API documentation of the Lisp
 ;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2011 - 2023 Dieter Kaiser
+;;; Copyright (C) 2011 - 2024 Dieter Kaiser
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a
 ;;; copy of this software and associated documentation files (the "Software"),
@@ -37,7 +37,7 @@
 ;;;     GDK_PIXBUF_ERROR
 ;;;
 ;;;     GdkColorspace
-;;;     GdkPixbufAlphaMode
+;;;     GdkPixbufAlphaMode                                  not implemented
 ;;;     GdkPixbuf
 ;;;
 ;;; Accessors
@@ -57,7 +57,7 @@
 ;;;     gdk_pixbuf_get_option
 ;;;     gdk_pixbuf_set_option
 ;;;     gdk_pixbuf_remove_option
-;;;     gdk_pixbuf_get_options
+;;;     gdk_pixbuf_get_options                              not implemented
 ;;;     gdk_pixbuf_copy_options
 ;;;     gdk_pixbuf_read_pixels
 ;;;
@@ -136,7 +136,7 @@
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
-;;; enum GdkColorspace
+;;; GdkColorspace
 ;;; ----------------------------------------------------------------------------
 
 (gobject:define-g-enum "GdkColorspace" colorspace
@@ -148,25 +148,27 @@
 (setf (liber:alias-for-symbol 'colorspace)
       "GEnum"
       (liber:symbol-documentation 'colorspace)
- "@version{2022-11-28}
+ "@version{2024-6-29}
+  @begin{declaration}
+(gobject:define-g-enum \"GdkColorspace\" colorspace
+  (:export t
+   :type-initializer \"gdk_colorspace_get_type\")
+  :rgb)
+  @end{declaration}
+  @begin{values}
+    @begin[code]{table}
+      @entry[:rgb]{Indicates a red/green/blue additive color space.}
+    @end{table}
+  @end{values}
   @begin{short}
     This enumeration defines the color spaces that are supported by the
     GDK-Pixbuf library.
   @end{short}
   Currently only RGB is supported.
-  @begin{pre}
-(gobject:define-g-enum \"GdkColorspace\" colorspace
-  (:export t
-   :type-initializer \"gdk_colorspace_get_type\")
-  :rgb)
-  @end{pre}
-  @begin[code]{table}
-    @entry[:rgb]{Indicates a red/green/blue additive color space.}
-  @end{table}
   @see-class{gdk-pixbuf:pixbuf}")
 
 ;;; ----------------------------------------------------------------------------
-;;; enum GdkPixbufAlphaMode                                not exported
+;;; GdkPixbufAlphaMode                                      Deprecated 2.42
 ;;; ----------------------------------------------------------------------------
 
 ;; Only needed for deprecated functionality
@@ -176,36 +178,6 @@
    :type-initializer "gdk_pixbuf_alpha_mode_get_type")
   (:bilevel 0)
   (:full 1))
-
-#+liber-documentation
-(setf (liber:alias-for-symbol 'pixbuf-alpha-mode)
-      "GEnum"
-      (liber:symbol-documentation 'pixbuf-alpha-mode)
- "@version{#2021-12-12}
-  @begin{short}
-    These values can be passed to the
-    @code{gdk_pixbuf_render_to_drawable_alpha()} function to control how the
-    alpha channel of an image should be handled.
-  @end{short}
-  This function can create a bilevel clipping mask (black and white) and use it
-  while painting the image. In the future, when the X Window System gets an
-  alpha channel extension, it will be possible to do full alpha compositing onto
-  arbitrary drawables. For now both cases fall back to a bilevel clipping mask.
-  @begin{pre}
-(gobject:define-g-enum \"GdkPixbufAlphaMode\" pixbuf-alpha-mode
-  (:export t
-   :type-initializer \"gdk_pixbuf_alpha_mode_get_type\")
-  (:bilevel 0)
-  (:full 1))
-  @end{pre}
-  @begin[code]{table}
-    @entry[:bilevel]{A bilevel clipping mask (black and white) will be created
-      and used to draw the image. Pixels below 0.5 opacity will be considered
-      fully transparent, and all others will be considered fully opaque.}
-    @entry[:full]{For now falls back to @code{:bilevel}. In the future it will
-      do full alpha compositing.}
-  @end{table}
-  @see-class{gdk-pixbuf:pixbuf}")
 
 ;;; ----------------------------------------------------------------------------
 ;;; GdkPixbuf
@@ -246,9 +218,9 @@
 
 #+liber-documentation
 (setf (documentation 'pixbuf 'type)
- "@version{2022-11-28}
+ "@version{2024-6-29}
   @begin{short}
-    The @sym{gdk-pixbuf:pixbuf} object contains information that describes an
+    The @class{gdk-pixbuf:pixbuf} object contains information that describes an
     image in memory.
   @end{short}
   It contains information about the image's pixel data, its color space, bits
@@ -262,11 +234,11 @@
     @fun{gdk-pixbuf:pixbuf-rowstride} function, indicates the number of bytes
     between rows.
   @end{dictionary}
-  @begin[Examples]{dictionary}
+  @begin{examples}
     The following code illustrates a simple @code{put-pixel} function for RGB
     pixbufs with 8 bits per channel with an alpha channel. It is not included
-    in the @sym{gdk-pixbuf:pixbuf} library for performance reasons. Rather than
-    making several function calls for each pixel, your own code can take
+    in the @class{gdk-pixbuf:pixbuf} library for performance reasons. Rather
+    than making several function calls for each pixel, your own code can take
     shortcuts.
     @begin{pre}
 (defun put-pixel (pixbuf x y red green blue alpha)
@@ -274,18 +246,18 @@
         (rowstride (gdk-pixbuf:pixbuf-rowstride pixbuf))
         (pixels (gdk-pixbuf:pixbuf-pixels pixbuf)))
     ;; Add offset to the pointer pixels into the pixbuf
-    (incf-pointer pixels (+ (* y rowstride) (* x n-channels)))
+    (cffi:incf-pointer pixels (+ (* y rowstride) (* x n-channels)))
     ;; Set the color of the point and the alpha value
-    (setf (mem-aref pixels :uchar 0) red)
-    (setf (mem-aref pixels :uchar 1) green)
-    (setf (mem-aref pixels :uchar 2) blue)
-    (setf (mem-aref pixels :uchar 3) alpha)))
+    (setf (cffi:mem-aref pixels :uchar 0) red)
+    (setf (cffi:mem-aref pixels :uchar 1) green)
+    (setf (cffi:mem-aref pixels :uchar 2) blue)
+    (setf (cffi:mem-aref pixels :uchar 3) alpha)))
     @end{pre}
     This function will not work for pixbufs with images that are other than
     8 bits per sample or channel, but it will work for most of the pixbufs that
     GTK uses.
-  @end{dictionary}
-  @begin[Note]{dictionary}
+  @end{examples}
+  @begin{notes}
     If you are doing @code{memcpy()} of raw pixbuf data, note that the last row
     in the pixbuf may not be as wide as the full rowstride, but rather just as
     wide as the pixel data needs to be. That is, it is unsafe to do
@@ -293,7 +265,7 @@
     the @fun{gdk-pixbuf:pixbuf-copy} function instead, or compute the width in
     bytes of the last row as @code{width * ((n_channels * bits_per_sample + 7) /
     8)}.
-  @end{dictionary}
+  @end{notes}
   @see-slot{gdk-pixbuf:pixbuf-bits-per-sample}
   @see-slot{gdk-pixbuf:pixbuf-colorspace}
   @see-slot{gdk-pixbuf:pixbuf-has-alpha}
@@ -308,7 +280,7 @@
 ;;; Property and Accessor Details
 ;;; ----------------------------------------------------------------------------
 
-;;; --- pixbuf-bits-per-sample -------------------------------------------------
+;;; --- gdk-pixbuf:pixbuf-bits-per-sample --------------------------------------
 
 #+liber-documentation
 (setf (documentation (liber:slot-documentation "bits-per-sample" 'pixbuf) t)
@@ -323,7 +295,7 @@
 (setf (liber:alias-for-function 'pixbuf-bits-per-sample)
       "Accessor"
       (documentation 'pixbuf-bits-per-sample 'function)
- "@version{2022-11-28}
+ "@version{2024-6-29}
   @syntax[]{(gdk-pixbuf:pixbuf-bits-per-sample object) => bits-per-sample}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[bits-per-sample]{an integer with the number of bits per sample}
@@ -335,7 +307,7 @@
   per sample are supported.
   @see-class{gdk-pixbuf:pixbuf}")
 
-;;; --- pixbuf-colorspace ------------------------------------------------------
+;;; --- gdk-pixbuf:pixbuf-colorspace -------------------------------------------
 
 #+liber-documentation
 (setf (documentation (liber:slot-documentation "colorspace" 'pixbuf) t)
@@ -348,7 +320,7 @@
 (setf (liber:alias-for-function 'pixbuf-colorspace)
       "Accessor"
       (documentation 'pixbuf-colorspace 'function)
- "@version{2022-11-28}
+ "@version{2024-6-29}
   @syntax[]{(gdk-pixbuf:pixbuf-colorspace object) => colorspace}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[colorspace]{a @symbol{gdk-pixbuf:colorspace} value}
@@ -360,7 +332,7 @@
   @see-class{gdk-pixbuf:pixbuf}
   @see-symbol{gdk-pixbuf:colorspace}")
 
-;;; --- pixbuf-has-alpha -------------------------------------------------------
+;;; --- gdk-pixbuf:pixbuf-has-alpha --------------------------------------------
 
 #+liber-documentation
 (setf (documentation (liber:slot-documentation "has-alpha" 'pixbuf) t)
@@ -373,7 +345,7 @@
 (setf (liber:alias-for-function 'pixbuf-has-alpha)
       "Accessor"
       (documentation 'pixbuf-has-alpha 'function)
- "@version{2022-11-28}
+ "@version{2024-6-29}
   @syntax[]{(gdk-pixbuf:pixbuf-has-alpha object) => has-alpha}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[has-alpha]{a boolean whether the pixbuf has an alpha channel}
@@ -384,7 +356,7 @@
   Queries whether a pixbuf has an alpha channel (opacity information).
   @see-class{gdk-pixbuf:pixbuf}")
 
-;;; --- pixbuf-height ----------------------------------------------------------
+;;; --- gdk-pixbuf:pixbuf-height -----------------------------------------------
 
 #+liber-documentation
 (setf (documentation (liber:slot-documentation "height" 'pixbuf) t)
@@ -398,7 +370,7 @@
 (setf (liber:alias-for-function 'pixbuf-height)
       "Accessor"
       (documentation 'pixbuf-height 'function)
- "@version{2022-11-28}
+ "@version{2024-6-29}
   @syntax[]{(gdk-pixbuf:pixbuf-height object) => height}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[height]{an integer with the number of rows of the pixbuf}
@@ -409,7 +381,7 @@
   Queries the height of a pixbuf.
   @see-class{gdk-pixbuf:pixbuf}")
 
-;;; --- pixbuf-n-channels ------------------------------------------------------
+;;; --- gdk-pixbuf:pixbuf-n-channels -------------------------------------------
 
 #+liber-documentation
 (setf (documentation (liber:slot-documentation "n-channels" 'pixbuf) t)
@@ -424,7 +396,7 @@
 (setf (liber:alias-for-function 'pixbuf-n-channels)
       "Accessor"
       (documentation 'pixbuf-n-channels 'function)
- "@version{2022-11-28}
+ "@version{2024-6-29}
   @syntax[]{(gdk-pixbuf:pixbuf-n-channels object) => n-channels}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[n-channels]{an integer with the number of channels}
@@ -435,7 +407,7 @@
   Queries the number of channels of a pixbuf.
   @see-class{gdk-pixbuf:pixbuf}")
 
-;;; --- pixbuf-pixel-bytes -----------------------------------------------------
+;;; --- gdk-pixbuf:pixbuf-pixel-bytes ------------------------------------------
 
 #+liber-documentation
 (setf (documentation (liber:slot-documentation "pixel-bytes" 'pixbuf) t)
@@ -447,7 +419,7 @@
 (setf (liber:alias-for-function 'pixbuf-pixel-bytes)
       "Accessor"
       (documentation 'pixbuf-pixel-bytes 'function)
- "@version{2022-11-28}
+ "@version{2024-6-29}
   @syntax[]{(gdk-pixbuf:pixbuf-pixel-bytes object) => pixel-bytes}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[pixel-bytes]{a @class{g:bytes} instance with the pixel data}
@@ -458,19 +430,19 @@
   Querries the readonly pixel data.
   @see-class{gdk-pixbuf:pixbuf}")
 
-;;; --- pixbuf-pixels ----------------------------------------------------------
+;;; --- gdk-pixbuf:pixbuf-pixels -----------------------------------------------
 
 #+liber-documentation
 (setf (documentation (liber:slot-documentation "pixels" 'pixbuf) t)
  "The @code{pixels} property of type @code{:pointer}
   (Read / Write / Construct Only) @br{}
-  A pointer to the pixel data of the pixbuf.")
+  The pointer to the pixel data of the pixbuf.")
 
 #+liber-documentation
 (setf (liber:alias-for-function 'pixbuf-pixels)
       "Accessor"
       (documentation 'pixbuf-pixels 'function)
- "@version{2022-11-28}
+ "@version{2024-6-29}
   @syntax[]{(gdk-pixbuf:pixbuf-pixels object) => pixels}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[pixels]{a pointer to the pixel data of @arg{pixbuf}}
@@ -485,7 +457,7 @@
   data.
   @see-class{gdk-pixbuf:pixbuf}")
 
-;;; --- pixbuf-rowstride -------------------------------------------------------
+;;; --- gdk-pixbuf:pixbuf-rowstride --------------------------------------------
 
 #+liber-documentation
 (setf (documentation (liber:slot-documentation "rowstride" 'pixbuf) t)
@@ -500,7 +472,7 @@
 (setf (liber:alias-for-function 'pixbuf-rowstride)
       "Accessor"
       (documentation 'pixbuf-rowstride 'function)
- "@version{2022-11-28}
+ "@version{2024-6-29}
   @syntax[]{(gdk-pixbuf:pixbuf-rowstride object) => rowstride}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[rowstride]{an integer with the distance between row starts}
@@ -512,7 +484,7 @@
   the start of a row and the start of the next row.
   @see-class{gdk-pixbuf:pixbuf}")
 
-;;; --- pixbuf-width -----------------------------------------------------------
+;;; --- gdk-pixbuf:pixbuf-width ------------------------------------------------
 
 #+liber-documentation
 (setf (documentation (liber:slot-documentation "width" 'pixbuf) t)
@@ -526,7 +498,7 @@
 (setf (liber:alias-for-function 'pixbuf-width)
       "Accessor"
       (documentation 'pixbuf-width 'function)
- "@version{2022-11-28}
+ "@version{2024-6-29}
   @syntax[]{(gdk-pixbuf:pixbuf-width object) => width}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[width]{an integer with the width of the pixbuf}
@@ -538,16 +510,16 @@
   @see-class{gdk-pixbuf:pixbuf}")
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_get_pixels_with_length () -> pixbuf-pixels-with-length
+;;; gdk_pixbuf_get_pixels_with_length
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_get_pixels_with_length" pixbuf-pixels-with-length)
     (:pointer :uchar)
  #+liber-documentation
- "@version{#2022-11-28}
+ "@version{#2024-6-29}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[length]{an unsigned integer with the length of the binary data}
-  @return{A pointer to the pixbuf's pixel data.}
+  @return{The pointer to the pixel data of the pixbuf.}
   @begin{short}
     Queries a pointer to the pixel data of a pixbuf.
   @end{short}
@@ -563,14 +535,14 @@
 (export 'pixbuf-pixels-with-length)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_get_byte_length () -> pixbuf-byte-length
+;;; gdk_pixbuf_get_byte_length
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_get_byte_length" pixbuf-byte-length) :size
  #+liber-documentation
- "@version{#2022-11-28}
+ "@version{#2024-6-29}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
-  @return{An integer with the length of the pixel data.}
+  @return{The integer with the length of the pixel data.}
   @short{Returns the length of the pixel data, in bytes.}
   @see-class{gdk-pixbuf:pixbuf}"
   (pixbuf (g:object pixbuf)))
@@ -578,8 +550,8 @@
 (export 'pixbuf-byte-length)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_get_option ()
-;;; gdk_pixbuf_set_option () -> pixbuf-option
+;;; gdk_pixbuf_get_option
+;;; gdk_pixbuf_set_option
 ;;; ----------------------------------------------------------------------------
 
 (defun (setf pixbuf-option) (value pixbuf key)
@@ -592,20 +564,20 @@
 
 (cffi:defcfun ("gdk_pixbuf_get_option" pixbuf-option) :string
  #+liber-documentation
- "@version{#2022-11-28}
-  @syntax[]{(gdk-pixbuf:pixbuf-option pixbuf key) => value}
-  @syntax[]{(setf (gdk-pixbuf:pixbuf-option pixbuf key) value)}
+ "@version{#2024-6-29}
+  @syntax{(gdk-pixbuf:pixbuf-option pixbuf key) => value}
+  @syntax{(setf (gdk-pixbuf:pixbuf-option pixbuf key) value)}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[key]{a string with a key}
   @argument[value]{a string with a value}
   @begin{short}
-    Accessor of an option that may have been attached to the pixbuf.
+    The @fun{gdk-pixbuf:pixbuf-option} function looks up @arg{key} in the list
+    of options that may have been attached to the pixbuf when it was loaded, or
+    that may have been attached.
   @end{short}
-  The @sym{gdk-pixbuf:pixbuf-option} function looks up @arg{key} in the list of
-  options that may have been attached to the pixbuf when it was loaded, or that
-  may have been attached. The @sym{(setf gdk-pixbuf:pixbuff-option)} function
-  attaches a key/value pair as an option to a pixbuf. If @arg{key} already
-  exists in the list of options attached to pixbuf, the new value is ignored.
+  The @setf{gdk-pixbuf:pixbuf-option} function attaches a key/value pair as
+  an option to a pixbuf. If @arg{key} already exists in the list of options
+  attached to pixbuf, the new value is ignored.
 
   For instance, the ANI loader provides \"Title\" and \"Artist\" options. The
   ICO, XBM, and XPM loaders provide \"x_hot\" and \"y_hot\" hot-spot options
@@ -623,12 +595,12 @@
 (export 'pixbuf-option)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_remove_option ()
+;;; gdk_pixbuf_remove_option
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_remove_option" pixbuf-remove-option) :boolean
  #+liber-documentation
- "@version{#2022-11-28}
+ "@version{#2024-6-29}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} oject}
   @argument[key]{a string representing the key to remove}
   @return{@em{True} if an option was removed, @em{false} if not.}
@@ -636,7 +608,7 @@
     Remove the key/value pair option attached to a pixbuf.
   @end{short}
   @see-class{gdk-pixbuf:pixbuf}
-  @see-function{gdk-pixbuf-option}"
+  @see-function{gdk-pixbuf:pixbuf-option}"
   (pixbuf (g:object pixbuf))
   (key :string))
 
@@ -664,12 +636,12 @@
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_copy_options ()
+;;; gdk_pixbuf_copy_options
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_copy_options" pixbuf-copy-options) :boolean
  #+liber-documentation
- "@version{#2022-11-28}
+ "@version{#2024-6-29}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} to copy options from}
   @argument[dest]{a @class{gdk-pixbuf:pixbuf} to copy options to}
   @return{@em{True} on sucess.}
@@ -687,14 +659,14 @@
 (export 'pixbuf-copy-options)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_read_pixels ()
+;;; gdk_pixbuf_read_pixels
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_read_pixels" pixbuf-read-pixels) (:pointer :uint8)
  #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
-  @return{A pointer to the pixel data.}
+  @return{The pointer to the pixel data.}
   @begin{short}
     Returns a read-only pointer to the raw pixel data.
   @end{short}

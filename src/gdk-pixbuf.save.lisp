@@ -2,11 +2,11 @@
 ;;; gdk-pixbuf.save.lisp
 ;;;
 ;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
-;;; Version 2.36 and modified to document the Lisp binding to the GDK-PixBuf
+;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
 ;;; library. See <http://www.gtk.org>. The API documentation of the Lisp
 ;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2011 - 2021 Dieter Kaiser
+;;; Copyright (C) 2011 - 2024 Dieter Kaiser
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a
 ;;; copy of this software and associated documentation files (the "Software"),
@@ -45,55 +45,18 @@
 ;;;     gdk_pixbuf_save_to_stream_async
 ;;;     gdk_pixbuf_save_to_streamv_async
 ;;;     gdk_pixbuf_save_to_stream_finish
-;;;
-;;; Description
-;;;
-;;; These functions allow to save a GdkPixbuf in a number of file formats. The
-;;; formatted data can be written to a file or to a memory buffer. gdk-pixbuf
-;;; can also call a user-defined callback on the data, which allows to e.g.
-;;; write the image to a socket or store it in a database.
 ;;; ----------------------------------------------------------------------------
 
 (in-package :gdk-pixbuf)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_savev ()
-;;;
-;;; gboolean gdk_pixbuf_savev (GdkPixbuf *pixbuf,
-;;;                            const char *filename,
-;;;                            const char *type,
-;;;                            char **option_keys,
-;;;                            char **option_values,
-;;;                            GError **error);
-;;;
-;;; Saves pixbuf to a file in type, which is currently "jpeg", "png", "tiff",
-;;; "ico" or "bmp". If error is set, FALSE will be returned.
-;;; See gdk_pixbuf_save() for more details.
-;;;
-;;; pixbuf :
-;;;     a GdkPixbuf.
-;;;
-;;; filename :
-;;;     name of file to save.
-;;;
-;;; type :
-;;;     name of file format.
-;;;
-;;; option_keys :
-;;;     name of options to set, NULL-terminated.
-;;;
-;;; option_values :
-;;;     values for named options.
-;;;
-;;; error :
-;;;     return location for error, or NULL.
-;;;
-;;; Returns :
-;;;     whether an error was set
+;;; gdk_pixbuf_save
+;;; gdk_pixbuf_savev                                        not exported
 ;;; ----------------------------------------------------------------------------
 
-;; This function is not exported and is defined for internal use.
-;; See the implementation of gdk-pixbuf-save
+;; TODO: Replace the examples with Lisp code
+
+;; This implementation does not support the arguments error and Varargs.
 
 (cffi:defcfun ("gdk_pixbuf_savev" %pixbuf-savev) :boolean
   (pixbuf (g:object pixbuf))
@@ -103,25 +66,19 @@
   (option-values (:pointer (:pointer :char)))
   (error :pointer))
 
-;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_save ()
-;;; ----------------------------------------------------------------------------
-
-;; This implementation does not support the arguments error and Varargs.
-
 (defun pixbuf-save (pixbuf filename type)
  #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[filename]{a string with the name of file to save}
   @argument[type]{a string with the name of file format}
-  @return{A boolean whether an error was set.}
+  @return{The boolean whether an error was set.}
   @begin{short}
-    Saves pixbuf to a file in format @arg{type}. By default, \"jpeg\", \"png\",
-    \"ico\" and \"bmp\" are possible file formats to save in, but more formats
-    may be installed.
+    Saves pixbuf to a file in format @arg{type}.
   @end{short}
-  The list of all writable formats can be determined in the following way:
+  By default, \"jpeg\", \"png\", \"ico\" and \"bmp\" are possible file formats
+  to save in, but more formats may be installed. The list of all writable
+  formats can be determined in the following way:
   @begin{pre}
 void add_if_writable (GdkPixbufFormat *data, GSList **list)
 {
@@ -134,8 +91,8 @@ GSList *writable_formats = NULL;
 g_slist_foreach (formats, add_if_writable, &writable_formats);
 g_slist_free (formats);
   @end{pre}
-  If error is set, @code{nil} will be returned. Possible errors include those in
-  the @code{GDK_PIXBUF_ERROR} domain and those in the @code{G_FILE_ERROR}
+  If error is set, @code{nil} will be returned. Possible errors include those
+  in the @code{GDK_PIXBUF_ERROR} domain and those in the @code{G_FILE_ERROR}
   domain.
 
   The variable argument list should be NULL-terminated; if not empty, it
@@ -169,8 +126,8 @@ gdk_pixbuf_save (pixbuf, handle, \"png\", &error,
                  \"icc-profile\", contents_encode,
                  NULL);
   @end{pre}
-  TIFF images recognize: (1) a \"bits-per-sample\" option (integer) which can be
-  either 1 for saving bi-level CCITTFAX4 images, or 8 for saving 8-bits per
+  TIFF images recognize: (1) a \"bits-per-sample\" option (integer) which can
+  be either 1 for saving bi-level CCITTFAX4 images, or 8 for saving 8-bits per
   sample; (2) a \"compression\" option (integer) which can be 1 for no
   compression, 2 for Huffman, 5 for LZW, 7 for JPEG and 8 for DEFLATE (see the
   libtiff documentation and tiff.h for all supported codec values); (3) an
@@ -179,15 +136,16 @@ gdk_pixbuf_save (pixbuf, handle, \"png\", &error,
 
   ICO images can be saved in depth 16, 24, or 32, by using the \"depth\"
   parameter. When the ICO saver is given \"x_hot\" and \"y_hot\" parameters, it
-  produces a CUR instead of an ICO."
+  produces a CUR instead of an ICO.
+  @see-class{gdk-pixbuf:pixbuf}"
   (%pixbuf-savev pixbuf
-                     (etypecase filename
-                       (string filename)
-                       (pathname (namestring filename)))
-                    type
-                    (cffi:null-pointer)
-                    (cffi:null-pointer)
-                    (cffi:null-pointer)))
+                 (etypecase filename
+                   (string filename)
+                   (pathname (namestring filename)))
+                 type
+                 (cffi:null-pointer)
+                 (cffi:null-pointer)
+                 (cffi:null-pointer)))
 
 (export 'pixbuf-save)
 
@@ -219,8 +177,6 @@ gdk_pixbuf_save (pixbuf, handle, \"png\", &error,
 ;;;
 ;;; Returns :
 ;;;     TRUE if successful, FALSE (with error set) if failed.
-;;;
-;;; Since 2.4
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -262,8 +218,6 @@ gdk_pixbuf_save (pixbuf, handle, \"png\", &error,
 ;;;
 ;;; Returns :
 ;;;     whether an error was set
-;;;
-;;; Since 2.4
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -305,8 +259,6 @@ gdk_pixbuf_save (pixbuf, handle, \"png\", &error,
 ;;;
 ;;; Returns :
 ;;;     whether an error was set
-;;;
-;;; Since 2.4
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -348,8 +300,6 @@ gdk_pixbuf_save (pixbuf, handle, \"png\", &error,
 ;;;
 ;;; Returns :
 ;;;     whether an error was set
-;;;
-;;; Since 2.4
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -390,8 +340,6 @@ gdk_pixbuf_save (pixbuf, handle, \"png\", &error,
 ;;;
 ;;; Returns :
 ;;;     whether an error was set
-;;;
-;;; Since 2.4
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -435,8 +383,6 @@ gdk_pixbuf_save (pixbuf, handle, \"png\", &error,
 ;;;
 ;;; Returns :
 ;;;     TRUE if the pixbuf was saved successfully, FALSE if an error was set.
-;;;
-;;; Since 2.14
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -479,8 +425,6 @@ gdk_pixbuf_save (pixbuf, handle, \"png\", &error,
 ;;;
 ;;; Returns :
 ;;;     TRUE if the pixbuf was saved successfully, FALSE if an error was set.
-;;;
-;;; Since 2.36
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -524,8 +468,6 @@ gdk_pixbuf_save (pixbuf, handle, \"png\", &error,
 ;;;
 ;;; ... :
 ;;;     list of key-value save options
-;;;
-;;; Since 2.24
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -573,8 +515,6 @@ gdk_pixbuf_save (pixbuf, handle, \"png\", &error,
 ;;;
 ;;; user_data :
 ;;;     the data to pass to the callback function
-;;;
-;;; Since 2.36
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -595,8 +535,6 @@ gdk_pixbuf_save (pixbuf, handle, \"png\", &error,
 ;;;
 ;;; Returns :
 ;;;     TRUE if the pixbuf was saved successfully, FALSE if an error was set.
-;;;
-;;; Since 2.24
 ;; -----------------------------------------------------------------------------
 
 ;;; --- End of file gdk-pixbuf.save.lisp ---------------------------------------

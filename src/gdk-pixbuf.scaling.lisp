@@ -2,11 +2,11 @@
 ;;; gdk-pixbuf.scaling.lisp
 ;;;
 ;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
-;;; Version 2.36 and modified to document the Lisp binding to the GDK-PixBuf
+;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
 ;;; library. See <http://www.gtk.org>. The API documentation of the Lisp binding
 ;;; is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2011 - 2023 Dieter Kaiser
+;;; Copyright (C) 2011 - 2024 Dieter Kaiser
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a
 ;;; copy of this software and associated documentation files (the "Software"),
@@ -50,11 +50,10 @@
 (in-package :gdk-pixbuf)
 
 ;;; ----------------------------------------------------------------------------
-;;; enum GdkInterpType -> pixbuf-interp-type
+;;; GdkInterpType
 ;;; ----------------------------------------------------------------------------
 
-;; We change the name of the enumeration to pixbuf-interp-type. This is more
-;; consistent.
+;; We change the name of the enumeration to pixbuf-interp-type.
 
 (gobject:define-g-enum "GdkInterpType" pixbuf-interp-type
   (:export t
@@ -68,7 +67,40 @@
 (setf (liber:alias-for-symbol 'pixbuf-interp-type)
       "GEnum"
       (liber:symbol-documentation 'pixbuf-interp-type)
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
+  @begin{declaration}
+(gobject:define-g-enum \"GdkInterpType\" pixbuf-interp-type
+  (:export t
+   :type-initializer \"gdk_interp_type_get_type\")
+  (:nearest 0)
+  (:tiles 0)
+  (:bilinear 0)
+  (:hyper 0))
+  @end{declaration}
+  @begin{values}
+    @begin[code]{table}
+      @entry[:nearest]{Nearest neighbor sampling: This is the fastest and lowest
+        quality mode. Quality is normally unacceptable when scaling down, but
+        may be fine when scaling up.}
+      @entry[:tiles]{This is an accurate simulation of the PostScript image
+        operator without any interpolation enabled. Each pixel is rendered as a
+        tiny parallelogram of solid color, the edges of which are implemented
+        with antialiasing. It resembles nearest neighbor for enlargement, and
+        bilinear for reduction.}
+      @entry[:bilinear]{Bilinear interpolation: Best quality/speed balance. Use
+        this mode by default. For enlargement, it is equivalent to
+        point-sampling the ideal bilinear-interpolated image. For reduction, it
+        is equivalent to laying down small tiles and integrating over the
+        coverage area.}
+      @entry[:hyper]{This is the slowest and highest quality reconstruction
+        function. It is derived from the hyperbolic filters in Wolberg's
+        \"Digital Image Warping\", and is formally defined as the
+        hyperbolic-filter sampling the ideal hyperbolic-filter interpolated
+        image. The filter is designed to be idempotent for 1:1 pixel mapping.
+        @em{Deprecated:} This interpolation filter is deprecated since 2.38,
+        as in reality it has a lower quality than the @code{:bilinear} filter.}
+    @end{table}
+  @end{values}
   @begin{short}
     This enumeration describes the different interpolation modes that can be
     used with the scaling functions.
@@ -80,40 +112,10 @@
     Cubic filtering is missing from the list. Hyperbolic interpolation is just
     as fast and results in higher quality.
   @end{dictionary}
-  @begin{pre}
-(gobject:define-g-enum \"GdkInterpType\" pixbuf-interp-type
-  (:export t
-   :type-initializer \"gdk_interp_type_get_type\")
-  (:nearest 0)
-  (:tiles 0)
-  (:bilinear 0)
-  (:hyper 0))
-  @end{pre}
-  @begin[code]{table}
-    @entry[:nearest]{Nearest neighbor sampling: This is the fastest and lowest
-      quality mode. Quality is normally unacceptable when scaling down, but may
-      be fine when scaling up.}
-    @entry[:tiles]{This is an accurate simulation of the PostScript image
-      operator without any interpolation enabled. Each pixel is rendered as a
-      tiny parallelogram of solid color, the edges of which are implemented with
-      antialiasing. It resembles nearest neighbor for enlargement, and bilinear
-      for reduction.}
-    @entry[:bilinear]{Bilinear interpolation: Best quality/speed balance. Use
-      this mode by default. For enlargement, it is equivalent to point-sampling
-      the ideal bilinear-interpolated image. For reduction, it is equivalent to
-      laying down small tiles and integrating over the coverage area.}
-    @entry[:hyper]{This is the slowest and highest quality reconstruction
-      function. It is derived from the hyperbolic filters in Wolberg's \"Digital
-      Image Warping\", and is formally defined as the hyperbolic-filter sampling
-      the ideal hyperbolic-filter interpolated image. The filter is designed to
-      be idempotent for 1:1 pixel mapping.
-      @em{Deprecated:} This interpolation filter is deprecated since 2.38, as in
-      reality it has a lower quality than the @code{:bilinear} filter.}
-  @end{table}
   @see-class{gdk-pixbuf:pixbuf}")
 
 ;;; ----------------------------------------------------------------------------
-;;; enum GdkPixbufRotation
+;;; GdkPixbufRotation
 ;;; ----------------------------------------------------------------------------
 
 (gobject:define-g-enum "GdkPixbufRotation" pixbuf-rotation
@@ -128,13 +130,8 @@
 (setf (liber:alias-for-symbol 'pixbuf-rotation)
       "GEnum"
       (liber:symbol-documentation 'pixbuf-rotation)
- "@version{#2021-12-12}
-  @begin{short}
-    The possible rotations which can be passed to the
-    @fun{gdk-pixbuf:pixbuf-rotate-simple} function.
-  @end{short}
-  To make them easier to use, their numerical values are the actual degrees.
-  @begin{pre}
+ "@version{#2024-6-29}
+  @begin{declaration}
 (gobject:define-g-enum \"GdkPixbufRotation\" pixbuf-rotation
   (:export t
    :type-initializer \"gdk_pixbuf_rotation_get_type\")
@@ -142,23 +139,30 @@
   (:counterclockwise 90)
   (:upsidedown 180)
   (:clockwise 270))
-  @end{pre}
-  @begin[code]{table}
-    @entry[:none]{No rotation.}
-    @entry[:counterclockwise]{Rotate by 90 degrees.}
-    @entry[:upsidedown]{Rotate by 180 degrees.}
-    @entry[:clockwise]{Rotate by 270 degrees.}
-  @end{table}
+  @end{declaration}
+  @begin{values}
+    @begin[code]{table}
+      @entry[:none]{No rotation.}
+      @entry[:counterclockwise]{Rotate by 90 degrees.}
+      @entry[:upsidedown]{Rotate by 180 degrees.}
+      @entry[:clockwise]{Rotate by 270 degrees.}
+    @end{table}
+  @end{values}
+  @begin{short}
+    The possible rotations which can be passed to the
+    @fun{gdk-pixbuf:pixbuf-rotate-simple} function.
+  @end{short}
+  To make them easier to use, their numerical values are the actual degrees.
   @see-class{gdk-pixbuf:pixbuf}
   @see-function{gdk-pixbuf:pixbuf-rotate-simple}")
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_scale_simple ()
+;;; gdk_pixbuf_scale_simple
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_scale_simple" pixbuf-scale-simple) (g:object pixbuf)
  #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[width]{an integer with the width of destination image}
   @argument[height]{an integer with the height of destination image}
@@ -195,7 +199,7 @@
 (export 'pixbuf-scale-simple)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_scale ()
+;;; gdk_pixbuf_scale
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_scale" %pixbuf-scale) :void
@@ -212,12 +216,12 @@
   (interp pixbuf-interp-type))
 
 (defun pixbuf-scale (src dest
-                         x y width height
-                         xoffset yoffset
-                         xscale yscale
-                         interp)
+                     x y width height
+                     xoffset yoffset
+                     xscale yscale
+                     interp)
  #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[dest]{a @class{gdk-pixbuf:pixbuf} object into which to render the
     results}
@@ -225,12 +229,14 @@
   @argument[y]{an integer with the top coordinate for region to render}
   @argument[width]{an integer with the width of the region to render}
   @argument[height]{an integer with the height of the region to render}
-  @argument[xoffset]{a double float with the offset in the x direction,
-    currently rounded to an integer}
-  @argument[yoffset]{a double float with the offset in the y direction,
-    currently rounded to an integer}
-  @argument[xscale]{a double float with the scale factor in the x direction}
-  @argument[yscale]{a double float with the scale factor in the y direction}
+  @argument[xoffset]{a number coerced to a double float with the offset in the
+    x direction, currently rounded to an integer}
+  @argument[yoffset]{a number coerce to a double float with the offset in the
+    y direction, currently rounded to an integer}
+  @argument[xscale]{a number coerced to a double float with the scale factor in
+    the x direction}
+  @argument[yscale]{a number coerced to a double float with the scale factor
+    in the y direction}
   @argument[interp]{a @symbol{gdk-pixbuf:pixbuf-interp-type} interpolation type
     for the transformation}
   @begin{short}
@@ -251,23 +257,24 @@
   @see-class{gdk-pixbuf:pixbuf}
   @see-symbol{gdk-pixbuf:pixbuf-interp-type}
   @see-function{gdk-pixbuf:pixbuf-scale-simple}"
-  (%pixbuf-scale src dest x y width height
-                     (coerce xoffset 'double-float)
-                     (coerce yoffset 'double-float)
-                     (coerce xscale 'double-float)
-                     (coerce yscale 'double-float)
-                     interp))
+  (%pixbuf-scale src dest
+                 x y width height
+                 (coerce xoffset 'double-float)
+                 (coerce yoffset 'double-float)
+                 (coerce xscale 'double-float)
+                 (coerce yscale 'double-float)
+                 interp))
 
 (export 'pixbuf-scale)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_composite_color_simple ()
+;;; gdk_pixbuf_composite_color_simple
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_composite_color_simple"
                pixbuf-composite-color-simple) (g:object pixbuf)
  #+liber-documentation
- "@version{#2023-3-10}
+ "@version{#2024-6-29}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[width]{an integer with the width of destination image}
   @argument[height]{an integer with the height of destination image}
@@ -302,7 +309,7 @@
 (export 'pixbuf-composite-color-simple)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_composite ()
+;;; gdk_pixbuf_composite
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_composite" %pixbuf-composite) :void
@@ -319,12 +326,14 @@
   (interp pixbuf-interp-type)
   (alpha :int))
 
-(defun pixbuf-composite (src dest x y width height xoffset yoffset
-                                                   xscale yscale
-                                                   interp
-                                                   alpha)
+(defun pixbuf-composite (src dest
+                         x y width height
+                         xoffset yoffset
+                         xscale yscale
+                         interp
+                         alpha)
 #+liber-documentation
- "@version{#2023-3-10}
+ "@version{#2024-6-29}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[dest]{a @class{gdk-pixbuf:pixbuf} object into which to render the
     results}
@@ -332,12 +341,14 @@
   @argument[y]{an integer with the top coordinate for region to render}
   @argument[width]{an integer with the width of the region to render}
   @argument[height]{an integer with the height of the region to render}
-  @argument[xoffset]{a double float with the offset in the x direction,
-    currently rounded to an integer}
-  @argument[yoffset]{a double float with the offset in the y direction,
-    currently rounded to an integer}
-  @argument[xscale]{a double float with the scale factor in the x direction}
-  @argument[yscale]{a double float with the scale factor in the y direction}
+  @argument[xoffset]{a number coerced to a double float with the offset in
+    the x direction, currently rounded to an integer}
+  @argument[yoffset]{a number coerced to a double float with the offset in
+    the y direction, currently rounded to an integer}
+  @argument[xscale]{a number coerced to a double float with the scale factor in
+    the x direction}
+  @argument[yscale]{a number coerced to a double float with the scale factor in
+    the y direction}
   @argument[interp]{a @symbol{gdk-pixbuf:pixbuf-interp-type} interpolation type
     for the transformation}
   @argument[alpha]{an integer with the overall alpha for source image (0..255)}
@@ -359,18 +370,19 @@
   @see-symbol{gdk-pixbuf:pixbuf-interp-type}
   @see-function{gdk-pixbuf:pixbuf-composite-color}
   @see-function{gdk-pixbuf:pixbuf-composite-color-simple}"
-  (%pixbuf-composite src dest x y width height
-                         (coerce xoffset 'double-float)
-                         (coerce yoffset 'double-float)
-                         (coerce xscale 'double-float)
-                         (coerce yscale 'double-float)
-                         interp
-                         alpha))
+  (%pixbuf-composite src dest
+                     x y width height
+                     (coerce xoffset 'double-float)
+                     (coerce yoffset 'double-float)
+                     (coerce xscale 'double-float)
+                     (coerce yscale 'double-float)
+                     interp
+                     alpha))
 
 (export 'pixbuf-composite)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_composite_color ()
+;;; gdk_pixbuf_composite_color
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_composite_color" %pixbuf-composite-color)
@@ -393,16 +405,17 @@
   (color1 :uint32)
   (color2 :uint32))
 
-(defun pixbuf-composite-color (src dest x y width height
-                                   xoffset yoffset
-                                   xscale yscale
-                                   interp
-                                   alpha
-                                   xcheck ycheck
-                                   size
-                                   color1 color2)
+(defun pixbuf-composite-color (src dest
+                               x y width height
+                               xoffset yoffset
+                               xscale yscale
+                               interp
+                               alpha
+                               xcheck ycheck
+                               size
+                               color1 color2)
  #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[dest]{a @class{gdk-pixbuf:pixbuf} object into which to render the
     results}
@@ -410,12 +423,14 @@
   @argument[y]{an integer with the top coordinate for region to render}
   @argument[width]{an integer with the width of the region to render}
   @argument[height]{an integer with the height of the region to render}
-  @argument[xoffset]{a double float with the offset in the x direction,
-    currently rounded to an integer}
-  @argument[yoffset]{a double float with the offset in the y direction,
-    currently rounded to an integer}
-  @argument[xscale]{a double float with the scale factor in the x direction}
-  @argument[yscale]{a double float with the scale factor in the y direction}
+  @argument[xoffset]{a number coerced to a double float with the offset in
+    the x direction, currently rounded to an integer}
+  @argument[yoffset]{a number coerced to a double float with the offset in
+    the y direction, currently rounded to an integer}
+  @argument[xscale]{a number coerced to a double float with the scale factor in
+    the x direction}
+  @argument[yscale]{a number coerced to a double float with the scale factor in
+    the y direction}
   @argument[interp]{a @symbol{gdk-pixbuf:pixbuf-interp-type} interpolation type
     for the transformation}
   @argument[alpha]{an integer with the overall alpha for source image (0..255)}
@@ -440,27 +455,28 @@
   @see-class{gdk-pixbuf:pixbuf}
   @see-symbol{gdk-pixbuf:pixbuf-interp-type}
   @see-function{gdk-pixbuf:pixbuf-composite-color-simple}"
-  (%pixbuf-composite-color src dest x y width height
-                                   (coerce xoffset 'double-float)
-                                   (coerce yoffset 'double-float)
-                                   (coerce xscale 'double-float)
-                                   (coerce yscale 'double-float)
-                                   interp
-                                   alpha
-                                   xcheck ycheck
-                                   size
-                                   color1 color2))
+  (%pixbuf-composite-color src dest
+                           x y width height
+                           (coerce xoffset 'double-float)
+                           (coerce yoffset 'double-float)
+                           (coerce xscale 'double-float)
+                           (coerce yscale 'double-float)
+                           interp
+                           alpha
+                           xcheck ycheck
+                           size
+                           color1 color2))
 
 (export 'pixbuf-composite-color)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_rotate_simple ()
+;;; gdk_pixbuf_rotate_simple
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_rotate_simple" pixbuf-rotate-simple)
     (g:object pixbuf)
 #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[angle]{a @symbol{gdk-pixbuf:pixbuf-rotation} value}
   @return{The new @class{gdk-pixbuf:pixbuf} object, or @code{nil} if not enough
@@ -477,12 +493,12 @@
 (export 'pixbuf-rotate-simple)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_flip ()
+;;; gdk_pixbuf_flip
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_flip" pixbuf-flip) (g:object pixbuf)
 #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[horizontal]{@em{true} to flip horizontally, @em{false} to flip
     vertically}

@@ -2,11 +2,11 @@
 ;;; gdk-pixbuf.animation.lisp
 ;;;
 ;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
-;;; Version 2.36 and modified to document the Lisp binding to the GDK-PixBuf
+;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
 ;;; library. See <http://www.gtk.org>. The API documentation of the Lisp
 ;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2011 - 2023 Dieter Kaiser
+;;; Copyright (C) 2011 - 2024 Dieter Kaiser
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a
 ;;; copy of this software and associated documentation files (the "Software"),
@@ -94,7 +94,7 @@
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
-;;; struct GdkPixbufAnimation
+;;; GdkPixbufAnimation
 ;;; ----------------------------------------------------------------------------
 
 (gobject:define-g-object-class "GdkPixbufAnimation" pixbuf-animation
@@ -108,10 +108,10 @@
 
 #+liber-documentation
 (setf (documentation 'pixbuf-animation 'type)
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @begin{short}
-    The @sym{gdk-pixbuf:pixbuf} library provides a simple mechanism to load and
-    represent animations.
+    The @class{gdk-pixbuf:pixbuf} library provides a simple mechanism to load
+    and represent animations.
   @end{short}
   An animation is conceptually a series of frames to be displayed over time.
   The animation may not be represented as a series of frames internally. For
@@ -119,6 +119,8 @@
   around a background. To display an animation you do not need to understand
   its representation, however. You just ask the @class{gdk-pixbuf:pixbuf} object
   what should be displayed at a given point in time.
+  @see-constructor{gdk-pixbuf:pixbuf-animation-new-from-file}
+  @see-constructor{gdk-pixbuf:pixbuf-animation-new-from-resource}
   @see-slot{gdk-pixbuf:pixbuf-animation-loop}
   @see-class{gdk-pixbuf:pixbuf}")
 
@@ -136,7 +138,7 @@
 (setf (liber:alias-for-function 'pixbuf-animation-loop)
       "Accessor"
       (documentation 'pixbuf-animation-loop 'function)
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @syntax[]{(gdk-pixbuf:pixbuf-animation-loop object) => loop}
   @syntax[]{(setf (gdk-pixbuf:pixbuf-animation-loop object) loop)}
   @argument[object]{a @class{gdk-pixbuf:pixbuf-animation} object}
@@ -145,12 +147,11 @@
     Accessor of the @slot[gdk-pixbuf:pixbuf-animation]{loop} of the
     @class{gdk-pixbuf:pixbuf-animation} class.
   @end{short}
-
   Whether the animation should loop when it reaches the end.
   @see-class{gdk-pixbuf:pixbuf-animation}")
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_animation_new_from_file ()
+;;; gdk_pixbuf_animation_new_from_file
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_animation_new_from_file"
@@ -160,14 +161,14 @@
 
 (defun pixbuf-animation-new-from-file (path)
  #+liber-documentation
- "@version{2023-1-29}
-  @argument[path]{a string with the name of the file to load, in the GLib file
-    name encoding}
+ "@version{2024-6-29}
+  @argument[path]{a pathname or namestring with the file to load, in the GLib
+    file name encoding}
   @begin{return}
-    A newly created animation with a reference count of 1, or @code{nil} if any
-    of several error conditions ocurred: the file could not be opened, there
-    was no loader for the format of the file, there was not enough memory to
-    allocate the image buffer, or the image file contained invalid data.
+    The newly created @class{gdk-pixbuf:pixbuf-animation} object, or @code{nil}
+    if any of several error conditions ocurred: the file could not be opened,
+    there was no loader for the format of the file, there was not enough memory
+    to allocate the image buffer, or the image file contained invalid data.
   @end{return}
   @begin{short}
     Creates a new animation by loading it from a file.
@@ -183,7 +184,7 @@
 (export 'pixbuf-animation-new-from-file)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_animation_new_from_resource ()
+;;; gdk_pixbuf_animation_new_from_resource
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_animation_new_from_resource"
@@ -193,13 +194,14 @@
 
 (defun pixbuf-animation-new-from-resource (resource)
  #+liber-documentation
- "@version{#2021-12-21}
+ "@version{#2024-6-29}
   @argument[resource]{a string with the path of the resource file}
   @begin{return}
-    A newly-created animation, or @code{nil} if any of several error conditions
-    occurred: the file could not be opened, the image format is not supported,
-    there was not enough memory to allocate the image buffer, the stream
-    contained invalid data, or the operation was cancelled.
+    The newly created @class{gdk-pixbuf:pixbuf-animation} object, or @code{nil}
+    if any of several error conditions occurred: the file could not be opened,
+    the image format is not supported, there was not enough memory to allocate
+    the image buffer, the stream contained invalid data, or the operation was
+    cancelled.
   @end{return}
   @begin{short}
     Creates a new pixbuf animation by loading an image from an resource.
@@ -214,10 +216,10 @@
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_animation_new_from_stream ()
 ;;;
-;;; GdkPixbufAnimation * gdk_pixbuf_animation_new_from_stream
-;;;                                                  (GInputStream *stream,
-;;;                                                   GCancellable *cancellable,
-;;;                                                   GError **error);
+;;; GdkPixbufAnimation *
+;;; gdk_pixbuf_animation_new_from_stream (GInputStream *stream,
+;;;                                       GCancellable *cancellable,
+;;;                                       GError **error);
 ;;;
 ;;; Creates a new animation by loading it from an input stream.
 ;;;
@@ -241,20 +243,18 @@
 ;;; Returns :
 ;;;     A newly-created pixbuf, or NULL if any of several error conditions
 ;;;     occurred: the file could not be opened, the image format is not
-;;;     supported, there was not enough memory to allocate the image buffer, the
-;;;     stream contained invalid data, or the operation was cancelled.
-;;;
-;;; Since 2.28
+;;;     supported, there was not enough memory to allocate the image buffer,
+;;;     the stream contained invalid data, or the operation was cancelled.
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_animation_new_from_stream_async ()
 ;;;
-;;; void gdk_pixbuf_animation_new_from_stream_async
-;;;                                               (GInputStream *stream,
-;;;                                                GCancellable *cancellable,
-;;;                                                GAsyncReadyCallback callback,
-;;;                                                gpointer user_data);
+;;; void
+;;; gdk_pixbuf_animation_new_from_stream_async (GInputStream *stream,
+;;;                                             GCancellable *cancellable,
+;;;                                             GAsyncReadyCallback callback,
+;;;                                             gpointer user_data);
 ;;;
 ;;; Creates a new animation by asynchronously loading an image from an input
 ;;; stream.
@@ -277,16 +277,14 @@
 ;;;
 ;;; user_data :
 ;;;     the data to pass to the callback function
-;;;
-;;; Since 2.28
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_animation_new_from_stream_finish ()
 ;;;
-;;; GdkPixbufAnimation * gdk_pixbuf_animation_new_from_stream_finish
-;;;                                                 (GAsyncResult *async_result,
-;;;                                                  GError **error);
+;;; GdkPixbufAnimation *
+;;; gdk_pixbuf_animation_new_from_stream_finish (GAsyncResult *async_result,
+;;;                                              GError **error);
 ;;;
 ;;; Finishes an asynchronous pixbuf animation creation operation started with
 ;;; gdk_pixbuf_animation_new_from_stream_async().
@@ -300,15 +298,13 @@
 ;;; Returns :
 ;;;     a GdkPixbufAnimation or NULL on error. Free the returned object with
 ;;;     g_object_unref().
-;;;
-;;; Since 2.28
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_animation_ref ()
 ;;;
-;;; GdkPixbufAnimation * gdk_pixbuf_animation_ref
-;;;                                              (GdkPixbufAnimation *animation)
+;;; GdkPixbufAnimation *
+;;; gdk_pixbuf_animation_ref (GdkPixbufAnimation *animation)
 ;;;
 ;;; Warning
 ;;;
@@ -371,9 +367,9 @@
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_animation_get_iter ()
 ;;;
-;;; GdkPixbufAnimationIter * gdk_pixbuf_animation_get_iter
-;;;                                              (GdkPixbufAnimation *animation,
-;;;                                               const GTimeVal *start_time);
+;;; GdkPixbufAnimationIter *
+;;; gdk_pixbuf_animation_get_iter (GdkPixbufAnimation *animation,
+;;;                                const GTimeVal *start_time);
 ;;;
 ;;; Get an iterator for displaying an animation. The iterator provides the
 ;;; frames that should be displayed at a given time. It should be freed after
@@ -420,8 +416,8 @@
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_animation_is_static_image ()
 ;;;
-;;; gboolean gdk_pixbuf_animation_is_static_image
-;;;                                              (GdkPixbufAnimation *animation)
+;;; gboolean
+;;; gdk_pixbuf_animation_is_static_image (GdkPixbufAnimation *animation)
 ;;;
 ;;; If you load a file with gdk_pixbuf_animation_new_from_file() and it turns
 ;;; out to be a plain, unanimated image, then this function will return TRUE.
@@ -435,14 +431,13 @@
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_animation_get_static_image ()
-;;; -> gdk-pixbuf-animation-static-image
+;;; gdk_pixbuf_animation_get_static_image
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_animation_get_static_image"
                pixbuf-animation-static-image) (g:object pixbuf)
  #+liber-documentation
- "@version{#2021-12-12}
+ "@version{#2024-6-29}
   @argument[animation]{a @class{gdk-pixbuf:pixbuf-animation} object}
   @return{Unanimated @class{gdk-pixbuf:pixbuf} image representing the
     animation.}
@@ -463,8 +458,9 @@
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_animation_iter_advance ()
 ;;;
-;;; gboolean gdk_pixbuf_animation_iter_advance (GdkPixbufAnimationIter *iter,
-;;;                                             const GTimeVal *current_time);
+;;; gboolean
+;;; gdk_pixbuf_animation_iter_advance (GdkPixbufAnimationIter *iter,
+;;;                                    const GTimeVal *current_time);
 ;;;
 ;;; Possibly advances an animation to a new frame. Chooses the frame based on
 ;;; the start time passed to gdk_pixbuf_animation_get_iter().
@@ -514,8 +510,9 @@
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_animation_iter_on_currently_loading_frame ()
 ;;;
-;;; gboolean gdk_pixbuf_animation_iter_on_currently_loading_frame
-;;;                                               (GdkPixbufAnimationIter *iter)
+;;; gboolean
+;;; gdk_pixbuf_animation_iter_on_currently_loading_frame
+;;;             (GdkPixbufAnimationIter *iter)
 ;;;
 ;;; Used to determine how to respond to the area_updated signal on
 ;;; GdkPixbufLoader when loading an animation. area_updated is emitted for an
@@ -532,8 +529,8 @@
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_animation_iter_get_pixbuf ()
 ;;;
-;;; GdkPixbuf * gdk_pixbuf_animation_iter_get_pixbuf
-;;;                                               (GdkPixbufAnimationIter *iter)
+;;; GdkPixbuf *
+;;; gdk_pixbuf_animation_iter_get_pixbuf (GdkPixbufAnimationIter *iter)
 ;;;
 ;;; Gets the current pixbuf which should be displayed; the pixbuf might not be
 ;;; the same size as the animation itself (gdk_pixbuf_animation_get_width(),
@@ -560,9 +557,8 @@
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_simple_anim_new ()
 ;;;
-;;; GdkPixbufSimpleAnim * gdk_pixbuf_simple_anim_new (gint width,
-;;;                                                   gint height,
-;;;                                                   gfloat rate);
+;;; GdkPixbufSimpleAnim *
+;;; gdk_pixbuf_simple_anim_new (gint width, gint height, gfloat rate);
 ;;;
 ;;; Creates a new, empty animation.
 ;;;
@@ -577,15 +573,14 @@
 ;;;
 ;;; Returns :
 ;;;     a newly allocated GdkPixbufSimpleAnim
-;;;
-;;; Since 2.8
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_simple_anim_add_frame ()
 ;;;
-;;; void gdk_pixbuf_simple_anim_add_frame (GdkPixbufSimpleAnim *animation,
-;;;                                        GdkPixbuf *pixbuf);
+;;; void
+;;; gdk_pixbuf_simple_anim_add_frame (GdkPixbufSimpleAnim *animation,
+;;;                                   GdkPixbuf *pixbuf);
 ;;;
 ;;; Adds a new frame to animation. The pixbuf must have the dimensions specified
 ;;; when the animation was constructed.
@@ -595,15 +590,14 @@
 ;;;
 ;;; pixbuf :
 ;;;     the pixbuf to add
-;;;
-;;; Since 2.8
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_simple_anim_set_loop ()
 ;;;
-;;; void gdk_pixbuf_simple_anim_set_loop (GdkPixbufSimpleAnim *animation,
-;;;                                       gboolean loop);
+;;; void
+;;; gdk_pixbuf_simple_anim_set_loop (GdkPixbufSimpleAnim *animation,
+;;;                                  gboolean loop);
 ;;;
 ;;; Sets whether animation should loop indefinitely when it reaches the end.
 ;;;
@@ -612,8 +606,6 @@
 ;;;
 ;;; loop :
 ;;;     whether to loop the animation
-;;;
-;;; Since 2.18
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -628,8 +620,6 @@
 ;;;
 ;;; Returns :
 ;;;     TRUE if the animation loops forever, FALSE otherwise
-;;;
-;;; Since 2.18
 ;;; ----------------------------------------------------------------------------
 
 ;;; --- End of file gdk-pixbuf.animation.lisp ----------------------------------
