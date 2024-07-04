@@ -139,8 +139,8 @@
       "Accessor"
       (documentation 'pixbuf-animation-loop 'function)
  "@version{#2024-6-29}
-  @syntax[]{(gdk-pixbuf:pixbuf-animation-loop object) => loop}
-  @syntax[]{(setf (gdk-pixbuf:pixbuf-animation-loop object) loop)}
+  @syntax{(gdk-pixbuf:pixbuf-animation-loop object) => loop}
+  @syntax{(setf (gdk-pixbuf:pixbuf-animation-loop object) loop)}
   @argument[object]{a @class{gdk-pixbuf:pixbuf-animation} object}
   @argument[loop]{a boolean whether the animation should loop}
   @begin{short}

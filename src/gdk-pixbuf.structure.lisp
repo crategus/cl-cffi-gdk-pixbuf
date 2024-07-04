@@ -296,7 +296,7 @@
       "Accessor"
       (documentation 'pixbuf-bits-per-sample 'function)
  "@version{2024-6-29}
-  @syntax[]{(gdk-pixbuf:pixbuf-bits-per-sample object) => bits-per-sample}
+  @syntax{(gdk-pixbuf:pixbuf-bits-per-sample object) => bits-per-sample}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[bits-per-sample]{an integer with the number of bits per sample}
   @begin{short}
@@ -321,7 +321,7 @@
       "Accessor"
       (documentation 'pixbuf-colorspace 'function)
  "@version{2024-6-29}
-  @syntax[]{(gdk-pixbuf:pixbuf-colorspace object) => colorspace}
+  @syntax{(gdk-pixbuf:pixbuf-colorspace object) => colorspace}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[colorspace]{a @symbol{gdk-pixbuf:colorspace} value}
   @begin{short}
@@ -346,7 +346,7 @@
       "Accessor"
       (documentation 'pixbuf-has-alpha 'function)
  "@version{2024-6-29}
-  @syntax[]{(gdk-pixbuf:pixbuf-has-alpha object) => has-alpha}
+  @syntax{(gdk-pixbuf:pixbuf-has-alpha object) => has-alpha}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[has-alpha]{a boolean whether the pixbuf has an alpha channel}
   @begin{short}
@@ -371,7 +371,7 @@
       "Accessor"
       (documentation 'pixbuf-height 'function)
  "@version{2024-6-29}
-  @syntax[]{(gdk-pixbuf:pixbuf-height object) => height}
+  @syntax{(gdk-pixbuf:pixbuf-height object) => height}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[height]{an integer with the number of rows of the pixbuf}
   @begin{short}
@@ -397,7 +397,7 @@
       "Accessor"
       (documentation 'pixbuf-n-channels 'function)
  "@version{2024-6-29}
-  @syntax[]{(gdk-pixbuf:pixbuf-n-channels object) => n-channels}
+  @syntax{(gdk-pixbuf:pixbuf-n-channels object) => n-channels}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[n-channels]{an integer with the number of channels}
   @begin{short}
@@ -420,7 +420,7 @@
       "Accessor"
       (documentation 'pixbuf-pixel-bytes 'function)
  "@version{2024-6-29}
-  @syntax[]{(gdk-pixbuf:pixbuf-pixel-bytes object) => pixel-bytes}
+  @syntax{(gdk-pixbuf:pixbuf-pixel-bytes object) => pixel-bytes}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[pixel-bytes]{a @class{g:bytes} instance with the pixel data}
   @begin{short}
@@ -443,7 +443,7 @@
       "Accessor"
       (documentation 'pixbuf-pixels 'function)
  "@version{2024-6-29}
-  @syntax[]{(gdk-pixbuf:pixbuf-pixels object) => pixels}
+  @syntax{(gdk-pixbuf:pixbuf-pixels object) => pixels}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[pixels]{a pointer to the pixel data of @arg{pixbuf}}
   @begin{short}
@@ -473,7 +473,7 @@
       "Accessor"
       (documentation 'pixbuf-rowstride 'function)
  "@version{2024-6-29}
-  @syntax[]{(gdk-pixbuf:pixbuf-rowstride object) => rowstride}
+  @syntax{(gdk-pixbuf:pixbuf-rowstride object) => rowstride}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[rowstride]{an integer with the distance between row starts}
   @begin{short}
@@ -499,7 +499,7 @@
       "Accessor"
       (documentation 'pixbuf-width 'function)
  "@version{2024-6-29}
-  @syntax[]{(gdk-pixbuf:pixbuf-width object) => width}
+  @syntax{(gdk-pixbuf:pixbuf-width object) => width}
   @argument[object]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[width]{an integer with the width of the pixbuf}
   @begin{short}
