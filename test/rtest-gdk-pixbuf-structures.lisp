@@ -18,21 +18,20 @@
           (glib:symbol-for-gtype "GdkColorspace")))
   ;; Check names
   (is (equal '("GDK_COLORSPACE_RGB")
-             (glib-test:list-enum-item-name "GdkColorspace")))
+             (glib-test:list-enum-item-names "GdkColorspace")))
   ;; Check values
   (is (equal '(0)
-             (glib-test:list-enum-item-value "GdkColorspace")))
+             (glib-test:list-enum-item-values "GdkColorspace")))
   ;; Check nick names
   (is (equal '("rgb")
-             (glib-test:list-enum-item-nick "GdkColorspace")))
+             (glib-test:list-enum-item-nicks "GdkColorspace")))
   ;; Check enum definition
-  (is (equal '(GOBJECT:DEFINE-G-ENUM "GdkColorspace"
-                                     GDK-COLORSPACE
-                                     (:EXPORT T
-                                      :TYPE-INITIALIZER
-                                      "gdk_colorspace_get_type")
-                                     (:RGB 0))
-             (gobject:get-g-type-definition "GdkColorspace"))))
+  (is (equal '(GOBJECT:DEFINE-GENUM "GdkColorspace" GDK-PIXBUF:COLORSPACE
+                                    (:EXPORT T
+                                     :TYPE-INITIALIZER
+                                     "gdk_colorspace_get_type")
+                                    (:RGB 0))
+             (gobject:get-gtype-definition "GdkColorspace"))))
 
 ;;;     GdkPixbuf
 
@@ -61,27 +60,26 @@
   ;; Check signals
   (is (equal '()
              (glib-test:list-signals "GdkPixbuf")))
-  ;; Check the class definition
-  (is (equal '(GOBJECT:DEFINE-G-OBJECT-CLASS "GdkPixbuf" GDK-PIXBUF
-                       (:SUPERCLASS G-OBJECT :EXPORT T :INTERFACES
-                        ("GIcon" "GLoadableIcon") :TYPE-INITIALIZER
-                        "gdk_pixbuf_get_type")
-                       ((BITS-PER-SAMPLE GDK-PIXBUF-BITS-PER-SAMPLE
+  ;; Check class definition
+  (is (equal '(GOBJECT:DEFINE-GOBJECT "GdkPixbuf" GDK-PIXBUF:PIXBUF
+                       (:SUPERCLASS G:OBJECT
+                        :EXPORT T
+                        :INTERFACES ("GIcon" "GLoadableIcon")
+                        :TYPE-INITIALIZER "gdk_pixbuf_get_type")
+                       ((BITS-PER-SAMPLE PIXBUF-BITS-PER-SAMPLE
                          "bits-per-sample" "gint" T NIL)
-                        (COLORSPACE GDK-PIXBUF-COLORSPACE "colorspace"
-                         "GdkColorspace" T NIL)
-                        (HAS-ALPHA GDK-PIXBUF-HAS-ALPHA "has-alpha" "gboolean"
-                         T NIL)
-                        (HEIGHT GDK-PIXBUF-HEIGHT "height" "gint" T NIL)
-                        (N-CHANNELS GDK-PIXBUF-N-CHANNELS "n-channels" "gint" T
-                         NIL)
-                        (PIXEL-BYTES GDK-PIXBUF-PIXEL-BYTES "pixel-bytes"
-                         "GBytes" T NIL)
-                        (PIXELS GDK-PIXBUF-PIXELS "pixels" "gpointer" T NIL)
-                        (ROWSTRIDE GDK-PIXBUF-ROWSTRIDE "rowstride" "gint" T
-                         NIL)
-                        (WIDTH GDK-PIXBUF-WIDTH "width" "gint" T NIL)))
-             (gobject:get-g-type-definition "GdkPixbuf"))))
+                        (COLORSPACE PIXBUF-COLORSPACE
+                         "colorspace" "GdkColorspace" T NIL)
+                        (HAS-ALPHA PIXBUF-HAS-ALPHA
+                         "has-alpha" "gboolean" T NIL)
+                        (HEIGHT PIXBUF-HEIGHT "height" "gint" T NIL)
+                        (N-CHANNELS PIXBUF-N-CHANNELS "n-channels" "gint" T NIL)
+                        (PIXEL-BYTES PIXBUF-PIXEL-BYTES
+                         "pixel-bytes" "GBytes" T NIL)
+                        (PIXELS PIXBUF-PIXELS "pixels" "gpointer" T NIL)
+                        (ROWSTRIDE PIXBUF-ROWSTRIDE "rowstride" "gint" T NIL)
+                        (WIDTH PIXBUF-WIDTH "width" "gint" T NIL)))
+             (gobject:get-gtype-definition "GdkPixbuf"))))
 
 ;;; --- Properties -------------------------------------------------------------
 
@@ -109,4 +107,4 @@
 ;;;     gdk_pixbuf_copy_options
 ;;;     gdk_pixbuf_read_pixels
 
-;;; 2024-6-29
+;;; 2024-9-18
