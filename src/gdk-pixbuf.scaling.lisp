@@ -364,7 +364,7 @@
   When the destination rectangle contains parts not in the source image, the
   data at the edges of the source image is replicated to infinity.
 
-  @image[composite]{}
+  @image[composite]{Figure: Composite}
 
   @see-class{gdk-pixbuf:pixbuf}
   @see-symbol{gdk-pixbuf:pixbuf-interp-type}
