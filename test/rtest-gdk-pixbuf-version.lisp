@@ -10,10 +10,10 @@
 
 #+crategus
 (test gdk-pixbuf-version
-  (is (string= "2.42.10" gdk-pixbuf:+version+))
+  (is (string= "2.42.12" gdk-pixbuf:+version+))
   (is (=  2 gdk-pixbuf:+major-version+))
   (is (= 42 gdk-pixbuf:+minor-version+))
-  (is (= 10 gdk-pixbuf:+micro-version+)))
+  (is (= 12 gdk-pixbuf:+micro-version+)))
 
 #+windows
 (test gdk-pixbuf-version
@@ -22,4 +22,4 @@
   (is (= 42 gdk-pixbuf:+minor-version+))
   (is (= 12 gdk-pixbuf:+micro-version+)))
 
-;;; 2024-6-16
+;;; 2024-10-13
