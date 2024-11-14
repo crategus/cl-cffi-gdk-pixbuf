@@ -89,7 +89,7 @@
       in general. Applications that need progressive loading can use the
       @class{gdk-pixbuf:pixbuf-loader} API functionality instead.
     @end{subsection}
-    @begin{subsection}
+    @begin[Functions for file loading]{subsection}
       @about-function{pixbuf-new-from-file}
       @about-function{pixbuf-new-from-file-at-size}
       @about-function{pixbuf-new-from-file-at-scale}
@@ -163,18 +163,18 @@
     @begin[Introduction to scaling]{subsection}
       The @class{gdk-pixbuf:pixbuf} library contains functions to scale pixbufs,
       to scale pixbufs and composite against an existing image, and to scale
-      pixbufs and composite against a solid color or checkerboard. Compositing a
-      checkerboard is a common way to show an image with an alpha channel in
+      pixbufs and composite against a solid color or checkerboard. Compositing
+      a checkerboard is a common way to show an image with an alpha channel in
       image-viewing and editing software.
 
       Since the full-featured @fun{gdk-pixbuf:pixbuf-scale},
       @fun{gdk-pixbuf:pixbuf-composite}, and
-      @fun{gdk-pixbuf:pixbuf-composite-color} functions are rather complex to use
-      and have many arguments, two simple convenience functions are provided, the
-      @fun{gdk-pixbuf:pixbuf-scale-simple} and
-      @fun{gdk-pixbuf:pixbuf-composite-color-simple} functions which create a new
-      pixbuf of a given size, scale an original image to fit, and then return the
-      new pixbuf.
+      @fun{gdk-pixbuf:pixbuf-composite-color} functions are rather complex to
+      use and have many arguments, two simple convenience functions are
+      provided, the @fun{gdk-pixbuf:pixbuf-scale-simple} and
+      @fun{gdk-pixbuf:pixbuf-composite-color-simple} functions which create a
+      new pixbuf of a given size, scale an original image to fit, and then
+      return the new pixbuf.
 
       If the destination pixbuf was created from a readonly source, these
       operations will force a copy into a mutable buffer.
@@ -187,13 +187,13 @@
       mediaLib support can be turned off by setting the
       @code{GDK_DISABLE_MEDIALIB} environment variable.
 
-      The following example demonstrates handling an expose event by rendering the
-      appropriate area of a source image, which is scaled to fit the widget, onto
-      the window of the widget. The source image is rendered against a
-      checkerboard, which provides a visual representation of the alpha channel if
-      the image has one. If the image does not have an alpha channel, calling the
-      @fun{gdk-pixbuf:pixbuf-composite-color} function has exactly the same effect
-      as calling the @fun{gdk-pixbuf:pixbuf-scale} function.
+      The following example demonstrates handling an expose event by rendering
+      the appropriate area of a source image, which is scaled to fit the widget,
+      onto the window of the widget. The source image is rendered against a
+      checkerboard, which provides a visual representation of the alpha channel
+      if the image has one. If the image does not have an alpha channel, calling
+      the @fun{gdk-pixbuf:pixbuf-composite-color} function has exactly the same
+      effect as calling the @fun{gdk-pixbuf:pixbuf-scale} function.
 
       @b{Example:} Handling an expose event.
       @begin{pre}
@@ -239,7 +239,7 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, gpointer data)
     @end{subsection}
   @end{section}
   @begin[Utilities]{section}
-    @begin[Introduction to utilities}{subsection}
+    @begin[Introduction to utilities]{subsection}
       Utility and miscellaneous convenience functions. These functions provide
       miscellaneous utilities for manipulating pixbufs. The pixel data in
       pixbufs may of course be manipulated directly by applications, but
@@ -255,29 +255,23 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, gpointer data)
   @end{section}
   @begin[Animations]{section}
     @about-class{pixbuf-animation-iter}
-    @about-class{pixbuf-simple-anim}
+    @about-function{pixbuf-animation-iter-pixbuf}
+    @about-function{pixbuf-animation-iter-delay-time}
+    @about-function{pixbuf-animation-iter-advance}
+    @about-function{pixbuf-animation-iter-on-currently-loading-frame}
     @about-class{pixbuf-animation}
     @about-generic{pixbuf-animation-loop}
     @about-function{pixbuf-animation-new-from-file}
     @about-function{pixbuf-animation-new-from-resource}
-    @about-function{pixbuf-animation-new-from-stream}
-    @about-function{pixbuf-animation-new-from-stream-async}
-    @about-function{pixbuf-animation-new-from-stream-finish}
-    @about-function{pixbuf-animation-ref}
-    @about-function{pixbuf-animation-unref}
-    @about-function{pixbuf-animation-get-width}
-    @about-function{pixbuf-animation-get-height}
-    @about-function{pixbuf-animation-get-iter}
+    @about-function{pixbuf-animation-width}
+    @about-function{pixbuf-animation-height}
+    @about-function{pixbuf-animation-iter}
     @about-function{pixbuf-animation-is-static-image}
     @about-function{pixbuf-animation-static-image}
-    @about-function{pixbuf-animation-iter-advance}
-    @about-function{pixbuf-animation-iter-get-delay-time}
-    @about-function{pixbuf-animation-iter-on-currently-loading-frame}
-    @about-function{pixbuf-animation-iter-get-pixbuf}
+    @about-class{pixbuf-simple-anim}
     @about-function{pixbuf-simple-anim-new}
     @about-function{pixbuf-simple-anim-add-frame}
-    @about-function{pixbuf-simple-anim-set-loop}
-    @about-function{pixbuf-simple-anim-get-loop}
+    @about-function{pixbuf-simple-anim-loop}
   @end{section}
   @begin[GdkPixbufLoader]{section}
     @about-class{pixbuf-loader}
