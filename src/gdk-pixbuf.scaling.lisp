@@ -55,7 +55,7 @@
 
 ;; We change the name of the enumeration to pixbuf-interp-type.
 
-(gobject:define-g-enum "GdkInterpType" pixbuf-interp-type
+(gobject:define-genum "GdkInterpType" pixbuf-interp-type
   (:export t
    :type-initializer "gdk_interp_type_get_type")
   (:nearest 0)
@@ -69,7 +69,7 @@
       (liber:symbol-documentation 'pixbuf-interp-type)
  "@version{#2024-6-29}
   @begin{declaration}
-(gobject:define-g-enum \"GdkInterpType\" pixbuf-interp-type
+(gobject:define-genum \"GdkInterpType\" pixbuf-interp-type
   (:export t
    :type-initializer \"gdk_interp_type_get_type\")
   (:nearest 0)
@@ -118,7 +118,7 @@
 ;;; GdkPixbufRotation
 ;;; ----------------------------------------------------------------------------
 
-(gobject:define-g-enum "GdkPixbufRotation" pixbuf-rotation
+(gobject:define-genum "GdkPixbufRotation" pixbuf-rotation
   (:export t
    :type-initializer "gdk_pixbuf_rotation_get_type")
   (:none 0)
@@ -132,7 +132,7 @@
       (liber:symbol-documentation 'pixbuf-rotation)
  "@version{#2024-6-29}
   @begin{declaration}
-(gobject:define-g-enum \"GdkPixbufRotation\" pixbuf-rotation
+(gobject:define-genum \"GdkPixbufRotation\" pixbuf-rotation
   (:export t
    :type-initializer \"gdk_pixbuf_rotation_get_type\")
   (:none 0)

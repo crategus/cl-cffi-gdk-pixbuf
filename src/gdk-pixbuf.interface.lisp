@@ -169,8 +169,8 @@
   'x'.
 
   The signature of a module is stored as an array of
-  @sym{gdk-pixbuf:pixbuf-module-pattern}s. The array is terminated by a pattern
-  where the prefix is @code{NULL}.
+  @class{gdk-pixbuf:pixbuf-module-pattern}s. The array is terminated by a
+  pattern where the prefix is @code{NULL}.
   @begin{pre}
 GdkPixbufModulePattern *signature[] = {
   { \"abcdx\", \" !x z\", 100 @},

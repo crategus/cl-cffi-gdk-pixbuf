@@ -89,7 +89,7 @@
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_new_from_file_at_size" %pixbuf-new-from-file-at-size)
-    (g:object pixbuf)
+    (g:object pixbuf :already-referenced)
   (filename :string)
   (width :int)
   (height :int)
@@ -132,7 +132,8 @@
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_new_from_file_at_scale"
-               %pixbuf-new-from-file-at-scale) (g:object pixbuf)
+               %pixbuf-new-from-file-at-scale)
+    (g:object pixbuf :already-referenced)
   (filename :string)
   (width :int)
   (height :int)
@@ -177,7 +178,7 @@
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_new_from_resource" %pixbuf-new-from-resource)
-    (g:object pixbuf)
+    (g:object pixbuf :already-referenced)
   (path :string)
   (err :pointer))
 
@@ -206,7 +207,8 @@
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_new_from_resource_at_scale"
-               %pixbuf-new-from-resource-at-scale) (g:object pixbuf)
+               %pixbuf-new-from-resource-at-scale)
+    (g:object pixbuf :already-referenced)
   (path :string)
   (width :int)
   (height :int)

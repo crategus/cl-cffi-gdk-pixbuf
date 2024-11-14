@@ -139,7 +139,7 @@
 ;;; GdkColorspace
 ;;; ----------------------------------------------------------------------------
 
-(gobject:define-g-enum "GdkColorspace" colorspace
+(gobject:define-genum "GdkColorspace" colorspace
   (:export t
    :type-initializer "gdk_colorspace_get_type")
   :rgb)
@@ -150,7 +150,7 @@
       (liber:symbol-documentation 'colorspace)
  "@version{2024-6-29}
   @begin{declaration}
-(gobject:define-g-enum \"GdkColorspace\" colorspace
+(gobject:define-genum \"GdkColorspace\" colorspace
   (:export t
    :type-initializer \"gdk_colorspace_get_type\")
   :rgb)
@@ -173,7 +173,7 @@
 
 ;; Only needed for deprecated functionality
 
-(gobject:define-g-enum "GdkPixbufAlphaMode" pixbuf-alpha-mode
+(gobject:define-genum "GdkPixbufAlphaMode" pixbuf-alpha-mode
   (:export nil
    :type-initializer "gdk_pixbuf_alpha_mode_get_type")
   (:bilevel 0)
@@ -183,7 +183,7 @@
 ;;; GdkPixbuf
 ;;; ----------------------------------------------------------------------------
 
-(gobject:define-g-object-class "GdkPixbuf" pixbuf
+(gobject:define-gobject "GdkPixbuf" pixbuf
   (:superclass g:object
    :export t
    :interfaces nil
@@ -234,7 +234,7 @@
     @fun{gdk-pixbuf:pixbuf-rowstride} function, indicates the number of bytes
     between rows.
   @end{dictionary}
-  @begin{examples}
+  @begin[Examples]{dictionary}
     The following code illustrates a simple @code{put-pixel} function for RGB
     pixbufs with 8 bits per channel with an alpha channel. It is not included
     in the @class{gdk-pixbuf:pixbuf} library for performance reasons. Rather
@@ -256,8 +256,8 @@
     This function will not work for pixbufs with images that are other than
     8 bits per sample or channel, but it will work for most of the pixbufs that
     GTK uses.
-  @end{examples}
-  @begin{notes}
+  @end{dictionary}
+  @begin[Notes]{dictionary}
     If you are doing @code{memcpy()} of raw pixbuf data, note that the last row
     in the pixbuf may not be as wide as the full rowstride, but rather just as
     wide as the pixel data needs to be. That is, it is unsafe to do
@@ -265,7 +265,7 @@
     the @fun{gdk-pixbuf:pixbuf-copy} function instead, or compute the width in
     bytes of the last row as @code{width * ((n_channels * bits_per_sample + 7) /
     8)}.
-  @end{notes}
+  @end{dictionary}
   @see-slot{gdk-pixbuf:pixbuf-bits-per-sample}
   @see-slot{gdk-pixbuf:pixbuf-colorspace}
   @see-slot{gdk-pixbuf:pixbuf-has-alpha}

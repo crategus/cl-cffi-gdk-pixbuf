@@ -68,7 +68,7 @@
 ;;; struct GdkPixbufLoader
 ;;; ----------------------------------------------------------------------------
 
-(gobject:define-g-object-class "GdkPixbufLoader" pixbuf-loader
+(gobject:define-gobject "GdkPixbufLoader" pixbuf-loader
   (:superclass g:object
    :export t
    :interfaces nil
@@ -79,10 +79,10 @@
 (setf (documentation 'pixbuf-loader 'type)
  "@version{#2023-3-10}
   @begin{short}
-    The @sym{gdk-pixbuf:pixbuf-loader} class provides a way for applications to
-    drive the process of loading an image, by letting them send the image data
-    directly to the loader instead of having the loader read the data from a
-    file.
+    The @class{gdk-pixbuf:pixbuf-loader} class provides a way for applications
+    to drive the process of loading an image, by letting them send the image
+    data directly to the loader instead of having the loader read the data from
+    a file.
   @end{short}
   Applications can use this functionality instead of the
   @fun{gdk-pixbuf:pixbuf-new-from-file} or
@@ -91,32 +91,32 @@
   an image from a (potentially) slow network connection, or when loading an
   extremely large file.
 
-  To use the @sym{gdk-pixbuf:pixbuf-loader} class to load an image, just create
-  a new one, and call the @fun{gdk-pixbuf:pixbuf-loader-write} function to send
-  the data to it. When done, the @fun{gdk-pixbuf:pixbuf-loader-close} function
-  should be called to end the stream and finalize everything. The loader will
-  emit three important signals throughout the process. The first,
-  \"size-prepared\", will be called as soon as the image has enough information
-  to determine the size of the image to be used. If you want to scale the image
-  while loading it, you can call the @fun{gdk-pixbuf:pixbuf-loader-set-size}
-  function in response to this signal.
+  To use the @class{gdk-pixbuf:pixbuf-loader} class to load an image, just
+  create a new one, and call the @fun{gdk-pixbuf:pixbuf-loader-write} function
+  to send the data to it. When done, the @fun{gdk-pixbuf:pixbuf-loader-close}
+  function should be called to end the stream and finalize everything. The
+  loader will emit three important signals throughout the process. The first,
+  the @code{\"size-prepared\"} signal, will be called as soon as the image has
+  enough information to determine the size of the image to be used. If you want
+  to scale the image while loading it, you can call the
+  @fun{gdk-pixbuf:pixbuf-loader-set-size} function in response to this signal.
 
-  The second signal, \"area-prepared\", will be called as soon as the pixbuf of
-  the desired has been allocated. You can obtain it by calling the
-  @fun{gdk-pixbuf:pixbuf-loader-pixbuf} function. In addition, no actual
+  The second signal, the @code{\"area-prepared\"} signal, will be called as soon
+  as the pixbuf of the desired has been allocated. You can obtain it by calling
+  the @fun{gdk-pixbuf:pixbuf-loader-pixbuf} function. In addition, no actual
   information will be passed in yet, so the pixbuf can be safely filled with any
   temporary graphics (or an initial color) as needed. You can also call the
   @fun{gdk-pixbuf:pixbuf-loader-pixbuf} function later and get the same pixbuf.
 
-  The last signal, \"area-updated\" gets called every time a region is updated.
-  This way you can update a partially completed image. Note that you do not
-  know anything about the completeness of an image from the area updated. For
-  example, in an interlaced image, you need to make several passes before the
-  image is done loading.
+  The last signal, the @code{\"area-updated\"} signal gets called every time a
+  region is updated. This way you can update a partially completed image. Note
+  that you do not know anything about the completeness of an image from the area
+  updated. For example, in an interlaced image, you need to make several passes
+  before the image is done loading.
 
   @subheading{Loading an animation}
     Loading an animation is almost as easy as loading an image. Once the first
-    \"area-prepared\" signal has been emitted, you can call the
+    @code{\"area-prepared\"} signal has been emitted, you can call the
     @fun{gdk-pixbuf:pixbuf-loader-get-animation} function to get the
     @class{gdk-pixbuf:pixbuf-animation} object and the
     @fun{gdk-pixbuf:pixbuf-animation-get-iter} function to get an
@@ -126,25 +126,21 @@
       @begin{pre}
 lambda (loader)    :run-last
       @end{pre}
+      @begin[code]{table}
+        @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object which
+          received the signal.}
+      @end{table}
       The signal is emitted when the pixbuf loader has allocated the pixbuf
       in the desired size. After this signal is emitted, applications can call
       the @fun{gdk-pixbuf:pixbuf-loader-pixbuf} function to fetch the partially-
       loaded pixbuf.
-      @begin[code]{table}
-        @entry[loader]{The @sym{gdk-pixbuf:pixbuf-loader} object which received
-          the signal.}
-      @end{table}
     @subheading{The \"area-updated\" signal}
       @begin{pre}
 lambda (loader x y width height)    :run-last
       @end{pre}
-      The signal is emitted when a significant area of the image being loaded
-      has been updated. Normally it means that a complete scanline has been read
-      in, but it could be a different area as well. Applications can use this
-      signal to know when to repaint areas of an image that is being loaded.
       @begin[code]{table}
-        @entry[loader]{The @sym{gdk-pixbuf:pixbuf-loader} object which received
-          the signal.}
+        @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object which
+          received the signal.}
         @entry[x]{An integer with the x offset of upper-left corner of the
           updated area.}
         @entry[y]{An integer with the y offset of upper-left corner of the
@@ -152,33 +148,37 @@ lambda (loader x y width height)    :run-last
         @entry[width]{An integer with the width of updated area.}
         @entry[height]{An integer with the height of updated area.}
       @end{table}
+      The signal is emitted when a significant area of the image being loaded
+      has been updated. Normally it means that a complete scanline has been read
+      in, but it could be a different area as well. Applications can use this
+      signal to know when to repaint areas of an image that is being loaded.
     @subheading{The \"closed\" signal}
       @begin{pre}
    lambda (loader)    :run-last
       @end{pre}
+      @begin[code]{table}
+        @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object which
+          received the signal.}
+      @end{table}
       The signal is emitted when the @fun{gdk-pixbuf:pixbuf-loader-close}
       function is called. It can be used by different parts of an application
       to receive notification when an image loader is closed by the code that
       drives it.
-      @begin[code]{table}
-        @entry[loader]{The @sym{gdk-pixbuf:pixbuf-loader} object which received
-          the signal.}
-      @end{table}
     @subheading{The \"size-prepared\" signal}
       @begin{pre}
 lambda (loader width height)    :run-last
       @end{pre}
+      @begin[code]{table}
+        @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object which
+          received the signal.}
+        @entry[width]{An integer with the original width of the image.}
+        @entry[height]{An integer with the original height of the image.}
+      @end{table}
       The signal is emitted when the pixbuf loader has been fed the initial
       amount of data that is required to figure out the size of the image that
       it will create. Applications can call the
       @fun{gdk-pixbuf:pixbuf-loader-set-size} function in response to this
       signal to set the desired size to which the image should be scaled.
-      @begin[code]{table}
-        @entry[loader]{The @sym{gdk-pixbuf:pixbuf-loader} object which received
-          the signal.}
-        @entry[width]{An integer with the original width of the image.}
-        @entry[height]{An integer with the original height of the image.}
-      @end{table}
   @end{dictionary}
   @see-class{gdk-pixbuf:pixbuf-animation}
   @see-class{gdk-pixbuf:pixbuf-animation-iter}
@@ -192,7 +192,7 @@ lambda (loader width height)    :run-last
   @see-function{gdk-pixbuf:pixbuf-animation-get-iter}")
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_loader_new ()
+;;; gdk_pixbuf_loader_new
 ;;; ----------------------------------------------------------------------------
 
 (declaim (inline pixbuf-loader-new))
@@ -287,7 +287,7 @@ lambda (loader width height)    :run-last
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_loader_write ()
+;;; gdk_pixbuf_loader_write
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_loader_write" %pixbuf-loader-write) :boolean
@@ -370,7 +370,7 @@ lambda (loader width height)    :run-last
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_loader_set_size ()
+;;; gdk_pixbuf_loader_set_size
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_loader_set_size" pixbuf-loader-set-size) :void
@@ -384,11 +384,11 @@ lambda (loader width height)    :run-last
     Causes the image to be scaled while it is loaded.
   @end{short}
   The desired image size can be determined relative to the original size of the
-  image by calling the @sym{gdk-pixbuf:pixbuf-loader-set-size} function from a
-  signal handler for the \"size-prepared\" signal.
+  image by calling the @fun{gdk-pixbuf:pixbuf-loader-set-size} function from a
+  signal handler for the @code{\"size-prepared\"} signal.
 
   Attempts to set the desired image size are ignored after the emission of the
-  \"size-prepared\" signal.
+  @code{\"size-prepared\"} signal.
   @see-class{gdk-pixbuf:pixbuf-loader}"
   (loader (g:object pixbuf-loader))
   (width :int)
@@ -397,7 +397,7 @@ lambda (loader width height)    :run-last
 (export 'pixbuf-loader-set-size)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_loader_get_pixbuf () -> pixbuf-loader-pixbuf
+;;; gdk_pixbuf_loader_get_pixbuf
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_loader_get_pixbuf" pixbuf-loader-pixbuf)
@@ -415,8 +415,8 @@ lambda (loader width height)    :run-last
     currently creating.
   @end{short}
   In general it only makes sense to call this function after the
-  \"area-prepared\" signal has been emitted by the loader. This means that
-  enough data has been read to know the size of the image that will be
+  @code{\"area-prepared\"} signal has been emitted by the loader. This means
+  that enough data has been read to know the size of the image that will be
   allocated. If the loader has not received enough data via the
   @fun{gdk-pixbuf:pixbuf-loader-write} function, then this function returns
   @code{nil}. The returned pixbuf will be the same in all future calls to the
@@ -432,7 +432,7 @@ lambda (loader width height)    :run-last
 (export 'pixbuf-loader-pixbuf)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_loader_get_animation () -> pixbuf-loader-animation
+;;; gdk_pixbuf_loader_get_animation
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_loader_get_animation" pixbuf-loader-animation)
@@ -449,9 +449,9 @@ lambda (loader width height)    :run-last
     is currently creating.
   @end{short}
   In general it only makes sense to call this function after the
-  \"area-prepared\" signal has been emitted by the loader. If the loader does
-  not have enough bytes yet, has not emitted the \"area-prepared\" signal, this
-  function will return @code{nil}.
+  @code{\"area-prepared\"} signal has been emitted by the loader. If the loader
+  does not have enough bytes yet, has not emitted the @code{\"area-prepared\"}
+  signal, this function will return @code{nil}.
   @see-class{gdk-pixbuf:pixbuf-loader}
   @see-class{gdk-pixbuf:pixbuf-animation}"
   (load (g:object pixbuf-loader)))
@@ -459,7 +459,7 @@ lambda (loader width height)    :run-last
 (export 'pixbuf-loader-animation)
 
 ;;; ----------------------------------------------------------------------------
-;;; gdk_pixbuf_loader_close ()
+;;; gdk_pixbuf_loader_close
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_loader_close" %pixbuf-loader-close) :boolean
@@ -472,7 +472,7 @@ lambda (loader width height)    :run-last
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @begin{return}
     @em{True} if all image data written so far was successfully passed out via
-    the \"update-area\" signal.
+    the @code{\"update-area\"} signal.
   @end{return}
   @begin{short}
     Informs a pixbuf loader that no further writes with the
