@@ -298,7 +298,7 @@ lambda (loader width height)    :run-last
 
 (defun pixbuf-loader-write (loader buffer count)
  #+liber-documentation
- "@version{#2023-3-10}
+ "@version{#2024-11-21}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @argument[buffer]{a Lisp array for image data}
   @argument[count]{an integer with the length of @arg{buffer} in bytes}
@@ -331,7 +331,7 @@ lambda (loader width height)    :run-last
     @end{pre}
   @end{dictionary}
   @see-class{gdk-pixbuf:pixbuf-loader}"
-  (glib:with-g-error (err)
+  (glib:with-error (err)
     (let ((buf (cffi:foreign-alloc :uchar :initial-contents buffer)))
       (%pixbuf-loader-write loader buf count err))))
 
@@ -468,7 +468,7 @@ lambda (loader width height)    :run-last
 
 (defun pixbuf-loader-close (loader)
  #+liber-documentation
- "@version{#2023-3-10}
+ "@version{#2024-11-21}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @begin{return}
     @em{True} if all image data written so far was successfully passed out via
@@ -482,7 +482,7 @@ lambda (loader width height)    :run-last
   Also, tries to parse any data that has not yet been parsed.
   @see-class{gdk-pixbuf:pixbuf-loader}
   @see-function{gdk-pixbuf:pixbuf-loader-write}"
-  (glib:with-g-error (err)
+  (glib:with-error (err)
     (%pixbuf-loader-close loader err)))
 
 (export 'pixbuf-loader-close)

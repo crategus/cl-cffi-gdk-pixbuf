@@ -285,7 +285,7 @@
 
 (defun pixbuf-animation-new-from-file (path)
  #+liber-documentation
- "@version{2024-6-29}
+ "@version{2024-11-21}
   @argument[path]{a pathname or namestring with the file to load, in the GLib
     file name encoding}
   @begin{return}
@@ -302,7 +302,7 @@
   created. Possible errors are in the @code{GDK_PIXBUF_ERROR} and
   @code{G_FILE_ERROR} domains.
   @see-class{gdk-pixbuf:pixbuf-animation}"
-  (glib:with-g-error (err)
+  (glib:with-error (err)
     (%pixbuf-animation-new-from-file (namestring path) err)))
 
 (export 'pixbuf-animation-new-from-file)
@@ -318,7 +318,7 @@
 
 (defun pixbuf-animation-new-from-resource (resource)
  #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2024-11-21}
   @argument[resource]{a string with the path of the resource file}
   @begin{return}
     The newly created @class{gdk-pixbuf:pixbuf-animation} object, or @code{nil}
@@ -332,7 +332,7 @@
   @end{short}
   The file format is detected automatically.
   @see-class{gdk-pixbuf:pixbuf-animation}"
-  (glib:with-g-error (err)
+  (glib:with-error (err)
     (%pixbuf-animation-new-from-resource resource err)))
 
 (export 'pixbuf-animation-new-from-resource)

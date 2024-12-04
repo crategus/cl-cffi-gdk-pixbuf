@@ -65,7 +65,7 @@
 
 (defun pixbuf-new-from-file (path)
  #+liber-documentation
- "@version{2024-5-30}
+ "@version{2024-11-21}
   @argument[path]{a pathname or namestring with the file to load, in the GLib
     file name encoding}
   @begin{return}
@@ -79,7 +79,7 @@
   @end{short}
   The file format is detected automatically.
   @see-class{gdk-pixbuf:pixbuf}"
-  (glib:with-ignore-g-error (err)
+  (glib:with-ignore-error (err)
     (%pixbuf-new-from-file (namestring path) err)))
 
 (export 'pixbuf-new-from-file)
@@ -97,7 +97,7 @@
 
 (defun pixbuf-new-from-file-at-size (path width height)
  #+liber-documentation
- "@version{2024-5-30}
+ "@version{2024-11-21}
   @argument[path]{a pathname or namestring with the file to load, in the GLib
     file name encoding}
   @argument[width]{an integer with the width the image should have or -1 to not
@@ -122,7 +122,7 @@
   @fun{gdk-pixbuf:pixbuf-new-from-file-at-scale} function.
   @see-class{gdk-pixbuf:pixbuf}
   @see-function{gdk-pixbuf:pixbuf-new-from-file-at-scale}"
-  (glib:with-ignore-g-error (err)
+  (glib:with-ignore-error (err)
     (%pixbuf-new-from-file-at-size (namestring path) width height err)))
 
 (export 'pixbuf-new-from-file-at-size)
@@ -142,7 +142,7 @@
 
 (defun pixbuf-new-from-file-at-scale (path width height preserve)
  #+liber-documentation
- "@version{20245-30}
+ "@version{2024-11-21}
   @argument[path]{a pathname or namestring with the file to load, in the GLib
     file name encoding}
   @argument[width]{an integer with the width the image should have or -1 to not
@@ -167,7 +167,7 @@
   be scaled to the exact given width. When not preserving the aspect ratio, a
   width or height of -1 means to not scale the image at all in that dimension.
   @see-class{gdk-pixbuf:pixbuf}"
-  (glib:with-ignore-g-error (err)
+  (glib:with-ignore-error (err)
     (%pixbuf-new-from-file-at-scale (namestring path)
                                     width height preserve err)))
 
@@ -184,7 +184,7 @@
 
 (defun pixbuf-new-from-resource (path)
  #+liber-documentation
- "@version{2024-5-30}
+ "@version{2024-11-21}
   @argument[path]{a string with the path of the resource file}
   @begin{return}
     The newly created @class{gdk-pixbuf:pixbuf} object, or @code{nil} if any of
@@ -197,7 +197,7 @@
   @end{short}
   The file format is detected automatically.
   @see-class{gdk-pixbuf:pixbuf}"
-  (glib:with-ignore-g-error (err)
+  (glib:with-ignore-error (err)
     (%pixbuf-new-from-resource path err)))
 
 (export 'pixbuf-new-from-resource)
@@ -217,7 +217,7 @@
 
 (defun pixbuf-new-from-resource-at-scale (path width height preserve)
  #+liber-documentation
- "@version{2024-5-30}
+ "@version{2024-11-21}
   @argument[path]{a string with the path of the resource file}
   @argument[width]{an integer with the width the image should have or -1 to not
     constrain the width}
@@ -242,7 +242,7 @@
   preserving the aspect ratio, a width or height of -1 means to not scale the
   image at all in that dimension.
   @see-class{gdk-pixbuf:pixbuf}"
-  (glib:with-ignore-g-error (err)
+  (glib:with-ignore-error (err)
     (%pixbuf-new-from-resource-at-scale path width height preserve err)))
 
 (export 'pixbuf-new-from-resource-at-scale)
@@ -336,7 +336,7 @@
 
 (defun pixbuf-file-info-finish (result)
  #+liber-documentation
- "@version{2024-5-30}
+ "@version{2024-11-21}
   @argument[result]{a @class{g:async-result} instance}
   @begin{return}
     @arg{format} -- a @symbol{gdk-pixbuf:pixbuf-format} instance describing the
@@ -352,7 +352,7 @@
   @see-class{g:async-result}
   @see-symbol{gdk-pixbuf:pixbuf-format}
   @see-function{gdk-pixbuf:pixbuf-file-info-async}"
-  (glib:with-ignore-g-error (err)
+  (glib:with-ignore-error (err)
     (cffi:with-foreign-objects ((width :int) (height :int))
       (let ((format (%pixbuf-file-info-finish result width height err)))
         (when format
