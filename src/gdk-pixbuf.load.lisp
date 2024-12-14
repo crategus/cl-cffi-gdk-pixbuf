@@ -56,10 +56,8 @@
 ;;; gdk_pixbuf_new_from_file
 ;;; ----------------------------------------------------------------------------
 
-;; TODO: Check the functionality of :already-referenced
-
 (cffi:defcfun ("gdk_pixbuf_new_from_file" %pixbuf-new-from-file)
-    (g:object pixbuf :already-referenced)
+    (g:object pixbuf :return)
   (filename :string)
   (err :pointer))
 
@@ -89,7 +87,7 @@
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_new_from_file_at_size" %pixbuf-new-from-file-at-size)
-    (g:object pixbuf :already-referenced)
+    (g:object pixbuf :return)
   (filename :string)
   (width :int)
   (height :int)
@@ -132,8 +130,7 @@
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_new_from_file_at_scale"
-               %pixbuf-new-from-file-at-scale)
-    (g:object pixbuf :already-referenced)
+               %pixbuf-new-from-file-at-scale) (g:object pixbuf :return)
   (filename :string)
   (width :int)
   (height :int)
@@ -178,7 +175,7 @@
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_new_from_resource" %pixbuf-new-from-resource)
-    (g:object pixbuf :already-referenced)
+    (g:object pixbuf :return)
   (path :string)
   (err :pointer))
 
@@ -207,8 +204,7 @@
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_new_from_resource_at_scale"
-               %pixbuf-new-from-resource-at-scale)
-    (g:object pixbuf :already-referenced)
+               %pixbuf-new-from-resource-at-scale) (g:object pixbuf :return)
   (path :string)
   (width :int)
   (height :int)
