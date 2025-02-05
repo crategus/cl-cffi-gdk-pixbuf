@@ -242,9 +242,8 @@
   @begin{short}
     Creates a transformation of the source image @arg{src} by scaling by
     @arg{xscale} and @arg{yscale} then translating by @arg{xoffset} and
-    @arg{yoffset}, then renders the rectangle (@arg{x}, @arg{y}, @arg{width},
-    @arg{height}) of the resulting image onto the destination image replacing
-    the previous contents.
+    @arg{yoffset}, then renders the rectangle @code{(x,y,width,height)} of the
+    resulting image onto the destination image replacing the previous contents.
   @end{short}
 
   Try to use the @fun{gdk-pixbuf:pixbuf-scale-simple} function first, this
@@ -358,8 +357,8 @@
     @arg{yoffset}.
   @end{short}
   This gives an image in the coordinates of the destination pixbuf. The
-  rectangle (@arg{x}, @arg{y}, @arg{width}, @arg{height}) is then composited
-  onto the corresponding rectangle of the original destination image.
+  rectangle @code{(x,y,width,height)} is then composited onto the corresponding
+  rectangle of the original destination image.
 
   When the destination rectangle contains parts not in the source image, the
   data at the edges of the source image is replicated to infinity.
@@ -444,10 +443,9 @@
   @begin{short}
     Creates a transformation of the source image @arg{src} by scaling by
     @arg{xscale} and @arg{yscale} then translating by @arg{xoffset} and
-    @arg{yoffset}, then composites the rectangle @code{(@arg{x}, @arg{y},
-    @arg{width}, @arg{height})} of the resulting image with a checkboard of the
-    colors @arg{color1} and @arg{color2} and renders it onto the destination
-    image.
+    @arg{yoffset}, then composites the rectangle @code{(x,y,width,height)} of
+    the resulting image with a checkboard of the colors @arg{color1} and
+    @arg{color2} and renders it onto the destination image.
   @end{short}
 
   See the @fun{gdk-pixbuf:pixbuf-composite-color-simple} function for a simpler

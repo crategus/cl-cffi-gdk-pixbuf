@@ -51,7 +51,7 @@
  "@version{#2024-6-29}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[substitute]{a boolean whether to set a color to zero opacity, if
-    this is @em{false}, then the (@arg{red}, @arg{green}, @arg{blue}) arguments
+    this is @em{false}, then the @arg{red}, @arg{green}, @arg{blue} arguments
     will be ignored}
   @argument[red]{an unsigned char with the red value to substitute}
   @argument[green]{an unsigned char with the green value to substitute}
@@ -65,7 +65,7 @@
   255 (full opacity).
 
   If the @arg{substitute} argument is @em{true}, then the color specified by
-  (@arg{red}, @arg{green}, @arg{blue}) will be assigned zero opacity. That is,
+  @arg{red}, @arg{green}, @arg{blue} will be assigned zero opacity. That is,
   if you pass (255, 255, 255) for the substitute color, all white pixels will
   become fully transparent.
   @see-class{gdk-pixbuf:pixbuf}"
