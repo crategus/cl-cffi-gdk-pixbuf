@@ -1,12 +1,12 @@
 ;;; ----------------------------------------------------------------------------
 ;;; gdk-pixbuf.loader.lisp
 ;;;
-;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
-;;; Version 2.36 and modified to document the Lisp binding to the GDK-PixBuf
-;;; library. See <http://www.gtk.org>. The API documentation of the Lisp
-;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
+;;; The documentation in this file is taken from the GDK-PixBuf Reference Manual
+;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
+;;; library, see <http://www.gtk.org>. The API documentation of the Lisp
+;;; binding is available at <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2013 - 2023 Dieter Kaiser
+;;; Copyright (C) 2013 - 2025 Dieter Kaiser
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a
 ;;; copy of this software and associated documentation files (the "Software"),
@@ -20,8 +20,8 @@
 ;;;
 ;;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 ;;; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-;;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-;;; AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+;;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+;;; THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 ;;; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 ;;; FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 ;;; DEALINGS IN THE SOFTWARE.
@@ -29,7 +29,7 @@
 ;;;
 ;;; GdkPixbufLoader
 ;;;
-;;;     Application-driven progressive image loading.
+;;;     Application-driven progressive image loading
 ;;;
 ;;; Types and Values
 ;;;
@@ -65,7 +65,7 @@
 (in-package :gdk-pixbuf)
 
 ;;; ----------------------------------------------------------------------------
-;;; struct GdkPixbufLoader
+;;; GdkPixbufLoader
 ;;; ----------------------------------------------------------------------------
 
 (gobject:define-gobject "GdkPixbufLoader" pixbuf-loader
@@ -77,7 +77,7 @@
 
 #+liber-documentation
 (setf (documentation 'pixbuf-loader 'type)
- "@version{#2023-3-10}
+ "@version{2025-3-1}
   @begin{short}
     The @class{gdk-pixbuf:pixbuf-loader} class provides a way for applications
     to drive the process of loading an image, by letting them send the image
@@ -117,10 +117,10 @@
   @subheading{Loading an animation}
     Loading an animation is almost as easy as loading an image. Once the first
     @code{\"area-prepared\"} signal has been emitted, you can call the
-    @fun{gdk-pixbuf:pixbuf-loader-get-animation} function to get the
+    @fun{gdk-pixbuf:pixbuf-loader-animation} function to get the
     @class{gdk-pixbuf:pixbuf-animation} object and the
-    @fun{gdk-pixbuf:pixbuf-animation-get-iter} function to get an
-    @class{gdk-pixbuf:pixbuf-animation-iter} instance for displaying it.
+    @fun{gdk-pixbuf:pixbuf-animation-iter} function to get an
+    @class{gdk-pixbuf:pixbuf-animation-iter} object for displaying it.
   @begin[Signal Details]{dictionary}
     @subheading{The \"area-prepared\" signal}
       @begin{pre}
@@ -141,12 +141,12 @@ lambda (loader x y width height)    :run-last
       @begin[code]{table}
         @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object which
           received the signal.}
-        @entry[x]{An integer with the x offset of upper-left corner of the
+        @entry[x]{The integer with the x offset of upper-left corner of the
           updated area.}
-        @entry[y]{An integer with the y offset of upper-left corner of the
+        @entry[y]{The integer with the y offset of upper-left corner of the
           updated area.}
-        @entry[width]{An integer with the width of updated area.}
-        @entry[height]{An integer with the height of updated area.}
+        @entry[width]{The integer with the width of updated area.}
+        @entry[height]{The integer with the height of updated area.}
       @end{table}
       The signal is emitted when a significant area of the image being loaded
       has been updated. Normally it means that a complete scanline has been read
@@ -154,7 +154,7 @@ lambda (loader x y width height)    :run-last
       signal to know when to repaint areas of an image that is being loaded.
     @subheading{The \"closed\" signal}
       @begin{pre}
-   lambda (loader)    :run-last
+lambda (loader)    :run-last
       @end{pre}
       @begin[code]{table}
         @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object which
@@ -171,8 +171,8 @@ lambda (loader width height)    :run-last
       @begin[code]{table}
         @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object which
           received the signal.}
-        @entry[width]{An integer with the original width of the image.}
-        @entry[height]{An integer with the original height of the image.}
+        @entry[width]{The integer with the original width of the image.}
+        @entry[height]{The integer with the original height of the image.}
       @end{table}
       The signal is emitted when the pixbuf loader has been fed the initial
       amount of data that is required to figure out the size of the image that
@@ -181,15 +181,7 @@ lambda (loader width height)    :run-last
       signal to set the desired size to which the image should be scaled.
   @end{dictionary}
   @see-class{gdk-pixbuf:pixbuf-animation}
-  @see-class{gdk-pixbuf:pixbuf-animation-iter}
-  @see-function{gdk-pixbuf:pixbuf-new-from-file}
-  @see-function{gdk-pixbuf:pixbuf-animation-new-from-file}
-  @see-function{gdk-pixbuf:pixbuf-loader-write}
-  @see-function{gdk-pixbuf:pixbuf-loader-close}
-  @see-function{gdk-pixbuf:pixbuf-loader-set-size}
-  @see-function{gdk-pixbuf:pixbuf-loader-pixbuf}
-  @see-function{gdk-pixbuf:pixbuf-loader-get-animation}
-  @see-function{gdk-pixbuf:pixbuf-animation-get-iter}")
+  @see-class{gdk-pixbuf:pixbuf-animation-iter}")
 
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_loader_new
@@ -199,8 +191,8 @@ lambda (loader width height)    :run-last
 
 (defun pixbuf-loader-new ()
  #+liber-documentation
- "@version{#2023-3-10}
-  @return{A newly-created @class{gdk-pixbuf:pixbuf-loader} object.}
+ "@version{2025-3-1}
+  @return{The newly created @class{gdk-pixbuf:pixbuf-loader} object.}
   @short{Creates a new pixbuf loader object.}
   @see-class{gdk-pixbuf:pixbuf-loader}"
   (make-instance 'pixbuf-loader))
@@ -210,8 +202,8 @@ lambda (loader width height)    :run-last
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_loader_new_with_type ()
 ;;;
-;;; GdkPixbufLoader * gdk_pixbuf_loader_new_with_type (const char *image_type,
-;;;                                                    GError **error);
+;;; GdkPixbufLoader *
+;;; gdk_pixbuf_loader_new_with_type (const char *image_type, GError **error);
 ;;;
 ;;; Creates a new pixbuf loader object that always attempts to parse image data
 ;;; as if it were an image of type image_type, instead of identifying the type
@@ -232,22 +224,21 @@ lambda (loader width height)    :run-last
 ;;;     return location for an allocated GError, or NULL to ignore errors
 ;;;
 ;;; Returns :
-;;;     A newly-created pixbuf loader.
+;;;     A newly created pixbuf loader.
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_loader_new_with_mime_type ()
 ;;;
-;;; GdkPixbufLoader * gdk_pixbuf_loader_new_with_mime_type
-;;;                                                      (const char *mime_type,
-;;;                                                       GError **error);
+;;; GdkPixbufLoader *
+;;; gdk_pixbuf_loader_new_with_mime_type (const char *mime_type, GError **error)
 ;;;
 ;;; Creates a new pixbuf loader object that always attempts to parse image data
 ;;; as if it were an image of mime type mime_type, instead of identifying the
 ;;; type automatically. Useful if you want an error if the image isn't the
 ;;; expected mime type, for loading image formats that can't be reliably
-;;; identified by looking at the data, or if the user manually forces a specific
-;;; mime type.
+;;; identified by looking at the data, or if the user manually forces a
+;;; specific mime type.
 ;;;
 ;;; The list of supported mime types depends on what image loaders are
 ;;; installed, but typically "image/png", "image/jpeg", "image/gif",
@@ -263,7 +254,7 @@ lambda (loader width height)    :run-last
 ;;;     return location for an allocated GError, or NULL to ignore errors
 ;;;
 ;;; Returns :
-;;;     A newly-created pixbuf loader.
+;;;     A newly created pixbuf loader.
 ;;;
 ;;; Since 2.4
 ;;; ----------------------------------------------------------------------------
@@ -271,7 +262,8 @@ lambda (loader width height)    :run-last
 ;;; ----------------------------------------------------------------------------
 ;;; gdk_pixbuf_loader_get_format ()
 ;;;
-;;; GdkPixbufFormat * gdk_pixbuf_loader_get_format (GdkPixbufLoader *loader);
+;;; GdkPixbufFormat *
+;;; gdk_pixbuf_loader_get_format (GdkPixbufLoader *loader);
 ;;;
 ;;; Obtains the available information about the format of the currently loading
 ;;; image file.
@@ -298,10 +290,10 @@ lambda (loader width height)    :run-last
 
 (defun pixbuf-loader-write (loader buffer count)
  #+liber-documentation
- "@version{#2024-11-21}
+ "@version{2025-3-1}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @argument[buffer]{a Lisp array for image data}
-  @argument[count]{an integer with the length of @arg{buffer} in bytes}
+  @argument[count]{an integer for the length of @arg{buffer} in bytes}
   @begin{return}
     @em{True} if the write was successful, or @em{false} if the loader cannot
     parse the buffer.
@@ -311,7 +303,7 @@ lambda (loader width height)    :run-last
   @end{short}
   It will return @em{true} if the data was loaded successfully, and @em{false}
   if an error occurred.
-  @begin[Example]{dictionary}
+  @begin[Examples]{dictionary}
     A code fragment, which writes data into the pixbuf loader:
     @begin{pre}
 ;; Create the image stream and the GdkPixbufLoader
@@ -346,10 +338,10 @@ lambda (loader width height)    :run-last
 ;;;                                GError **error);
 ;;;
 ;;; This will cause a pixbuf loader to parse a buffer inside a GBytes for an
-;;; image. It will return TRUE if the data was loaded successfully, and FALSE if
-;;; an error occurred. In the latter case, the loader will be closed, and will
-;;; not accept further writes. If FALSE is returned, error will be set to an
-;;; error from the GDK_PIXBUF_ERROR or G_FILE_ERROR domains.
+;;; image. It will return TRUE if the data was loaded successfully, and FALSE
+;;; if an error occurred. In the latter case, the loader will be closed, and
+;;; will not accept further writes. If FALSE is returned, error will be set to
+;;; an error from the GDK_PIXBUF_ERROR or G_FILE_ERROR domains.
 ;;;
 ;;; See also: gdk_pixbuf_loader_write()
 ;;;
@@ -375,11 +367,10 @@ lambda (loader width height)    :run-last
 
 (cffi:defcfun ("gdk_pixbuf_loader_set_size" pixbuf-loader-set-size) :void
  #+liber-documentation
- "@version{#2023-3-10}
+ "@version{#2025-3-1}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
-  @argument[width]{an integer with the desired width of the image being loaded}
-  @argument[height]{an integer with the desired height of the image being
-    loaded}
+  @argument[width]{an integer for the desired width of the image being loaded}
+  @argument[height]{an integer for the desired height of the image being loaded}
   @begin{short}
     Causes the image to be scaled while it is loaded.
   @end{short}
@@ -403,7 +394,7 @@ lambda (loader width height)    :run-last
 (cffi:defcfun ("gdk_pixbuf_loader_get_pixbuf" pixbuf-loader-pixbuf)
     (g:object pixbuf)
  #+liber-documentation
- "@version{#2023-3-10}
+ "@version{2025-3-1}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @begin{return}
     The @class{gdk-pixbuf:pixbuf} object that the loader is creating, or
@@ -438,7 +429,7 @@ lambda (loader width height)    :run-last
 (cffi:defcfun ("gdk_pixbuf_loader_get_animation" pixbuf-loader-animation)
     (g:object pixbuf-animation)
  #+liber-documentation
- "@version{#2023-3-10}
+ "@version{#2025-3-1}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @begin{return}
     The @class{gdk-pixbuf:pixbuf-animation} object that the loader is loading,
@@ -454,7 +445,7 @@ lambda (loader width height)    :run-last
   signal, this function will return @code{nil}.
   @see-class{gdk-pixbuf:pixbuf-loader}
   @see-class{gdk-pixbuf:pixbuf-animation}"
-  (load (g:object pixbuf-loader)))
+  (loader (g:object pixbuf-loader)))
 
 (export 'pixbuf-loader-animation)
 
@@ -468,7 +459,7 @@ lambda (loader width height)    :run-last
 
 (defun pixbuf-loader-close (loader)
  #+liber-documentation
- "@version{#2024-11-21}
+ "@version{2025-3-1}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @begin{return}
     @em{True} if all image data written so far was successfully passed out via
