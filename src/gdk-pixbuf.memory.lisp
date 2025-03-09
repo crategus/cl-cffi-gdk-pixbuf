@@ -1,12 +1,12 @@
 ;;; ----------------------------------------------------------------------------
 ;;; gdk-pixbuf.memory.lisp
 ;;;
-;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
+;;; The documentation in this file is taken from the GDK-PixBuf Reference Manual
 ;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
-;;; library. See <http://www.gtk.org>. The API documentation of the Lisp
+;;; library, see <http://www.gtk.org>. The API documentation of the Lisp
 ;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2011 - 2024 Dieter Kaiser
+;;; Copyright (C) 2011 - 2025 Dieter Kaiser
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a
 ;;; copy of this software and associated documentation files (the "Software"),
@@ -20,8 +20,8 @@
 ;;;
 ;;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 ;;; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-;;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-;;; AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+;;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+;;; THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 ;;; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 ;;; FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 ;;; DEALINGS IN THE SOFTWARE.
@@ -58,7 +58,7 @@
   @argument[width]{an integer with the width of image in pixels, must be > 0}
   @argument[height]{an integer with the height of image in pixels, must be > 0}
   @begin{return}
-    The newly-created @class{gdk-pixbuf:pixbuf} object with a reference count
+    The newly created @class{gdk-pixbuf:pixbuf} object with a reference count
     of 1, or @code{nil} if not enough memory could be allocated for the image
     buffer.
   @end{return}
@@ -161,7 +161,7 @@
 ;;;     Closure data to pass to the destroy notification function
 ;;;
 ;;; Returns :
-;;;     A newly-created GdkPixbuf structure with a reference count of 1.
+;;;     A newly created GdkPixbuf structure with a reference count of 1.
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -176,7 +176,7 @@
 ;;;     pointer to inline XPM data
 ;;;
 ;;; Returns :
-;;;     A newly-created pixbuf with a reference count of 1.
+;;;     A newly created pixbuf with a reference count of 1.
 ;;; ----------------------------------------------------------------------------
 
 ;;; ----------------------------------------------------------------------------
@@ -234,7 +234,7 @@
 ;;;     GError return location, may be NULL to ignore errors
 ;;;
 ;;; Returns :
-;;;     A newly-created GdkPixbuf structure with a reference, count of 1, or
+;;;     A newly created GdkPixbuf structure with a reference, count of 1, or
 ;;;     NULL if an error occurred.
 ;;; ----------------------------------------------------------------------------
 

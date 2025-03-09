@@ -1,12 +1,12 @@
 ;;; ----------------------------------------------------------------------------
 ;;; gdk-pixbuf.utilities.lisp
 ;;;
-;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
+;;; The documentation in this file is taken from the GDK-PixBuf Reference Manual
 ;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
-;;; library. See <http://www.gtk.org>. The API documentation of the Lisp
-;;; binding is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
+;;; library, see <http://www.gtk.org>. The API documentation of the Lisp
+;;; binding is available at <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2013 - 2024 Dieter Kaiser
+;;; Copyright (C) 2013 - 2025 Dieter Kaiser
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a
 ;;; copy of this software and associated documentation files (the "Software"),
@@ -20,8 +20,8 @@
 ;;;
 ;;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 ;;; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-;;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-;;; AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+;;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+;;; THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 ;;; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 ;;; FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 ;;; DEALINGS IN THE SOFTWARE.
@@ -160,7 +160,7 @@
 ;;;     A GdkPixbuf.
 ;;;
 ;;; Returns :
-;;;     A newly-created pixbuf, or a reference to the input pixbuf (with an
+;;;     A newly created pixbuf, or a reference to the input pixbuf (with an
 ;;;     increased reference count). [transfer full]
 ;;; ----------------------------------------------------------------------------
 
@@ -170,15 +170,15 @@
 
 (cffi:defcfun ("gdk_pixbuf_fill" pixbuf-fill) :void
  #+liber-documentation
- "@version{#2024-6-29}
+ "@version{2025-3-2}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
-  @argument[pixel]{an unsigned integer with the RGBA pixel to clear to,
+  @argument[pixel]{an unsigned integer for the RGBA pixel to clear to,
     @code{#xffffffff} is opaque white, @code{#x00000000} transparent black}
   @begin{short}
     Clears a pixbuf to the given RGBA value, converting the RGBA value
     into the pixel format of the pixbuf.
   @end{short}
-  The alpha will be ignored if the pixbuf does not have an alpha channel.
+  The alpha value will be ignored if the pixbuf does not have an alpha channel.
   @see-class{gdk-pixbuf:pixbuf}"
   (pixbuf (g:object pixbuf))
   (pixel :uint32))
