@@ -1,12 +1,12 @@
 ;;; ----------------------------------------------------------------------------
 ;;; gdk-pixbuf.package.lisp
 ;;;
-;;; The documentation of this file is taken from the GDK-PixBuf Reference Manual
+;;; The documentation in this file is taken from the GDK-PixBuf Reference Manual
 ;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
-;;; library. See <http://www.gtk.org>. The API documentation of the Lisp binding
-;;; is available from <http://www.crategus.com/books/cl-cffi-gtk4/>.
+;;; library, see <http://www.gtk.org>. The API documentation of the Lisp binding
+;;; is available at <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
-;;; Copyright (C) 2011 - 2024 Dieter Kaiser
+;;; Copyright (C) 2011 - 2025 Dieter Kaiser
 ;;;
 ;;; Permission is hereby granted, free of charge, to any person obtaining a
 ;;; copy of this software and associated documentation files (the "Software"),
@@ -20,8 +20,8 @@
 ;;;
 ;;; THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 ;;; IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-;;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-;;; AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+;;; FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+;;; THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 ;;; LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 ;;; FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 ;;; DEALINGS IN THE SOFTWARE.
@@ -254,24 +254,29 @@ expose_cb (GtkWidget *widget, GdkEventExpose *event, gpointer data)
     @end{subsection}
   @end{section}
   @begin[Animations]{section}
-    @about-class{pixbuf-animation-iter}
-    @about-function{pixbuf-animation-iter-pixbuf}
-    @about-function{pixbuf-animation-iter-delay-time}
-    @about-function{pixbuf-animation-iter-advance}
-    @about-function{pixbuf-animation-iter-on-currently-loading-frame}
-    @about-class{pixbuf-animation}
-    @about-generic{pixbuf-animation-loop}
-    @about-function{pixbuf-animation-new-from-file}
-    @about-function{pixbuf-animation-new-from-resource}
-    @about-function{pixbuf-animation-width}
-    @about-function{pixbuf-animation-height}
-    @about-function{pixbuf-animation-iter}
-    @about-function{pixbuf-animation-is-static-image}
-    @about-function{pixbuf-animation-static-image}
-    @about-class{pixbuf-simple-anim}
-    @about-function{pixbuf-simple-anim-new}
-    @about-function{pixbuf-simple-anim-add-frame}
-    @about-function{pixbuf-simple-anim-loop}
+    @begin[GdkPixbufAnimationIter]{subsection}
+      @about-class{pixbuf-animation-iter}
+      @about-function{pixbuf-animation-iter-pixbuf}
+      @about-function{pixbuf-animation-iter-delay-time}
+      @about-function{pixbuf-animation-iter-advance}
+      @about-function{pixbuf-animation-iter-on-currently-loading-frame}
+    @end{subsection}
+    @begin[GdkPixbufAnimation]{subsection}
+      @about-class{pixbuf-animation}
+      @about-function{pixbuf-animation-new-from-file}
+      @about-function{pixbuf-animation-new-from-resource}
+      @about-function{pixbuf-animation-width}
+      @about-function{pixbuf-animation-height}
+      @about-function{pixbuf-animation-iter}
+      @about-function{pixbuf-animation-is-static-image}
+      @about-function{pixbuf-animation-static-image}
+    @end{subsection}
+    @begin[GdkPixbufSimpleAnim]{subsection}
+      @about-class{pixbuf-simple-anim}
+      @about-generic{pixbuf-simple-anim-loop}
+      @about-function{pixbuf-simple-anim-new}
+      @about-function{pixbuf-simple-anim-add-frame}
+    @end{subsection}
   @end{section}
   @begin[GdkPixbufLoader]{section}
     @about-class{pixbuf-loader}
