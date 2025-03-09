@@ -25,7 +25,7 @@ Content from the GDK-Pixbuf 2.42 Reference Manual
 
   gdk-pixbuf.utilities.lisp - Utility functions                        - 2.42 &.
   gdk-pixbuf.animation.lisp - Animated images                          - 2.42 &.
-  gdk-pixbuf.loader.lisp    - Progressive image loading                - 2.36 &+
+  gdk-pixbuf.loader.lisp    - Progressive image loading                - 2.42 &.
   gdk-pixbuf.interface.lisp - Extending GdkPixBuf                      - 2.42 &+
 
   gdk-pixbuf Xlib initialization - Initializing the gdk-pixbuf Xlib library.
