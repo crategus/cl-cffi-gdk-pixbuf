@@ -252,13 +252,14 @@
 ;;; ----------------------------------------------------------------------------
 
 (cffi:defcfun ("gdk_pixbuf_animation_new_from_file"
-               %pixbuf-animation-new-from-file) (g:object pixbuf-animation)
+               %pixbuf-animation-new-from-file)
+    (gobject:object pixbuf-animation :return)
   (filename :string)
   (err :pointer))
 
 (defun pixbuf-animation-new-from-file (path)
  #+liber-documentation
- "@version{2025-3-2}
+ "@version{2025-06-04}
   @argument[path]{a pathname or namestring for the file to load, in the GLib
     file name encoding}
   @begin{return}
