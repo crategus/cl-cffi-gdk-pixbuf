@@ -1,4 +1,8 @@
-*.tmp
-*.gresource
 TODO
+*.gresource
+doc/single-page/*
+doc/pages
+doc/index.*
+doc/lambda.icon
+generate-book.lisp
 test/report/*.html
