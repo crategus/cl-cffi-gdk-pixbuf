@@ -34,8 +34,8 @@
 (test gdk-pixbuf-formats
   (is (every #'cffi:pointerp (gdk-pixbuf:pixbuf-formats)))
   #+crategus
-  (is (equal '("ani" "avif" "bmp" "gif" "heif/avif" "icns" "ico" "jpeg" "png"
-               "pnm" "qtif" "svg" "tga" "tiff" "webp" "wmf" "xbm" "xpm")
+  (is (equal '("ani" "avif" "bmp" "gif" "heif/avif" "icns" "ico" "jpeg" "jxl"
+               "png" "pnm" "qtif" "svg" "tga" "tiff" "webp" "wmf" "xbm" "xpm")
              (sort (mapcar #'gdk-pixbuf:pixbuf-format-name
                            (gdk-pixbuf:pixbuf-formats))
                    #'string<)))
