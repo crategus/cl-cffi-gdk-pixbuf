@@ -50,13 +50,13 @@
 
 (cffi:defcfun ("gdk_pixbuf_new" pixbuf-new) (g:object pixbuf)
  #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2025-09-26}
   @argument[colorspace]{a @symbol{gdk-pixbuf:colorspace} value for the image}
   @argument[has-alpha]{a boolean whether the image should have transparency
     information}
-  @argument[bits-per-sample]{an integer with number of bits per color sample}
-  @argument[width]{an integer with the width of image in pixels, must be > 0}
-  @argument[height]{an integer with the height of image in pixels, must be > 0}
+  @argument[bits-per-sample]{an integer for number of bits per color sample}
+  @argument[width]{an integer for the width of image in pixels, must be > 0}
+  @argument[height]{an integer for the height of image in pixels, must be > 0}
   @begin{return}
     The newly created @class{gdk-pixbuf:pixbuf} object with a reference count
     of 1, or @code{nil} if not enough memory could be allocated for the image
@@ -84,16 +84,16 @@
 
 (cffi:defcfun ("gdk_pixbuf_new_from_bytes" pixbuf-new-from-bytes)
     (g:object pixbuf)
- "@version{#2024-6-29}
-  @argument[data]{a @class{g:bytes} instance with the image data in 8-bit
-    sample packed format}
+ "@version{#2025-09-26}
+  @argument[data]{a @class{g:bytes} instance for the image data in 8-bit sample
+    packed format}
   @argument[colorspace]{a @symbol{gdk-pixbuf:colorspace} value for the image}
   @argument[has-alpha]{a boolean whether the image should have transparency
     information}
-  @argument[bits-per-sample]{an integer with number of bits per color sample}
-  @argument[width]{an integer with the width of image in pixels, must be > 0}
-  @argument[height]{an integer with the height of image in pixels, must be > 0}
-  @argument[rowstride]{an integer with the distance in bytes between row starts}
+  @argument[bits-per-sample]{an integer for number of bits per color sample}
+  @argument[width]{an integer for the width of image in pixels, must be > 0}
+  @argument[height]{an integer for the height of image in pixels, must be > 0}
+  @argument[rowstride]{an integer for the distance in bytes between row starts}
   @begin{return}
     The newly created @class{gdk-pixbuf:pixbuf} object with a reference count
     of 1.
@@ -245,12 +245,12 @@
 (cffi:defcfun ("gdk_pixbuf_new_subpixbuf" pixbuf-new-subpixbuf)
     (g:object pixbuf)
  #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2025-09-26}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
-  @argument[x]{an integer with the x coord in @arg{pixbuf}}
-  @argument[y]{an integer with the y coord in @arg{pixbuf}}
-  @argument[width]{an integer with the width of region in @arg{pixbuf}}
-  @argument[height]{an integer with the height of region in @arg{pixbuf}}
+  @argument[x]{an integer for the x coord in @arg{pixbuf}}
+  @argument[y]{an integer for the y coord in @arg{pixbuf}}
+  @argument[width]{an integer for the width of region in @arg{pixbuf}}
+  @argument[height]{an integer for the height of region in @arg{pixbuf}}
   @return{The new @class{gdk-pixbuf:pixbuf} object.}
   @begin{short}
     Creates a new pixbuf which represents a sub-region of @arg{pixbuf}.
@@ -273,7 +273,7 @@
 
 (cffi:defcfun ("gdk_pixbuf_copy" pixbuf-copy) (g:object pixbuf)
  #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2024-06-29}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
   @begin{return}
     The newly created pixbuf with a reference count of 1, or @code{nil} if not

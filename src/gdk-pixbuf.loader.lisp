@@ -127,8 +127,8 @@
 lambda (loader)    :run-last
       @end{pre}
       @begin[code]{simple-table}
-        @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object which
-          received the signal.}
+        @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object that received
+          the signal.}
       @end{simple-table}
       The signal is emitted when the pixbuf loader has allocated the pixbuf
       in the desired size. After this signal is emitted, applications can call
@@ -140,14 +140,14 @@ lambda (loader)    :run-last
 lambda (loader x y width height)    :run-last
       @end{pre}
       @begin[code]{simple-table}
-        @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object which
-          received the signal.}
-        @entry[x]{The integer with the x offset of upper-left corner of the
+        @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object that received
+          the signal.}
+        @entry[x]{The integer for the x offset of upper-left corner of the
           updated area.}
-        @entry[y]{The integer with the y offset of upper-left corner of the
+        @entry[y]{The integer for the y offset of upper-left corner of the
           updated area.}
-        @entry[width]{The integer with the width of updated area.}
-        @entry[height]{The integer with the height of updated area.}
+        @entry[width]{The integer for the width of updated area.}
+        @entry[height]{The integer for the height of updated area.}
       @end{simple-table}
       The signal is emitted when a significant area of the image being loaded
       has been updated. Normally it means that a complete scanline has been read
@@ -159,7 +159,7 @@ lambda (loader x y width height)    :run-last
 lambda (loader)    :run-last
       @end{pre}
       @begin[code]{simple-table}
-        @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object which
+        @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object that
           received the signal.}
       @end{simple-table}
       The signal is emitted when the @fun{gdk-pixbuf:pixbuf-loader-close}
@@ -172,10 +172,10 @@ lambda (loader)    :run-last
 lambda (loader width height)    :run-last
       @end{pre}
       @begin[code]{simple-table}
-        @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object which
+        @entry[loader]{The @class{gdk-pixbuf:pixbuf-loader} object that
           received the signal.}
-        @entry[width]{The integer with the original width of the image.}
-        @entry[height]{The integer with the original height of the image.}
+        @entry[width]{The integer for the original width of the image.}
+        @entry[height]{The integer for the original height of the image.}
       @end{simple-table}
       The signal is emitted when the pixbuf loader has been fed the initial
       amount of data that is required to figure out the size of the image that
@@ -195,7 +195,7 @@ lambda (loader width height)    :run-last
 
 (defun pixbuf-loader-new ()
  #+liber-documentation
- "@version{2025-3-1}
+ "@version{2025-03-01}
   @return{The newly created @class{gdk-pixbuf:pixbuf-loader} object.}
   @short{Creates a new pixbuf loader object.}
   @see-class{gdk-pixbuf:pixbuf-loader}"
@@ -294,7 +294,7 @@ lambda (loader width height)    :run-last
 
 (defun pixbuf-loader-write (loader buffer count)
  #+liber-documentation
- "@version{2025-3-1}
+ "@version{2025-03-01}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @argument[buffer]{a Lisp array for image data}
   @argument[count]{an integer for the length of @arg{buffer} in bytes}
@@ -371,7 +371,7 @@ lambda (loader width height)    :run-last
 
 (cffi:defcfun ("gdk_pixbuf_loader_set_size" pixbuf-loader-set-size) :void
  #+liber-documentation
- "@version{#2025-3-1}
+ "@version{#2025-03-01}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @argument[width]{an integer for the desired width of the image being loaded}
   @argument[height]{an integer for the desired height of the image being loaded}
@@ -398,7 +398,7 @@ lambda (loader width height)    :run-last
 (cffi:defcfun ("gdk_pixbuf_loader_get_pixbuf" pixbuf-loader-pixbuf)
     (g:object pixbuf)
  #+liber-documentation
- "@version{2025-3-1}
+ "@version{2025-03-01}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @begin{return}
     The @class{gdk-pixbuf:pixbuf} object that the loader is creating, or
@@ -433,7 +433,7 @@ lambda (loader width height)    :run-last
 (cffi:defcfun ("gdk_pixbuf_loader_get_animation" pixbuf-loader-animation)
     (g:object pixbuf-animation)
  #+liber-documentation
- "@version{#2025-3-1}
+ "@version{#2025-03-01}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @begin{return}
     The @class{gdk-pixbuf:pixbuf-animation} object that the loader is loading,
@@ -463,7 +463,7 @@ lambda (loader width height)    :run-last
 
 (defun pixbuf-loader-close (loader)
  #+liber-documentation
- "@version{2025-3-1}
+ "@version{2025-03-01}
   @argument[loader]{a @class{gdk-pixbuf:pixbuf-loader} object}
   @begin{return}
     @em{True} if all image data written so far was successfully passed out via

@@ -2,8 +2,8 @@
 ;;; gdk-pixbuf.utilities.lisp
 ;;;
 ;;; The documentation in this file is taken from the GDK-PixBuf Reference Manual
-;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
-;;; library, see <http://www.gtk.org>. The API documentation of the Lisp
+;;; version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
+;;; library, see <http://www.gtk.org>. The API documentation for the Lisp
 ;;; binding is available at <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
 ;;; Copyright (C) 2013 - 2025 Dieter Kaiser
@@ -48,7 +48,7 @@
 
 (cffi:defcfun ("gdk_pixbuf_add_alpha" pixbuf-add-alpha) (g:object pixbuf)
  #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2024-06-29}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[substitute]{a boolean whether to set a color to zero opacity, if
     this is @em{false}, then the @arg{red}, @arg{green}, @arg{blue} arguments
@@ -85,15 +85,15 @@
 
 (cffi:defcfun ("gdk_pixbuf_copy_area" pixbuf-copy-area) :void
  #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2025-09-26}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
-  @argument[xsrc]{an integer with the source x coordinate within @arg{src}}
-  @argument[ysrc]{an integer with the source y coordinate within @arg{src}}
-  @argument[width]{an integer with the width of the area to copy}
-  @argument[height]{an integer with the height of the area to copy}
+  @argument[xsrc]{an integer for the source x coordinate within @arg{src}}
+  @argument[ysrc]{an integer for the source y coordinate within @arg{src}}
+  @argument[width]{an integer for the width of the area to copy}
+  @argument[height]{an integer for the height of the area to copy}
   @argument[dest]{a @class{gdk-pixbuf:pixbuf} destination object}
-  @argument[xdest]{an integer with the x coordinate within @arg{dest}}
-  @argument[ydest]{an integer with the y coordinate within @arg{dest}}
+  @argument[xdest]{an integer for the x coordinate within @arg{dest}}
+  @argument[ydest]{an integer for the y coordinate within @arg{dest}}
   @begin{short}
     Copies a rectangular area from @arg{src} to @arg{dest}.
   @end{short}
@@ -170,7 +170,7 @@
 
 (cffi:defcfun ("gdk_pixbuf_fill" pixbuf-fill) :void
  #+liber-documentation
- "@version{2025-3-2}
+ "@version{2025-03-02}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[pixel]{an unsigned integer for the RGBA pixel to clear to,
     @code{#xffffffff} is opaque white, @code{#x00000000} transparent black}

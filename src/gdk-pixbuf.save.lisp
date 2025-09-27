@@ -68,10 +68,10 @@
 
 (defun pixbuf-save (pixbuf filename type)
  #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2025-09-26}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object}
-  @argument[filename]{a string with the name of file to save}
-  @argument[type]{a string with the name of file format}
+  @argument[filename]{a string for the name of file to save}
+  @argument[type]{a string for the name of file format}
   @return{The boolean whether an error was set.}
   @begin{short}
     Saves pixbuf to a file in format @arg{type}.

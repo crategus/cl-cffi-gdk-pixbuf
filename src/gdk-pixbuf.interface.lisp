@@ -2,8 +2,8 @@
 ;;; gdk-pixbuf.interface.lisp
 ;;;
 ;;; The documentation in this file is taken from the GDK-PixBuf Reference Manual
-;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
-;;; library, see <http://www.gtk.org>. The API documentation of the Lisp
+;;; version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
+;;; library, see <http://www.gtk.org>. The API documentation for the Lisp
 ;;; binding is available at <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
 ;;; Copyright (C) 2013 - 2025 Dieter Kaiser
@@ -371,7 +371,7 @@ GdkPixbufModulePattern *signature[] = {
 (setf (liber:alias-for-symbol 'pixbuf-format)
       "CStruct"
       (liber:symbol-documentation 'pixbuf-format)
- "@version{2024-5-31}
+ "@version{2024-05-31}
   @begin{short}
     The @symbol{gdk-pixbuf:pixbuf-format} structure contains information about
     the image format accepted by a module.
@@ -389,7 +389,7 @@ GdkPixbufModulePattern *signature[] = {
 (cffi:defcfun ("gdk_pixbuf_get_formats" pixbuf-formats)
     (g:slist-t (:pointer (:struct pixbuf-format)) :free-from-foreign t)
  #+liber-documentation
- "@version{2024-5-31}
+ "@version{2024-05-31}
   @begin{return}
     The list of @symbol{gdk-pixbuf:pixbuf-format} instances describing the
     supported image formats.
@@ -443,9 +443,9 @@ GdkPixbufModulePattern *signature[] = {
 
 (cffi:defcfun ("gdk_pixbuf_format_get_name" pixbuf-format-name) :string
  #+liber-documentation
- "@version{2024-5-31}
+ "@version{2025-09-26}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
-  @return{The string with the name of the image format.}
+  @return{The string for the name of the image format.}
   @short{Returns the name of the image format.}
   @see-symbol{gdk-pixbuf:pixbuf-format}"
   (format (:pointer (:struct pixbuf-format))))
@@ -459,9 +459,9 @@ GdkPixbufModulePattern *signature[] = {
 (cffi:defcfun ("gdk_pixbuf_format_get_description" pixbuf-format-description)
     :string
  #+liber-documentation
- "@version{2024-5-31}
+ "@version{2025-09-26}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
-  @return{The string with a description of the image format.}
+  @return{The string for a description of the image format.}
   @short{Returns a description of the image format.}
   @see-symbol{gdk-pixbuf:pixbuf-format}"
   (format (:pointer (:struct pixbuf-format))))
@@ -475,7 +475,7 @@ GdkPixbufModulePattern *signature[] = {
 (cffi:defcfun ("gdk_pixbuf_format_get_mime_types" pixbuf-format-mime-types)
     g:strv-t
  #+liber-documentation
- "@version{2024-5-31}
+ "@version{2024-05-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
   @return{The list of strings with the MIME types.}
   @short{Returns the MIME types supported by the image format.}
@@ -491,7 +491,7 @@ GdkPixbufModulePattern *signature[] = {
 (cffi:defcfun ("gdk_pixbuf_format_get_extensions" pixbuf-format-extensions)
     g:strv-t
  #+liber-documentation
- "@version{2024-5-31}
+ "@version{2024-05-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
   @return{The list of strings with filename extensions.}
   @begin{short}
@@ -510,9 +510,9 @@ GdkPixbufModulePattern *signature[] = {
 (cffi:defcfun ("gdk_pixbuf_format_is_save_option_supported"
                pixbuf-format-is-save-option-supported) :boolean
  #+liber-documentation
- "@version{2024-5-31}
+ "@version{2025-09-26}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
-  @argument[option]{a string with the name of an option}
+  @argument[option]{a string for the name of an option}
   @return{@em{True} if the specified option is supported.}
   @begin{short}
     Returns @em{true} if the save option specified by @arg{option} is supported
@@ -534,7 +534,7 @@ GdkPixbufModulePattern *signature[] = {
 (cffi:defcfun ("gdk_pixbuf_format_is_writable" pixbuf-format-is-writable)
     :boolean
  #+liber-documentation
- "@version{2024-5-31}
+ "@version{2024-05-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
   @return{The boolean whether pixbufs can be saved in the given image format.}
   @begin{short}
@@ -552,7 +552,7 @@ GdkPixbufModulePattern *signature[] = {
 (cffi:defcfun ("gdk_pixbuf_format_is_scalable" pixbuf-format-is-scalable)
     :boolean
  #+liber-documentation
- "@version{2024-5-31}
+ "@version{2024-05-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
   @return{The boolean whether this image format is scalable.}
   @begin{short}
@@ -573,7 +573,7 @@ GdkPixbufModulePattern *signature[] = {
 (cffi:defcfun ("gdk_pixbuf_format_is_disabled" pixbuf-format-is-disabled)
     :boolean
  #+liber-documentation
- "@version{2024-5-31}
+ "@version{2024-05-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
   @return{The boolean whether this image format is disabled.}
   @begin{short}
@@ -593,7 +593,7 @@ GdkPixbufModulePattern *signature[] = {
 (cffi:defcfun ("gdk_pixbuf_format_set_disabled" pixbuf-format-set-disabled)
     :void
  #+liber-documentation
- "@version{2024-5-31}
+ "@version{2024-05-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
   @argument[disabled]{@em{true} to disable the given image format}
   @return{The boolean whether this image format is disabled.}
@@ -618,7 +618,7 @@ GdkPixbufModulePattern *signature[] = {
 
 (cffi:defcfun ("gdk_pixbuf_format_get_license" pixbuf-format-license) :string
  #+liber-documentation
- "@version{2024-5-31}
+ "@version{2024-05-31}
   @argument[format]{a @symbol{gdk-pixbuf:pixbuf-format} instance}
   @return{The string describing the license of the image format.}
   @begin{short}

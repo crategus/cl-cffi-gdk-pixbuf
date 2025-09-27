@@ -2,8 +2,8 @@
 ;;; gdk-pixbuf.version.lisp
 ;;;
 ;;; The documentation in this file is taken from the GDK-PixBuf Reference Manual
-;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
-;;; library, see <http://www.gtk.org>. The API documentation of the Lisp
+;;; version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
+;;; library, see <http://www.gtk.org>. The API documentation for the Lisp
 ;;; binding is available at <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
 ;;; Copyright (C) 2012 - 2025 Dieter Kaiser
@@ -51,7 +51,7 @@
 (setf (liber:alias-for-symbol '+version+)
       "Constant"
       (liber:symbol-documentation '+version+)
- "@version{2024-4-2}
+ "@version{2024-04-02}
   @begin{short}
     Contains the full version of the GDK-Pixbuf library as a string.
   @end{short}
@@ -73,7 +73,7 @@
 (setf (liber:alias-for-symbol '+major-version+)
       "Constant"
       (liber:symbol-documentation '+major-version+)
- "@version{2024-4-2}
+ "@version{2024-04-02}
   @begin{short}
     The major version number of the GDK-Pixbuf library.
   @end{short}
@@ -96,7 +96,7 @@
 (setf (liber:alias-for-symbol '+minor-version+)
       "Constant"
       (liber:symbol-documentation '+minor-version+)
- "@version{2024-4-2}
+ "@version{2024-04-02}
   @begin{short}
     The minor version number of the GDK-Pixbuf library.
   @end{short}
@@ -118,7 +118,7 @@
 (setf (liber:alias-for-symbol '+micro-version+)
       "Constant"
       (liber:symbol-documentation '+micro-version+)
- "@version{2024-4-2}
+ "@version{2024-04-02}
   @begin{short}
     The micro version number of the GDK-Pixbuf library.
   @end{short}

@@ -67,7 +67,7 @@
 (setf (liber:alias-for-symbol 'pixbuf-interp-type)
       "GEnum"
       (liber:symbol-documentation 'pixbuf-interp-type)
- "@version{#2024-6-29}
+ "@version{#2024-06-29}
   @begin{declaration}
 (gobject:define-genum \"GdkInterpType\" pixbuf-interp-type
   (:export t
@@ -130,7 +130,7 @@
 (setf (liber:alias-for-symbol 'pixbuf-rotation)
       "GEnum"
       (liber:symbol-documentation 'pixbuf-rotation)
- "@version{#2024-6-29}
+ "@version{#2024-06-29}
   @begin{declaration}
 (gobject:define-genum \"GdkPixbufRotation\" pixbuf-rotation
   (:export t
@@ -162,10 +162,10 @@
 
 (cffi:defcfun ("gdk_pixbuf_scale_simple" pixbuf-scale-simple) (g:object pixbuf)
  #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2025-09-26}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
-  @argument[width]{an integer with the width of destination image}
-  @argument[height]{an integer with the height of destination image}
+  @argument[width]{an integer for the width of destination image}
+  @argument[height]{an integer for the height of destination image}
   @argument[interp]{a @symbol{gdk-pixbuf:pixbuf-interp-type} interpolation type
     for the transformation}
   @begin{return}
@@ -221,21 +221,21 @@
                      xscale yscale
                      interp)
  #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2025-09-26}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[dest]{a @class{gdk-pixbuf:pixbuf} object into which to render the
     results}
-  @argument[x]{an integer with the left coordinate for region to render}
-  @argument[y]{an integer with the top coordinate for region to render}
-  @argument[width]{an integer with the width of the region to render}
-  @argument[height]{an integer with the height of the region to render}
-  @argument[xoffset]{a number coerced to a double float with the offset in the
+  @argument[x]{an integer for the left coordinate for region to render}
+  @argument[y]{an integer for the top coordinate for region to render}
+  @argument[width]{an integer for the width of the region to render}
+  @argument[height]{an integer for the height of the region to render}
+  @argument[xoffset]{a number coerced to a double float for the offset in the
     x direction, currently rounded to an integer}
-  @argument[yoffset]{a number coerce to a double float with the offset in the
+  @argument[yoffset]{a number coerce to a double float for the offset in the
     y direction, currently rounded to an integer}
-  @argument[xscale]{a number coerced to a double float with the scale factor in
+  @argument[xscale]{a number coerced to a double float for the scale factor in
     the x direction}
-  @argument[yscale]{a number coerced to a double float with the scale factor
+  @argument[yscale]{a number coerced to a double float for the scale factor
     in the y direction}
   @argument[interp]{a @symbol{gdk-pixbuf:pixbuf-interp-type} interpolation type
     for the transformation}
@@ -273,17 +273,17 @@
 (cffi:defcfun ("gdk_pixbuf_composite_color_simple"
                pixbuf-composite-color-simple) (g:object pixbuf)
  #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2025-09-26}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
-  @argument[width]{an integer with the width of destination image}
-  @argument[height]{an integer with the height of destination image}
+  @argument[width]{an integer for the width of destination image}
+  @argument[height]{an integer for the height of destination image}
   @argument[interp]{a @symbol{gdk-pixbuf:pixbuf-interp-type} interpolation type
     for the transformation}
-  @argument[alpha]{an integer with the overall alpha for source image (0..255)}
-  @argument[size]{an integer with the size of checks in the checkboard, must be
+  @argument[alpha]{an integer for the overall alpha for source image (0..255)}
+  @argument[size]{an integer for the size of checks in the checkboard, must be
     a power of two}
-  @argument[color1]{an unsigned integer with the color of check at upper left}
-  @argument[color2]{an unsigned integer with the color of the other check}
+  @argument[color1]{an unsigned integer for the color of check at upper left}
+  @argument[color2]{an unsigned integer for the color of the other check}
   @begin{return}
     The new @class{gdk-pixbuf:pixbuf} object, or @code{nil} if not enough memory
     could be allocated for it.
@@ -332,25 +332,25 @@
                          interp
                          alpha)
 #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2025-09-26}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[dest]{a @class{gdk-pixbuf:pixbuf} object into which to render the
     results}
-  @argument[x]{an integer with the left coordinate for region to render}
-  @argument[y]{an integer with the top coordinate for region to render}
-  @argument[width]{an integer with the width of the region to render}
-  @argument[height]{an integer with the height of the region to render}
-  @argument[xoffset]{a number coerced to a double float with the offset in
+  @argument[x]{an integer for the left coordinate for region to render}
+  @argument[y]{an integer for the top coordinate for region to render}
+  @argument[width]{an integer for the width of the region to render}
+  @argument[height]{an integer for the height of the region to render}
+  @argument[xoffset]{a number coerced to a double float for the offset in
     the x direction, currently rounded to an integer}
-  @argument[yoffset]{a number coerced to a double float with the offset in
+  @argument[yoffset]{a number coerced to a double float for the offset in
     the y direction, currently rounded to an integer}
-  @argument[xscale]{a number coerced to a double float with the scale factor in
+  @argument[xscale]{a number coerced to a double float for the scale factor in
     the x direction}
-  @argument[yscale]{a number coerced to a double float with the scale factor in
+  @argument[yscale]{a number coerced to a double float for the scale factor in
     the y direction}
   @argument[interp]{a @symbol{gdk-pixbuf:pixbuf-interp-type} interpolation type
     for the transformation}
-  @argument[alpha]{an integer with the overall alpha for source image (0..255)}
+  @argument[alpha]{an integer for the overall alpha for source image (0..255)}
   @begin{short}
     Creates a transformation of the source image @arg{src} by scaling by
     @arg{xscale} and @arg{yscale} then translating by @arg{xoffset} and
@@ -414,32 +414,32 @@
                                size
                                color1 color2)
  #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2025-09-26}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[dest]{a @class{gdk-pixbuf:pixbuf} object into which to render the
     results}
-  @argument[x]{an integer with the left coordinate for region to render}
-  @argument[y]{an integer with the top coordinate for region to render}
-  @argument[width]{an integer with the width of the region to render}
-  @argument[height]{an integer with the height of the region to render}
-  @argument[xoffset]{a number coerced to a double float with the offset in
+  @argument[x]{an integer for the left coordinate for region to render}
+  @argument[y]{an integer for the top coordinate for region to render}
+  @argument[width]{an integer for the width of the region to render}
+  @argument[height]{an integer for the height of the region to render}
+  @argument[xoffset]{a number coerced to a double float for the offset in
     the x direction, currently rounded to an integer}
-  @argument[yoffset]{a number coerced to a double float with the offset in
+  @argument[yoffset]{a number coerced to a double float for the offset in
     the y direction, currently rounded to an integer}
-  @argument[xscale]{a number coerced to a double float with the scale factor in
+  @argument[xscale]{a number coerced to a double float for the scale factor in
     the x direction}
-  @argument[yscale]{a number coerced to a double float with the scale factor in
+  @argument[yscale]{a number coerced to a double float for the scale factor in
     the y direction}
   @argument[interp]{a @symbol{gdk-pixbuf:pixbuf-interp-type} interpolation type
     for the transformation}
-  @argument[alpha]{an integer with the overall alpha for source image (0..255)}
-  @argument[xcheck]{an integer with the x offset for the checkboard, origin of
+  @argument[alpha]{an integer for the overall alpha for source image (0..255)}
+  @argument[xcheck]{an integer for the x offset for the checkboard, origin of
     checkboard is at @code{(-@arg{xcheck}, -@arg{ycheck})}}
-  @argument[ycheck]{an integer with the y offset for the checkboard}
-  @argument[size]{an integer with the size of checks in the checkboard, must be
+  @argument[ycheck]{an integer for the y offset for the checkboard}
+  @argument[size]{an integer for the size of checks in the checkboard, must be
     a power of two}
-  @argument[color1]{an unsigned integer with the color of check at upper left}
-  @argument[color2]{an unsigned integer with the color of the other check}
+  @argument[color1]{an unsigned integer for the color of check at upper left}
+  @argument[color2]{an unsigned integer for the color of the other check}
   @begin{short}
     Creates a transformation of the source image @arg{src} by scaling by
     @arg{xscale} and @arg{yscale} then translating by @arg{xoffset} and
@@ -474,7 +474,7 @@
 (cffi:defcfun ("gdk_pixbuf_rotate_simple" pixbuf-rotate-simple)
     (g:object pixbuf)
 #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2024-06-29}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[angle]{a @symbol{gdk-pixbuf:pixbuf-rotation} value}
   @return{The new @class{gdk-pixbuf:pixbuf} object, or @code{nil} if not enough
@@ -496,7 +496,7 @@
 
 (cffi:defcfun ("gdk_pixbuf_flip" pixbuf-flip) (g:object pixbuf)
 #+liber-documentation
- "@version{#2024-6-29}
+ "@version{#2024-06-29}
   @argument[src]{a @class{gdk-pixbuf:pixbuf} object}
   @argument[horizontal]{@em{true} to flip horizontally, @em{false} to flip
     vertically}

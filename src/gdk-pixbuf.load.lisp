@@ -3,7 +3,7 @@
 ;;;
 ;;; The documentation in this file is taken from the GDK-PixBuf Reference Manual
 ;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
-;;; library, see <http://www.gtk.org>. The API documentation of the Lisp
+;;; library, see <http://www.gtk.org>. The API documentation for the Lisp
 ;;; binding is available at <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
 ;;; Copyright (C) 2011 - 2025 Dieter Kaiser
@@ -63,8 +63,8 @@
 
 (defun pixbuf-new-from-file (path)
  #+liber-documentation
- "@version{2024-11-21}
-  @argument[path]{a pathname or namestring with the file to load, in the GLib
+ "@version{2025-09-26}
+  @argument[path]{a pathname or namestring for the file to load, in the GLib
     file name encoding}
   @begin{return}
     The newly created @class{gdk-pixbuf:pixbuf} object, or @code{nil} if any of
@@ -95,12 +95,12 @@
 
 (defun pixbuf-new-from-file-at-size (path width height)
  #+liber-documentation
- "@version{2024-11-21}
-  @argument[path]{a pathname or namestring with the file to load, in the GLib
+ "@version{2025-09-26}
+  @argument[path]{a pathname or namestring for the file to load, in the GLib
     file name encoding}
-  @argument[width]{an integer with the width the image should have or -1 to not
+  @argument[width]{an integer for the width the image should have or -1 to not
     constrain the width}
-  @argument[height]{an integer with the height the image should have or -1 to
+  @argument[height]{an integer for the height the image should have or -1 to
     not constrain the height}
   @begin{return}
     The newly created @class{gdk-pixbuf:pixbuf} object, or @code{nil} if any of
@@ -139,12 +139,12 @@
 
 (defun pixbuf-new-from-file-at-scale (path width height preserve)
  #+liber-documentation
- "@version{2024-11-21}
-  @argument[path]{a pathname or namestring with the file to load, in the GLib
+ "@version{2025-09-26}
+  @argument[path]{a pathname or namestring for the file to load, in the GLib
     file name encoding}
-  @argument[width]{an integer with the width the image should have or -1 to not
+  @argument[width]{an integer for the width the image should have or -1 to not
     constrain the width}
-  @argument[height]{an integer with the height the image should have or -1 to
+  @argument[height]{an integer for the height the image should have or -1 to
     not constrain the height}
   @argument[preserve]{@em{true} to preserve the aspect ratio of the image}
   @begin{return}
@@ -181,8 +181,8 @@
 
 (defun pixbuf-new-from-resource (path)
  #+liber-documentation
- "@version{2024-11-21}
-  @argument[path]{a string with the path of the resource file}
+ "@version{2025-09-26}
+  @argument[path]{a string for the path of the resource file}
   @begin{return}
     The newly created @class{gdk-pixbuf:pixbuf} object, or @code{nil} if any of
     several error conditions occurred: the file could not be opened, the image
@@ -213,11 +213,11 @@
 
 (defun pixbuf-new-from-resource-at-scale (path width height preserve)
  #+liber-documentation
- "@version{2024-11-21}
-  @argument[path]{a string with the path of the resource file}
-  @argument[width]{an integer with the width the image should have or -1 to not
+ "@version{2025-09-26}
+  @argument[path]{a string for the path of the resource file}
+  @argument[width]{an integer for the width the image should have or -1 to not
     constrain the width}
-  @argument[height]{an integer with the height the image should have or -1 to
+  @argument[height]{an integer for the height the image should have or -1 to
     not constrain the height}
   @argument[preserve]{@em{true} to preserve the aspect ratio of the image}
   @begin{return}
@@ -255,15 +255,15 @@
 
 (defun pixbuf-file-info (path)
  #+liber-documentation
- "@version{2024-5-30}
-  @argument[path]{a pathname or namestring with the name of the file to
+ "@version{2025-09-26}
+  @argument[path]{a pathname or namestring for the name of the file to
     identify}
   @begin{return}
     @code{format} -- a @symbol{gdk-pixbuf:pixbuf-format} instance describing
     the image format of the file or @code{nil} if the image format was not
     recognized @br{}
-    @code{width} -- an integer with the width of the image, or @code{nil} @br{}
-    @code{height} -- an integer with the height of the image, or @code{nil}
+    @code{width} -- an integer for the width of the image, or @code{nil} @br{}
+    @code{height} -- an integer for the height of the image, or @code{nil}
   @end{return}
   @begin{short}
     Parses an image file far enough to determine its format and size.
@@ -290,8 +290,8 @@
 
 (defun pixbuf-file-info-async (path cancellable func)
  #+liber-documentation
- "@version{2024-5-30}
-  @argument[path]{a pathname or namestring with the file to identify}
+ "@version{2025-09-26}
+  @argument[path]{a pathname or namestring for the file to identify}
   @argument[cancellable]{a @class{g:cancellable} object, or @code{nil} to
     ignore}
   @argument[func]{a @symbol{g:async-ready-callback} callback function to call
@@ -332,14 +332,14 @@
 
 (defun pixbuf-file-info-finish (result)
  #+liber-documentation
- "@version{2024-11-21}
+ "@version{2025-09-26}
   @argument[result]{a @class{g:async-result} instance}
   @begin{return}
     @arg{format} -- a @symbol{gdk-pixbuf:pixbuf-format} instance describing the
       image format of the file or @code{nil} if the image format was no
       recognized @br{}
-    @arg{width} -- an integer with the width of the image @br{}
-    @arg{height} -- an integer with the height of the image
+    @arg{width} -- an integer for the width of the image @br{}
+    @arg{height} -- an integer for the height of the image
   @end{return}
   @begin{short}
     Finishes an asynchronous pixbuf parsing operation started with the

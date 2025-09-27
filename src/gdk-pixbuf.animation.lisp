@@ -2,8 +2,8 @@
 ;;; gdk-pixbuf.animation.lisp
 ;;;
 ;;; The documentation in this file is taken from the GDK-PixBuf Reference Manual
-;;; Version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
-;;; library, see <http://www.gtk.org>. The API documentation of the Lisp
+;;; version 2.42 and modified to document the Lisp binding to the GDK-PixBuf
+;;; library, see <http://www.gtk.org>. The API documentation for the Lisp
 ;;; binding is available at <http://www.crategus.com/books/cl-cffi-gtk4/>.
 ;;;
 ;;; Copyright (C) 2011 - 2025 Dieter Kaiser
@@ -90,7 +90,7 @@
 
 #+liber-documentation
 (setf (documentation 'pixbuf-animation-iter 'type)
- "@version{2025-3-2}
+ "@version{2025-03-02}
   @begin{short}
     An opaque object representing an iterator which points to a certain
     position in an animation.
@@ -104,7 +104,7 @@
 (cffi:defcfun ("gdk_pixbuf_animation_iter_get_pixbuf"
                pixbuf-animation-iter-pixbuf) (g:object pixbuf)
  #+liber-documentation
- "@version{2025-3-2}
+ "@version{2025-03-02}
   @argument[iter]{a @class{gdk-pixbuf:pixbuf-animation-iter} iterator}
   @return{The @class{gdk-pixbuf:pixbuf} object to be displayed.}
   @begin{short}
@@ -139,9 +139,9 @@
 (cffi:defcfun ("gdk_pixbuf_animation_iter_get_delay_time"
                pixbuf-animation-iter-delay-time) :int
  #+liber-documentation
- "@version{2025-3-2}
+ "@version{2025-09-26}
   @argument[iter]{a @class{gdk-pixbuf:pixbuf-animation-iter} iterator}
-  @return{The integer with the delay time in milliseconds.}
+  @return{The integer for the delay time in milliseconds.}
   @begin{short}
     Gets the number of milliseconds the current pixbuf should be displayed, or
     -1 if the current pixbuf should be displayed forever.
@@ -161,7 +161,7 @@
 (cffi:defcfun ("gdk_pixbuf_animation_iter_advance"
                pixbuf-animation-iter-advance) :boolean
  #+liber-documentation
- "@version{2025-3-2}
+ "@version{2025-03-02}
   @argument[iter]{a @class{gdk-pixbuf:pixbuf-animation-iter} iterator}
   @argument[time]{an unsigned integer for the current time}
   @return{@em{True} if the image may need updating.}
@@ -201,7 +201,7 @@
 (cffi:defcfun ("gdk_pixbuf_animation_iter_on_currently_loading_frame"
                pixbuf-animation-iter-on-currently-loading-frame) :boolean
  #+liber-documentation
- "@version{#2025-3-2}
+ "@version{#2025-03-02}
   @argument[iter]{a @class{gdk-pixbuf:pixbuf-animation-iter} iterator}
   @begin{return}
     @em{True} if the frame we are on is partially loaded, or the last frame.
@@ -232,7 +232,7 @@
 
 #+liber-documentation
 (setf (documentation 'pixbuf-animation 'type)
- "@version{2025-3-2}
+ "@version{2025-03-02}
   @begin{short}
     The @class{gdk-pixbuf:pixbuf} library provides a simple mechanism to load
     and represent animations.
@@ -291,7 +291,7 @@
 
 (defun pixbuf-animation-new-from-resource (resource)
  #+liber-documentation
- "@version{2025-3-2}
+ "@version{2025-03-02}
   @argument[resource]{a string for the path of the resource file}
   @begin{return}
     The newly created @class{gdk-pixbuf:pixbuf-animation} object, or @code{nil}
@@ -439,9 +439,9 @@
 
 (cffi:defcfun ("gdk_pixbuf_animation_get_width" pixbuf-animation-width) :int
  #+liber-documentation
- "@version{2025-3-2}
+ "@version{2025-09-26}
   @argument[animation]{a @class{gdk-pixbuf:pixbuf-animation} object}
-  @return{The integer with the width of the bounding box of the animation.}
+  @return{The integer for the width of the bounding box of the animation.}
   @begin{short}
     Queries the width of the bounding box of a pixbuf animation.
   @end{short}
@@ -456,9 +456,9 @@
 
 (cffi:defcfun ("gdk_pixbuf_animation_get_height" pixbuf-animation-height) :int
  #+liber-documentation
- "@version{2025-3-2}
+ "@version{2025-09-26}
   @argument[animation]{a @class{gdk-pixbuf:pixbuf-animation} object}
-  @return{The integer with the height of the bounding box of the animation.}
+  @return{The integer for the height of the bounding box of the animation.}
   @begin{short}
     Queries the width of the bounding box of a pixbuf animation.
   @end{short}
@@ -474,7 +474,7 @@
 (cffi:defcfun ("gdk_pixbuf_animation_get_iter" pixbuf-animation-iter)
     (g:object pixbuf-animation-iter)
  #+liber-documentation
- "@version{2025-3-2}
+ "@version{2025-03-02}
   @argument[animation]{a @class{gdk-pixbuf:pixbuf-animation} object}
   @argument[start]{an unsigned integer for the time the animations starts
     playing}
@@ -530,7 +530,7 @@
 (cffi:defcfun ("gdk_pixbuf_animation_is_static_image"
                pixbuf-animation-is-static-image) :boolean
  #+liber-documentation
- "@version{#2025-3-2}
+ "@version{#2025-03-02}
   @argument[animation]{a @class{gdk-pixbuf:pixbuf-animation} object}
   @return{@em{True} if the animation was really just an image.}
   @begin{short}
@@ -554,7 +554,7 @@
 (cffi:defcfun ("gdk_pixbuf_animation_get_static_image"
                pixbuf-animation-static-image) (g:object pixbuf)
  #+liber-documentation
- "@version{#2025-3-2}
+ "@version{#2025-03-02}
   @argument[animation]{a @class{gdk-pixbuf:pixbuf-animation} object}
   @begin{return}
     Unanimated @class{gdk-pixbuf:pixbuf} image representing the animation.
@@ -588,7 +588,7 @@
 
 #+liber-documentation
 (setf (documentation 'pixbuf-simple-anim 'type)
- "@version{2025-3-2}
+ "@version{2025-03-02}
   @begin{short}
     An opaque structure representing a simple animation.
   @end{short}
@@ -610,16 +610,16 @@
 (setf (liber:alias-for-function 'pixbuf-simple-anim-loop)
       "Accessor"
       (documentation 'pixbuf-simple-anim-loop 'function)
- "@version{#2025-3-2}
+ "@version{#2025-09-26}
   @syntax{(gdk-pixbuf:pixbuf-simple-anim-loop object) => loop}
   @syntax{(setf (gdk-pixbuf:pixbuf-simple-anim-loop object) loop)}
   @argument[object]{a @class{gdk-pixbuf:pixbuf-simple-anim} object}
   @argument[loop]{a boolean whether the animation should loop}
   @begin{short}
-    Accessor of the @slot[gdk-pixbuf:pixbuf-animation]{loop} slot of the
-    @class{gdk-pixbuf:pixbuf-simple-anim} class.
+    The accessor for the @slot[gdk-pixbuf:pixbuf-animation]{loop} slot of the
+    @class{gdk-pixbuf:pixbuf-simple-anim} class gets or sets whether the
+    animation should loop when it reaches the end.
   @end{short}
-  Whether the animation should loop when it reaches the end.
   @see-class{gdk-pixbuf:pixbuf-simple-anim}")
 
 ;;; ----------------------------------------------------------------------------
@@ -634,7 +634,7 @@
 
 (defun pixbuf-simple-anim-new (width height rate)
  #+liber-documentation
- "@version{2025-3-2}
+ "@version{2025-03-02}
   @argument[width]{an integer for the width of the animation}
   @argument[height]{an integer for the height of the animation}
   @argument[rate]{a number coerced to a single float for the speed of the
@@ -655,7 +655,7 @@
 (cffi:defcfun ("gdk_pixbuf_simple_anim_add_frame" pixbuf-simple-anim-add-frame)
     :void
  #+liber-documentation
- "@version{#2025-3-2}
+ "@version{#2025-03-02}
   @argument[animation]{a @class{gdk-pixbuf:pixbuf-simple-anim} object}
   @argument[pixbuf]{a @class{gdk-pixbuf:pixbuf} object to add}
   @begin{short}
